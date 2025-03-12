@@ -30,7 +30,8 @@ jobs:
 
       - name: Render
         run: |
-          conda init
+          conda init bash
+          source ~/.bashrc
           conda activate BISB211203
           quarto render
 
