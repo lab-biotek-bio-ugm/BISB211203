@@ -29,7 +29,9 @@ jobs:
         run: quarto install tinytex
 
       - name: Render
-        uses: quarto-dev/quarto-actions/render@v2
+        run: |
+          source activate BISB211203
+          quarto render
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
