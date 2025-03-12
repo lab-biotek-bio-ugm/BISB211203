@@ -1,0 +1,45 @@
+project:
+  type: book
+  resources:
+  - functions/
+
+book:
+  title: "Biostatistika"
+  subtitle: "BISB211203 - TA 2024/2025"
+  #downloads: pdf
+  #cover-image: cover.webp
+  author:
+    - Matin Nuhamunada, S.Si., M.Sc., Ph.D.
+    - Tyas Ikhsan Hikmawan, S.Si.., M.Sc., Ph.D.
+    - Dr. Wiko Arif Wibowo, S.Si. 
+    - Dr. Aprilia Sufi Subiastuti, S.Si.
+    - Dr. Nur Indah Septriani, S.Si., M.Sc., Ph.D.
+    -	Dr. Siti Nurbaiti, S.Si.
+    -	Dr. Atikah Fitria Muharromah, S.Si., M.Eng.
+
+  date: "3/4/2025"
+  chapters:
+    - index.qmd
+    - 01_assignments_1.qmd
+    - tapak_dara.qmd
+    - references.qmd
+  page-footer:
+    left: "Copyright 2025, Universitas Gadjah Mada"
+    #right:
+    #  - icon: github
+    #    href: https://github.com/
+    #  - icon: twitter
+    #    href: https://twitter.com/
+
+highlight-style: pygments
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    code-copy: true
+  #pdf:
+  #  documentclass: scrreprt

@@ -1,0 +1,148 @@
+---
+title: "Pendalaman Materi 2"
+subtitle: "Asumsi, Hipotesis, dan Distribusi Data"
+author:
+- Tim Pengampu Biostatistika
+date: "2025-03-12"
+format: html
+---
+
+## Pendahuluan
+
+Dalam tugas ini, kita akan membahas konsep asumsi, hipotesis, distribusi data, dan sampel. Konsep-konsep ini merupakan dasar dalam statistik dan analisis data.
+
+### Asumsi
+
+Asumsi adalah kondisi yang kita anggap benar untuk keperluan analisis. Asumsi membentuk dasar bagi model statistik dan uji statistik. Beberapa asumsi umum meliputi:
+
+- Independensi observasi
+- Kenormalan data
+- Homogenitas varians
+
+### Hipotesis
+
+Hipotesis adalah pernyataan yang dapat diuji secara statistik. Terdapat dua jenis hipotesis:
+
+- Hipotesis Nol (H0): Hipotesis yang menyatakan tidak ada efek atau perbedaan.
+- Hipotesis Alternatif (H1): Hipotesis yang menyatakan adanya efek atau perbedaan.
+
+### Distribusi Data
+
+Distribusi data mengacu pada cara data tersebar atau terdistribusi. Beberapa jenis distribusi data yang umum meliputi:
+
+- Distribusi normal
+- Distribusi binomial
+- Distribusi Poisson
+
+## Contoh Visualisasi Dataset
+
+Untuk berlatih mengaplikasikan apa yang sudah kita pelajari terkait dengan asumsi, hipotesis, dan distribusi data, kita akan mencoba memvisualisasikan data dari bunga Iris [@Unwin2021-zd], sebuah data penting yang sering digunakan dalam pengajaran statistika dan _machine learning_.
+
+Semua data pengukuran morfologi bunga _Iris versicolor_ dan _Iris setosa_ dikumpulkan oleh ahli botani Edgar Anderson pada tahun 1935 di lokasi yang sama. Anderson juga mengumpulkan data sebelumnya tentang _Iris virginica_, yang kemudian ditambahkan oleh Fisher ke dalam kumpulan dataset ini.
+
+Anderson memilih untuk meneliti iris karena ia ingin memahami sifat dasar spesies dengan mempelajari spesies yang mudah dikenali dan dibedakan. Penelitiannya sejak tahun 1923 hingga 1928 membawanya pada kesimpulan bahwa _I. versicolor_ dan _I. virginica_, yang awalnya sulit dibedakan, sebenarnya adalah dua spesies yang berbeda.
+
+Dalam makalahnya pada tahun 1936, Anderson menyarankan bahwa _I. versicolor_ mungkin merupakan hasil hibridisasi antara _I. virginica_ dan spesies iris lain, kemungkinan besar _I. setosa_. Ia kemudian mengembangkan gagasan tentang hibridisasi introgressif, yaitu proses kawin silang berulang yang dapat menjadi mekanisme penting dalam evolusi.
+
+::: {#fig-iris layout-ncol=3}
+
+![_Iris setosa_](https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Kosaciec_szczecinkowaty_Iris_setosa.jpg/440px-Kosaciec_szczecinkowaty_Iris_setosa.jpg){#fig-setosa}
+
+![_Iris versicolor_](https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iris_versicolor_3.jpg/440px-Iris_versicolor_3.jpg){#fig-versicolor}
+
+![_Iris virginica_](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Iris_virginica.jpg/440px-Iris_virginica.jpg){#fig-virginica}
+
+Tiga spesies bunga Iris
+:::
+
+
+```{python}
+#| echo: false
+#| label: tbl-iris
+#| tbl-cap: Iris Dataset
+
+import os
+from ucimlrepo import fetch_ucirepo 
+import pandas as pd
+import altair as alt
+
+# check if the CSV file exists
+csv_file = 'assets/data/iris_dataset.tsv'
+
+if not os.path.exists(csv_file):
+    # fetch dataset 
+    iris = fetch_ucirepo(id=53) 
+
+    # data (as pandas dataframes) 
+    X = iris.data.features 
+    y = iris.data.targets 
+
+    # merge features and targets into a single pandas table
+    iris_df = pd.concat([X, y], axis=1)
+
+    # save the merged dataframe to a CSV file
+    iris_df.to_csv(csv_file, sep="\t", index=False)
+else:
+    # load the dataset from the CSV file
+    iris_df = pd.read_csv(csv_file, sep="\t")
+    X = iris_df.iloc[:, :-1]
+    y = iris_df.iloc[:, -1]
+
+# display the merged dataframe
+iris_df
+```
+
+```{python}
+#| echo: false
+#| label: fig-charts
+#| fig-cap: Distribusi panjang sepal dari tiga spesies bunga Iris
+#| layout-ncol: 1
+
+# visualize histogram distribution of each feature colored by target
+selection = alt.selection_point(fields=[y.name], bind='legend')
+
+#for column in X.columns:
+for column in ["sepal length"]:
+    chart = alt.Chart(iris_df).mark_bar(opacity=0.8).encode(
+        alt.X(column, bin=alt.Bin(maxbins=30)),
+        alt.Y('count()'),
+        alt.Color(y.name),
+        opacity=alt.condition(selection, alt.value(0.8), alt.value(0.2))
+    ).add_params(
+        selection
+    ).properties(
+        title=f'Histogram of {column} colored by species',
+        width='container'
+    )
+    chart.display()
+```
+
+## TUGAS
+
+- Dosen atau Ketua Kelas membagi mahasiswa menjadi 10 kelompok
+- Masing-masing kelompok akan melakukan analisis dan visualisasi data dari dataset yang tersedia di tabel berikut:
+
+| Kelompok  | Deskripsi Dataset   | Unduh     | Referensi |
+|:---------:|:-----------:|:-----------:|:-----------:|
+| 1         | [Bunga Iris](https://archive.ics.uci.edu/dataset/53/iris) | <a href="assets/data/iris_dataset.tsv" download="iris_dataset.tsv" class="btn btn-primary">Unduh Dataset</a> | [@Unwin2021-zd] |
+| 2         | [Bunga Iris](https://archive.ics.uci.edu/dataset/53/iris) | <a href="assets/data/iris_dataset.tsv" download="iris_dataset.tsv" class="btn btn-primary">Unduh Dataset</a> | [@Unwin2021-zd] |
+| 3         | [Wolf River Pollution](https://gksmyth.github.io/ozdasl/general/wolfrive.html) | <a href="assets/data/wolfrive.tsv" download="wolfrive.tsv" class="btn btn-primary">Unduh Dataset</a> | [@Jaffe1982-hq] |
+| 4         | [Wolf River Pollution](https://gksmyth.github.io/ozdasl/general/wolfrive.html) | <a href="assets/data/wolfrive.tsv" download="wolfrive.tsv" class="btn btn-primary">Unduh Dataset</a> | [@Jaffe1982-hq] |
+| 5         | [Childhood Respiratory Disease](https://gksmyth.github.io/ozdasl/general/fev.html) | <a href="assets/data/fev.tsv" download="fev.tsv" class="btn btn-primary">Unduh Dataset</a> | [@Tager1979-ed] |
+| 6         | [Childhood Respiratory Disease](https://gksmyth.github.io/ozdasl/general/fev.html) | <a href="assets/data/fev.tsv" download="fev.tsv" class="btn btn-primary">Unduh Dataset</a> | [@Tager1979-ed] |
+| 7         | [Sleep in Mammals](https://gksmyth.github.io/ozdasl/general/sleep.html) | <a href="assets/data/sleep.tsv" download="sleep.tsv" class="btn btn-primary">Unduh Dataset</a> | [@Allison1976-bs] |
+| 8         | [Sleep in Mammals](https://gksmyth.github.io/ozdasl/general/sleep.html) | <a href="assets/data/sleep.tsv" download="sleep.tsv" class="btn btn-primary">Unduh Dataset</a> | [@Allison1976-bs] |
+| 9         | [Tapak Dara](tapak_dara.html) | <a href="assets/data/morfologi_tapak_dara.tsv" download="morfologi_tapak_dara.tsv" class="btn btn-primary">Unduh Dataset</a> |  |
+| 10         | [Tapak Dara](tapak_dara.html) | <a href="assets/data/morfologi_tapak_dara.tsv" download="morfologi_tapak_dara.tsv" class="btn btn-primary">Unduh Dataset</a> |  |
+
+1. Berdasarkan informasi atau keterangan singkat yang ada dalam masing-masing dataset serta jurnal referensi, diskusikan hal berikut:
+    - **a. Ajukan asumsi statistik yang mungkin berlaku dalam dataset anda!**
+    - **b. Buatlah hipotesis statistik berdasarkan asumsi yang anda ajukan!**
+    - **c. Uji statistik apa yang dapat digunakan untuk menguji hipotesis yang anda kemukakan?**
+    - **d. Ajukan judul penelitian yang sesuai dengan hipotesis dan uji statistik yang dapat digunakan!**
+
+2. Unduh data yang sudah disediakan untuk masing-masing kelompok dan lakukan hal berikut:
+    - **a. Susunlah raw data (data mentah) yang diperoleh ke dalam salah satu bentuk visualisasi data yang relevan untuk digunakan!**
+    - **b. Tentukan jenis data yang diperoleh, cara pengukurannya, dan alasan visualisasi yang dipilih pada poin a!**
+
+3. Rangkum hasil diskusi dan visualisasi ke dalam bentuk file presentasi Power Point (.pptx) dan buat rekaman video narasi dari presentasi tersebut. Detail pengiriman tugas akan disampaikan oleh dosen. **DEADLINE: 26 Maret 2025**

@@ -1,0 +1,34 @@
+---
+title: "Dataset Tapak Dara"
+author:
+- Dr. Wiko Arif Wibowo, S.Si.
+date: "2025-03-12"
+format: html
+---
+
+## Deskripsi
+
+Tapak dara (_Catharantus roseus L._) merupakan tanaman yang banyak dimanfaatkan dalam dunia medis, selain daripada pemanfaatannya sebagai tanaman hias pada pekarangan. Sebagai tanaman obat, tapak dara mengandung senyawa metabolit sekunder seperti alkaloids, flavonoids, phenolic acids, dan senyawa volatil (Kumar et al., 2022). Senyawa metabolit sekunder spesifik yang ditemukan pada tanaman tapak dara adalah catharantine yang dapat dibagi menjadi dua jenis senyawa, yaitu vincristine dan vinblastine. Metabolit tersebut disintesis pada organ akar tanaman.
+
+Senyawa metabolit sekunder merupakan senyawa yang bersifat sensitif, dipengaruhi interaksi dari faktor biotik dan abiotik (Dewick, 2002). Salah satu faktor yang disinyalir mempengaruhi biosintesis vinkristine dan vinblastine adalah kandungan bijih besi pada tanah. Penelitian ini dilakukan pada tanaman tapak dara yang tumbuh secara alami di tiga kawasan berbeda, yaitu kawasan pertama pada pesisir pantai Trisik yang mengandung banyak bijih besi, kawasan kedua pada ketinggian 100-300 mdpl, dan kawasan ketiga pada ketinggian >800 mdpl.
+
+Dalam melihat urgensi kandungan metabolit sekunder, perlu dilakukan penelitian dasar terlebih dahulu untuk mengukur karakter morfologi dari tanaman tapak dara yang tumbuh dari tiga kawasan berbeda tersebut.
+
+| Variabel        | Deskripsi |
+|----|--------|
+| **accession** | Nomor identifikasi unik untuk setiap sampel tanaman tapak dara yang diamati. |
+| **leaf-color** | Warna daun tanaman tapak dara berdasarkan skala warna RHS (Royal Horticultural Society). |
+| **leaf-length** | Panjang daun dalam satuan cm, diukur dari pangkal hingga ujung daun (cm). |
+| **leaf-width** | Lebar daun dalam satuan cm, diukur pada bagian terlebar dari daun (cm). |
+| **leaf-ratio** | Rasio panjang terhadap lebar daun untuk menggambarkan proporsi bentuk daun. |
+| **leaf-shape** | Bentuk daun yang dikategorikan berdasarkan morfologi seperti oblongus (bulat memanjang) atau elipticus (membulat). |
+| **stem-diameter** | Diameter batang tanaman dalam satuan cm, diukur pada bagian tengah batang (cm). |
+| **stem-color** | Warna batang tanaman berdasarkan skala warna RHS. |
+| **node-length** | Panjang ruas batang dalam satuan cm, diukur dari satu nodus ke nodus berikutnya (cm). |
+| **plant-height** | Tinggi tanaman dalam satuan cm, diukur dari permukaan tanah hingga titik tertinggi tanaman (cm). |
+| **flower-color** | Warna bunga tanaman tapak dara berdasarkan skala warna RHS. |
+| **label** | Kategori lokasi tempat tanaman tumbuh, seperti pesisir pantai atau ketinggian tertentu. |
+
+## Unduh
+
+[Data File](assets/data/morfologi_tapak_dara.tsv) (tab-delimited text)
