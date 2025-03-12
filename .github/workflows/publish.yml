@@ -30,7 +30,7 @@ jobs:
 
       - name: Render
         run: |
-          source activate BISB211203
+          conda activate BISB211203
           quarto render
 
       - name: Deploy
