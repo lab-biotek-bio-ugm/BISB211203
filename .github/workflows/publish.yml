@@ -30,6 +30,7 @@ jobs:
 
       - name: Render
         run: |
+          conda init
           conda activate BISB211203
           quarto render
 
