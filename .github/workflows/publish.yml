@@ -14,6 +14,14 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          python-version: 3.12
+          environment-file: environment.yml
+          activate-environment: BISB211203
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
