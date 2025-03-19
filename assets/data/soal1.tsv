@@ -1,0 +1,16 @@
+No	ID Tanaman	Genotipe	Ekspresi Gen X (Ct Value)	Tinggi Tanaman (cm)	Jumlah Daun	Warna Daun
+1	T001	AA	22.5	45	10	Hijau
+2	T002	AG	24.8	50	12	Hijau
+3	T003	GG	21.2	48	11	Hijau
+4	T004	AA	23.1	42	9	Kuning
+5	T005	AG	25.3	47	10	Hijau
+6	T006	GG	20.5	53	14	Hijau
+7	T007	AA	22.8	44	10	Kuning
+8	T008	AG	24.1	49	12	Hijau
+9	T009	GG	21.6	51	13	Hijau
+10	T010	AA	23.9	46	11	Kuning
+11	T011	AG	25.0	48	12	Hijau
+12	T012	GG	20.9	54	15	Hijau
+13	T013	AA	22.3	43	10	Kuning
+14	T014	AG	24.5	50	13	Hijau
+15	T015	GG	21.0	52	14	Hijau

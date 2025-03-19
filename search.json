@@ -12,71 +12,111 @@
   {
     "objectID": "01_assignments_1.html",
     "href": "01_assignments_1.html",
-    "title": "2  Pendalaman Materi 2",
+    "title": "2  Pendalaman Materi 1",
     "section": "",
     "text": "2.1 Pendahuluan\nDalam tugas ini, kita akan membahas konsep asumsi, hipotesis, distribusi data, dan sampel. Konsep-konsep ini merupakan dasar dalam statistik dan analisis data.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 1</span>"
     ]
   },
   {
     "objectID": "01_assignments_1.html#pendahuluan",
     "href": "01_assignments_1.html#pendahuluan",
-    "title": "2  Pendalaman Materi 2",
+    "title": "2  Pendalaman Materi 1",
     "section": "",
     "text": "2.1.1 Asumsi\nAsumsi adalah kondisi yang kita anggap benar untuk keperluan analisis. Asumsi membentuk dasar bagi model statistik dan uji statistik. Beberapa asumsi umum meliputi:\n\nIndependensi observasi\nKenormalan data\nHomogenitas varians\n\n\n\n2.1.2 Hipotesis\nHipotesis adalah pernyataan yang dapat diuji secara statistik. Terdapat dua jenis hipotesis:\n\nHipotesis Nol (H0): Hipotesis yang menyatakan tidak ada efek atau perbedaan.\nHipotesis Alternatif (H1): Hipotesis yang menyatakan adanya efek atau perbedaan.\n\n\n\n2.1.3 Distribusi Data\nDistribusi data mengacu pada cara data tersebar atau terdistribusi. Beberapa jenis distribusi data yang umum meliputi:\n\nDistribusi normal\nDistribusi binomial\nDistribusi Poisson",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 1</span>"
     ]
   },
   {
     "objectID": "01_assignments_1.html#contoh-visualisasi-dataset",
     "href": "01_assignments_1.html#contoh-visualisasi-dataset",
-    "title": "2  Pendalaman Materi 2",
+    "title": "2  Pendalaman Materi 1",
     "section": "2.2 Contoh Visualisasi Dataset",
     "text": "2.2 Contoh Visualisasi Dataset\nUntuk berlatih mengaplikasikan apa yang sudah kita pelajari terkait dengan asumsi, hipotesis, dan distribusi data, kita akan mencoba memvisualisasikan data dari bunga Iris (Unwin and Kleinman 2021), sebuah data penting yang sering digunakan dalam pengajaran statistika dan machine learning.\nSemua data pengukuran morfologi bunga Iris versicolor dan Iris setosa dikumpulkan oleh ahli botani Edgar Anderson pada tahun 1935 di lokasi yang sama. Anderson juga mengumpulkan data sebelumnya tentang Iris virginica, yang kemudian ditambahkan oleh Fisher ke dalam kumpulan dataset ini.\nAnderson memilih untuk meneliti iris karena ia ingin memahami sifat dasar spesies dengan mempelajari spesies yang mudah dikenali dan dibedakan. Penelitiannya sejak tahun 1923 hingga 1928 membawanya pada kesimpulan bahwa I. versicolor dan I. virginica, yang awalnya sulit dibedakan, sebenarnya adalah dua spesies yang berbeda.\nDalam makalahnya pada tahun 1936, Anderson menyarankan bahwa I. versicolor mungkin merupakan hasil hibridisasi antara I. virginica dan spesies iris lain, kemungkinan besar I. setosa. Ia kemudian mengembangkan gagasan tentang hibridisasi introgressif, yaitu proses kawin silang berulang yang dapat menjadi mekanisme penting dalam evolusi.\n\n\n\n\n\n\n\n\n\n\n\n(a) Iris setosa\n\n\n\n\n\n\n\n\n\n\n\n(b) Iris versicolor\n\n\n\n\n\n\n\n\n\n\n\n(c) Iris virginica\n\n\n\n\n\n\n\nFigure 2.1: Tiga spesies bunga Iris\n\n\n\n\n\n\n\nTable 2.1: Iris Dataset\n\n\n\n\n\n\n\n\n\n\nsepal length\nsepal width\npetal length\npetal width\nclass\n\n\n\n\n0\n5.1\n3.5\n1.4\n0.2\nIris-setosa\n\n\n1\n4.9\n3.0\n1.4\n0.2\nIris-setosa\n\n\n2\n4.7\n3.2\n1.3\n0.2\nIris-setosa\n\n\n3\n4.6\n3.1\n1.5\n0.2\nIris-setosa\n\n\n4\n5.0\n3.6\n1.4\n0.2\nIris-setosa\n\n\n...\n...\n...\n...\n...\n...\n\n\n145\n6.7\n3.0\n5.2\n2.3\nIris-virginica\n\n\n146\n6.3\n2.5\n5.0\n1.9\nIris-virginica\n\n\n147\n6.5\n3.0\n5.2\n2.0\nIris-virginica\n\n\n148\n6.2\n3.4\n5.4\n2.3\nIris-virginica\n\n\n149\n5.9\n3.0\n5.1\n1.8\nIris-virginica\n\n\n\n\n150 rows × 5 columns\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 2.2: Distribusi panjang sepal dari tiga spesies bunga Iris",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 1</span>"
     ]
   },
   {
     "objectID": "01_assignments_1.html#tugas",
     "href": "01_assignments_1.html#tugas",
-    "title": "2  Pendalaman Materi 2",
+    "title": "2  Pendalaman Materi 1",
     "section": "2.3 TUGAS",
     "text": "2.3 TUGAS\n\nDosen atau Ketua Kelas membagi mahasiswa menjadi 10 kelompok\nMasing-masing kelompok akan melakukan analisis dan visualisasi data dari dataset yang tersedia di tabel berikut:\n\n\n\n\nKelompok\nDeskripsi Dataset\nUnduh\nReferensi\n\n\n\n\n1\nBunga Iris\nUnduh Dataset\n(Unwin and Kleinman 2021)\n\n\n2\nBunga Iris\nUnduh Dataset\n(Unwin and Kleinman 2021)\n\n\n3\nWolf River Pollution\nUnduh Dataset\n(Jaffe, Parker, and Wilson 1982)\n\n\n4\nWolf River Pollution\nUnduh Dataset\n(Jaffe, Parker, and Wilson 1982)\n\n\n5\nChildhood Respiratory Disease\nUnduh Dataset\n(Tager et al. 1979)\n\n\n6\nChildhood Respiratory Disease\nUnduh Dataset\n(Tager et al. 1979)\n\n\n7\nSleep in Mammals\nUnduh Dataset\n(Allison and Cicchetti 1976)\n\n\n8\nSleep in Mammals\nUnduh Dataset\n(Allison and Cicchetti 1976)\n\n\n9\nTapak Dara\nUnduh Dataset\n\n\n\n10\nTapak Dara\nUnduh Dataset\n\n\n\n\n\nBerdasarkan informasi atau keterangan singkat yang ada dalam masing-masing dataset serta jurnal referensi, diskusikan hal berikut:\n\na. Ajukan asumsi statistik yang mungkin berlaku dalam dataset anda!\nb. Buatlah hipotesis statistik berdasarkan asumsi yang anda ajukan!\nc. Uji statistik apa yang dapat digunakan untuk menguji hipotesis yang anda kemukakan?\nd. Ajukan judul penelitian yang sesuai dengan hipotesis dan uji statistik yang dapat digunakan!\n\nUnduh data yang sudah disediakan untuk masing-masing kelompok dan lakukan hal berikut:\n\na. Susunlah raw data (data mentah) yang diperoleh ke dalam salah satu bentuk visualisasi data yang relevan untuk digunakan!\nb. Tentukan jenis data yang diperoleh, cara pengukurannya, dan alasan visualisasi yang dipilih pada poin a!\n\nRangkum hasil diskusi dan visualisasi ke dalam bentuk file presentasi Power Point (.pptx) dan buat rekaman video narasi dari presentasi tersebut. Detail pengiriman tugas akan disampaikan oleh dosen. DEADLINE: 26 Maret 2025\n\n\n\n\n\nAllison, T, and D V Cicchetti. 1976. “Sleep in Mammals: Ecological and Constitutional Correlates.” Science 194 (November): 732–34. https://doi.org/10.1126/science.982039.\n\n\nJaffe, Peter R, Frank L Parker, and David J Wilson. 1982. “Distribution of Toxic Substances in Rivers.” J. Environ. Eng. Div. 108 (August): 639–49. https://doi.org/10.1061/jeegav.0001315.\n\n\nTager, I B, S T Weiss, B Rosner, and F E Speizer. 1979. “Effect of Parental Cigarette Smoking on the Pulmonary Function of Children.” Am. J. Epidemiol. 110 (July): 15–26. https://doi.org/10.1093/oxfordjournals.aje.a112783.\n\n\nUnwin, Antony, and Kim Kleinman. 2021. “The Iris Data Set: In Search of the Source ofvirginica.” Signif. (Oxf.) 18 (December): 26–29. https://doi.org/10.1111/1740-9713.01589.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 1</span>"
+    ]
+  },
+  {
+    "objectID": "02_assignments_2.html",
+    "href": "02_assignments_2.html",
+    "title": "3  Pendalaman Materi 2",
+    "section": "",
+    "text": "3.1 Soal 1: Jenis Data dan Pengukuran\nUnduh lembar jawab di link berikut:\nUnduh Lembar Jawab\nSeorang peneliti melakukan penelitian tentang hubungan antara ekspresi gen tertentu (Gen X) dengan tinggi tanaman dan jumlah daun pada tanaman hasil rekayasa genetika. Data yang diperoleh dari 15 sampel tanaman adalah sebagai berikut:\nTable 3.1: Soal 1\n\n\n\n\n\n\n\n\n\n\nID Tanaman\nGenotipe\nEkspresi Gen X (Ct Value)\nTinggi Tanaman (cm)\nJumlah Daun\nWarna Daun\n\n\nNo\n\n\n\n\n\n\n\n\n\n\n1\nT001\nAA\n22.5\n45\n10\nHijau\n\n\n2\nT002\nAG\n24.8\n50\n12\nHijau\n\n\n3\nT003\nGG\n21.2\n48\n11\nHijau\n\n\n4\nT004\nAA\n23.1\n42\n9\nKuning\n\n\n5\nT005\nAG\n25.3\n47\n10\nHijau\n\n\n6\nT006\nGG\n20.5\n53\n14\nHijau\n\n\n7\nT007\nAA\n22.8\n44\n10\nKuning\n\n\n8\nT008\nAG\n24.1\n49\n12\nHijau\n\n\n9\nT009\nGG\n21.6\n51\n13\nHijau\n\n\n10\nT010\nAA\n23.9\n46\n11\nKuning\n\n\n11\nT011\nAG\n25.0\n48\n12\nHijau\n\n\n12\nT012\nGG\n20.9\n54\n15\nHijau\n\n\n13\nT013\nAA\n22.3\n43\n10\nKuning\n\n\n14\nT014\nAG\n24.5\n50\n13\nHijau\n\n\n15\nT015\nGG\n21.0\n52\n14\nHijau\nUnduh Dataset",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+    ]
+  },
+  {
+    "objectID": "02_assignments_2.html#soal-1-jenis-data-dan-pengukuran",
+    "href": "02_assignments_2.html#soal-1-jenis-data-dan-pengukuran",
+    "title": "3  Pendalaman Materi 2",
+    "section": "",
+    "text": "3.1.1 Identifikasi jenis skala yang digunakan pada data di setiap kolom dalam tabel.\n\nManakah yang termasuk data nominal? Jelaskan.\nManakah yang termasuk data ordinal? Jelaskan.\nManakah yang termasuk data interval dan rasio? Berikan alasan.\n\n\n\n3.1.2 Analisis berdasarkan jenis datanya\n\nApakah ekspresi Gen X (Ct Value) termasuk data diskrit atau kontinu? Jelaskan.\nManakah yang merupakan data kualitatif dan kuantitatif? Berikan alasan.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+    ]
+  },
+  {
+    "objectID": "02_assignments_2.html#soal-2-pemilihan-visualisasi-data-dalam-penelitian-mikrobiologi-tanaman",
+    "href": "02_assignments_2.html#soal-2-pemilihan-visualisasi-data-dalam-penelitian-mikrobiologi-tanaman",
+    "title": "3  Pendalaman Materi 2",
+    "section": "3.2 Soal 2: Pemilihan Visualisasi Data dalam Penelitian Mikrobiologi Tanaman",
+    "text": "3.2 Soal 2: Pemilihan Visualisasi Data dalam Penelitian Mikrobiologi Tanaman\nSeorang peneliti melakukan studi mengenai pengaruh jenis mikroba dan kondisi tanah terhadap pertumbuhan tanaman tomat. Berikut adalah hasil penelitian yang diperoleh:\nData 1: Pertumbuhan Tanaman Tomat di Tanah yang Diberi Inokulum Mikroba\nHasil pengukuran tinggi tanaman setelah 30 hari pada tiga perlakuan yang berbeda adalah sebagai berikut:\n\n\n\n\nTable 3.2: Soal 2.1\n\n\n\n\n\n\n\n\n\n\nPerlakuan\nRata-rata Tinggi Tanaman (cm)\nStandar Deviasi\n\n\n\n\n0\nKontrol (Tanpa Mikroba)\n35.4\n±3.1\n\n\n1\nInokulum Bacillus spp.\n42.7\n±2.8\n\n\n2\nInokulum Pseudomonas spp.\n40.3\n±3.0\n\n\n\n\n\n\n\n\n\n\nUnduh Dataset\nData 2: Distribusi Mikroorganisme di Rhizosfer Tanaman Tomat\nPersentase mikroba yang ditemukan di sekitar akar tanaman tomat sehat adalah:\n\n\n\n\nTable 3.3: Soal 2.2\n\n\n\n\n\n\n\n\n\n\nJenis Mikroba\nPersentase\n\n\n\n\n0\nBacillus spp.\n30%\n\n\n1\nPseudomonas spp.\n25%\n\n\n2\nActinobacteria\n20%\n\n\n3\nFungi Mikoriza\n15%\n\n\n4\nLainnya\n10%\n\n\n\n\n\n\n\n\n\n\nUnduh Dataset\nData 3: Perubahan pH Tanah dalam 4 Minggu Setelah Aplikasi Mikroba\nPengukuran pH tanah dilakukan setiap minggu selama 4 minggu setelah aplikasi mikroba:\n\n\n\n\nTable 3.4: Soal 2.3\n\n\n\n\n\n\n\n\n\n\nMinggu\npH Tanah (Kontrol)\npH Tanah (Bacillus spp.)\npH Tanah (Pseudomonas spp.)\n\n\n\n\n0\n0\n6.5\n6.5\n6.5\n\n\n1\n1\n6.4\n6.7\n6.6\n\n\n2\n2\n6.3\n6.8\n6.7\n\n\n3\n3\n6.2\n7.0\n6.8\n\n\n4\n4\n6.1\n7.2\n7.0\n\n\n\n\n\n\n\n\n\n\nUnduh Dataset\n\n3.2.1 Pilih jenis visualisasi data yang paling sesuai untuk menyajikan setiap dataset di atas. Jelaskan alasan pemilihan visualisasi tersebut.\n\nData 1 (Pertumbuhan tanaman dengan inokulum mikroba)\nData 2 (Distribusi mikroorganisme di rhizosfer)\nData 3 (Perubahan pH tanah dalam 4 minggu)\n\n\n\n3.2.2 Buat grafik yang sesuai untuk masing-masing dataset dan berikan interpretasi berdasarkan grafik tersebut.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+    ]
+  },
+  {
+    "objectID": "02_assignments_2.html#soal-3-pengukuran",
+    "href": "02_assignments_2.html#soal-3-pengukuran",
+    "title": "3  Pendalaman Materi 2",
+    "section": "3.3 Soal 3: Pengukuran",
+    "text": "3.3 Soal 3: Pengukuran\nSeorang peneliti ingin mengetahui bagaimana variasi berat biji kedelai (gram) yang tumbuh di tiga kondisi tanah berbeda: tanah lempung, tanah berpasir, dan tanah liat. Sebanyak 15 sampel biji kedelai diambil secara acak, dan hasil pengukurannya adalah sebagai berikut:\n\n\n\n\nTable 3.5: Soal 3\n\n\n\n\n\n\n\n\n\n\nSampel\nBerat Biji (gram)\n\n\n\n\n0\n1\n15.2\n\n\n1\n2\n14.8\n\n\n2\n3\n16.1\n\n\n3\n4\n15.5\n\n\n4\n5\n14.9\n\n\n5\n6\n15.7\n\n\n6\n7\n16.2\n\n\n7\n8\n14.5\n\n\n8\n9\n15.0\n\n\n9\n10\n15.8\n\n\n10\n11\n16.0\n\n\n11\n12\n15.3\n\n\n12\n13\n14.7\n\n\n13\n14\n15.6\n\n\n14\n15\n15.4\n\n\n\n\n\n\n\n\n\n\nUnduh Dataset\n\n3.3.1 Hitung mean (rata-rata) dari berat biji kedelai.\n\n\n3.3.2 Tentukan median dari dataset.\n\n\n3.3.3 Tentukan modus, jika ada.\n\n\n3.3.4 Hitung range (jangkauan) dari data.\n\n\n3.3.5 Hitung variansi (s²) dari data tersebut.\n\n\n3.3.6 Hitung standar deviasi (s) dari data tersebut.\n\n\n3.3.7 Berdasarkan hasil statistik yang diperoleh, apakah distribusi berat biji kedelai cukup homogen atau memiliki variasi yang besar? Jelaskan.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
     ]
   },
   {
     "objectID": "tapak_dara.html",
     "href": "tapak_dara.html",
-    "title": "3  Dataset Tapak Dara",
+    "title": "4  Dataset Tapak Dara",
     "section": "",
-    "text": "3.1 Deskripsi\nTapak dara (Catharantus roseus L.) merupakan tanaman yang banyak dimanfaatkan dalam dunia medis, selain daripada pemanfaatannya sebagai tanaman hias pada pekarangan. Sebagai tanaman obat, tapak dara mengandung senyawa metabolit sekunder seperti alkaloids, flavonoids, phenolic acids, dan senyawa volatil (Kumar et al., 2022). Senyawa metabolit sekunder spesifik yang ditemukan pada tanaman tapak dara adalah catharantine yang dapat dibagi menjadi dua jenis senyawa, yaitu vincristine dan vinblastine. Metabolit tersebut disintesis pada organ akar tanaman.\nSenyawa metabolit sekunder merupakan senyawa yang bersifat sensitif, dipengaruhi interaksi dari faktor biotik dan abiotik (Dewick, 2002). Salah satu faktor yang disinyalir mempengaruhi biosintesis vinkristine dan vinblastine adalah kandungan bijih besi pada tanah. Penelitian ini dilakukan pada tanaman tapak dara yang tumbuh secara alami di tiga kawasan berbeda, yaitu kawasan pertama pada pesisir pantai Trisik yang mengandung banyak bijih besi, kawasan kedua pada ketinggian 100-300 mdpl, dan kawasan ketiga pada ketinggian &gt;800 mdpl.\nDalam melihat urgensi kandungan metabolit sekunder, perlu dilakukan penelitian dasar terlebih dahulu untuk mengukur karakter morfologi dari tanaman tapak dara yang tumbuh dari tiga kawasan berbeda tersebut.",
+    "text": "4.1 Deskripsi\nTapak dara (Catharantus roseus L.) merupakan tanaman yang banyak dimanfaatkan dalam dunia medis, selain daripada pemanfaatannya sebagai tanaman hias pada pekarangan. Sebagai tanaman obat, tapak dara mengandung senyawa metabolit sekunder seperti alkaloids, flavonoids, phenolic acids, dan senyawa volatil (Kumar et al., 2022). Senyawa metabolit sekunder spesifik yang ditemukan pada tanaman tapak dara adalah catharantine yang dapat dibagi menjadi dua jenis senyawa, yaitu vincristine dan vinblastine. Metabolit tersebut disintesis pada organ akar tanaman.\nSenyawa metabolit sekunder merupakan senyawa yang bersifat sensitif, dipengaruhi interaksi dari faktor biotik dan abiotik (Dewick, 2002). Salah satu faktor yang disinyalir mempengaruhi biosintesis vinkristine dan vinblastine adalah kandungan bijih besi pada tanah. Penelitian ini dilakukan pada tanaman tapak dara yang tumbuh secara alami di tiga kawasan berbeda, yaitu kawasan pertama pada pesisir pantai Trisik yang mengandung banyak bijih besi, kawasan kedua pada ketinggian 100-300 mdpl, dan kawasan ketiga pada ketinggian &gt;800 mdpl.\nDalam melihat urgensi kandungan metabolit sekunder, perlu dilakukan penelitian dasar terlebih dahulu untuk mengukur karakter morfologi dari tanaman tapak dara yang tumbuh dari tiga kawasan berbeda tersebut.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Dataset Tapak Dara</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dataset Tapak Dara</span>"
     ]
   },
   {
     "objectID": "tapak_dara.html#deskripsi",
     "href": "tapak_dara.html#deskripsi",
-    "title": "3  Dataset Tapak Dara",
+    "title": "4  Dataset Tapak Dara",
     "section": "",
     "text": "Variabel\nDeskripsi\n\n\n\n\naccession\nNomor identifikasi unik untuk setiap sampel tanaman tapak dara yang diamati.\n\n\nleaf-color\nWarna daun tanaman tapak dara berdasarkan skala warna RHS (Royal Horticultural Society).\n\n\nleaf-length\nPanjang daun dalam satuan cm, diukur dari pangkal hingga ujung daun (cm).\n\n\nleaf-width\nLebar daun dalam satuan cm, diukur pada bagian terlebar dari daun (cm).\n\n\nleaf-ratio\nRasio panjang terhadap lebar daun untuk menggambarkan proporsi bentuk daun.\n\n\nleaf-shape\nBentuk daun yang dikategorikan berdasarkan morfologi seperti oblongus (bulat memanjang) atau elipticus (membulat).\n\n\nstem-diameter\nDiameter batang tanaman dalam satuan cm, diukur pada bagian tengah batang (cm).\n\n\nstem-color\nWarna batang tanaman berdasarkan skala warna RHS.\n\n\nnode-length\nPanjang ruas batang dalam satuan cm, diukur dari satu nodus ke nodus berikutnya (cm).\n\n\nplant-height\nTinggi tanaman dalam satuan cm, diukur dari permukaan tanah hingga titik tertinggi tanaman (cm).\n\n\nflower-color\nWarna bunga tanaman tapak dara berdasarkan skala warna RHS.\n\n\nlabel\nKategori lokasi tempat tanaman tumbuh, seperti pesisir pantai atau ketinggian tertentu.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Dataset Tapak Dara</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dataset Tapak Dara</span>"
     ]
   },
   {
     "objectID": "tapak_dara.html#unduh",
     "href": "tapak_dara.html#unduh",
-    "title": "3  Dataset Tapak Dara",
-    "section": "3.2 Unduh",
-    "text": "3.2 Unduh\nData File (tab-delimited text)",
+    "title": "4  Dataset Tapak Dara",
+    "section": "4.2 Unduh",
+    "text": "4.2 Unduh\nData File (tab-delimited text)",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Dataset Tapak Dara</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dataset Tapak Dara</span>"
     ]
   },
   {
