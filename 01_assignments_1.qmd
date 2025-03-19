@@ -1,5 +1,5 @@
 ---
-title: "Pendalaman Materi 2"
+title: "Pendalaman Materi 1"
 subtitle: "Asumsi, Hipotesis, dan Distribusi Data"
 author:
 - Tim Pengampu Biostatistika

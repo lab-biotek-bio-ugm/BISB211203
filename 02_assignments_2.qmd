@@ -1,0 +1,141 @@
+---
+title: "Pendalaman Materi 2"
+subtitle: "Jenis Data, Pengukuran, dan Visualisasi"
+author:
+- Dr. Aprilia Sufi Subiastuti, S.Si.
+date: "2025-03-12"
+format: html
+---
+
+Unduh lembar jawab di link berikut:
+
+<a href='https://docs.google.com/document/d/1cKmNgauGVLr-xnW9QUxpnW9JjrPSkDhL/edit?usp=drive_link&ouid=106353599367592009235&rtpof=true&sd=true' download='Lembar_Jawab_Pendalaman_2.docx' class="btn btn-primary" target="_blank">Unduh Lembar Jawab</a>
+
+## Soal 1: Jenis Data dan Pengukuran
+
+Seorang peneliti melakukan penelitian tentang hubungan antara ekspresi gen tertentu (Gen X) dengan tinggi tanaman dan jumlah daun pada tanaman hasil rekayasa genetika. Data yang diperoleh dari 15 sampel tanaman adalah sebagai berikut:
+
+```{python}
+#| echo: false
+#| label: tbl-soal1
+#| tbl-cap: Soal 1
+
+import pandas as pd
+
+# check if the CSV file exists
+csv_file = 'assets/data/soal1.tsv'
+
+df = pd.read_csv(csv_file, sep="\t", index_col=0)
+df
+```
+
+<a href='assets/data/soal1.tsv' download='soal1.tsv' class="btn btn-primary">Unduh Dataset</a>
+
+### Identifikasi jenis skala yang digunakan pada data di setiap kolom dalam tabel.
+a. Manakah yang termasuk data nominal? Jelaskan.
+b. Manakah yang termasuk data ordinal? Jelaskan.
+c. Manakah yang termasuk data interval dan rasio? Berikan alasan.
+
+### Analisis berdasarkan jenis datanya
+a.	Apakah ekspresi Gen X (Ct Value) termasuk data diskrit atau kontinu? Jelaskan.
+b.	Manakah yang merupakan data kualitatif dan kuantitatif? Berikan alasan.
+
+## Soal 2: Pemilihan Visualisasi Data dalam Penelitian Mikrobiologi Tanaman
+
+Seorang peneliti melakukan studi mengenai **pengaruh jenis mikroba dan kondisi tanah terhadap pertumbuhan tanaman tomat**. Berikut adalah hasil penelitian yang diperoleh:
+
+**Data 1: Pertumbuhan Tanaman Tomat di Tanah yang Diberi Inokulum Mikroba**
+
+Hasil pengukuran tinggi tanaman setelah 30 hari pada tiga perlakuan yang berbeda adalah sebagai berikut:
+
+```{python}
+#| echo: false
+#| label: tbl-soal2.1
+#| tbl-cap: Soal 2.1
+
+import pandas as pd
+
+# check if the CSV file exists
+csv_file = 'assets/data/soal2-1.tsv'
+
+df = pd.read_csv(csv_file, sep="\t")
+df
+```
+
+<a href='assets/data/soal2-1.tsv' download='soal2-1.tsv' class="btn btn-primary">Unduh Dataset</a>
+
+**Data 2: Distribusi Mikroorganisme di Rhizosfer Tanaman Tomat**
+
+Persentase mikroba yang ditemukan di sekitar akar tanaman tomat sehat adalah:
+
+```{python}
+#| echo: false
+#| label: tbl-soal2.2
+#| tbl-cap: Soal 2.2
+
+import pandas as pd
+
+# check if the CSV file exists
+csv_file = 'assets/data/soal2-2.tsv'
+
+df = pd.read_csv(csv_file, sep="\t")
+df
+```
+
+<a href='assets/data/soal2-2.tsv' download='soal2-2.tsv' class="btn btn-primary">Unduh Dataset</a>
+
+**Data 3: Perubahan pH Tanah dalam 4 Minggu Setelah Aplikasi Mikroba**
+
+Pengukuran pH tanah dilakukan setiap minggu selama 4 minggu setelah aplikasi mikroba:
+
+```{python}
+#| echo: false
+#| label: tbl-soal2.3
+#| tbl-cap: Soal 2.3
+
+import pandas as pd
+
+# check if the CSV file exists
+csv_file = 'assets/data/soal2-3.tsv'
+
+df = pd.read_csv(csv_file, sep="\t")
+df
+```
+
+<a href='assets/data/soal2-3.tsv' download='soal2-3.tsv' class="btn btn-primary">Unduh Dataset</a>
+
+### Pilih jenis visualisasi data yang paling sesuai untuk menyajikan setiap dataset di atas. Jelaskan alasan pemilihan visualisasi tersebut.
+
+- Data 1 (Pertumbuhan tanaman dengan inokulum mikroba)
+- Data 2 (Distribusi mikroorganisme di rhizosfer)
+- Data 3 (Perubahan pH tanah dalam 4 minggu)
+
+### Buat grafik yang sesuai untuk masing-masing dataset dan berikan interpretasi berdasarkan grafik tersebut.
+
+## Soal 3: Pengukuran
+
+Seorang peneliti ingin mengetahui bagaimana variasi **berat biji kedelai (gram)** yang tumbuh di tiga kondisi tanah berbeda: **tanah lempung, tanah berpasir, dan tanah liat**. Sebanyak 15 sampel biji kedelai diambil secara acak, dan hasil pengukurannya adalah sebagai berikut:
+
+```{python}
+#| echo: false
+#| label: tbl-soal3
+#| tbl-cap: Soal 3
+
+import pandas as pd
+
+# check if the CSV file exists
+csv_file = 'assets/data/soal3.tsv'
+
+df = pd.read_csv(csv_file, sep="\t")
+df
+```
+
+<a href='assets/data/soal3.tsv' download='soal3.tsv' class="btn btn-primary">Unduh Dataset</a>
+
+### Hitung mean (rata-rata) dari berat biji kedelai.
+### Tentukan median dari dataset.
+### Tentukan modus, jika ada.
+### Hitung range (jangkauan) dari data.
+### Hitung variansi (s²) dari data tersebut.
+### Hitung standar deviasi (s) dari data tersebut.
+### Berdasarkan hasil statistik yang diperoleh, apakah distribusi berat biji kedelai cukup homogen atau memiliki variasi yang besar? Jelaskan.
