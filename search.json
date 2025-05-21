@@ -122,11 +122,11 @@
   {
     "objectID": "03_practice.html",
     "href": "03_practice.html",
-    "title": "5  Then close and reopen the terminal",
+    "title": "5  Pendalaman Materi 3",
     "section": "",
-    "text": "🧪 How to Run the Practice Sessions Welcome to BISB211203 – Biostatistics for Life Sciences. This course includes hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on GitHub Codespaces or on your own computer. Follow the instructions below to get started:\n🔧 Option 1: Run on GitHub Codespaces (Recommended) GitHub Codespaces allows you to run everything in your browser — no need to install anything on your computer.\nSteps: Go to the course repository: https://github.com/lab-biotek-bio-ugm/BISB211203\nClick the green “Code” button, then choose “Open with Codespaces” → “New codespace”.\nAfter the Codespace loads, open the terminal and run the following commands:\nconda init\nconda env create -f environment.yml\nconda activate BISB211203\njupyter lab\nThe JupyterLab interface will launch in your browser. You can now open the notebooks (e.g., 03_T-test.ipynb) and start the exercises.",
+    "text": "🧪 How to Run the Practice Sessions Welcome to BISB211203 – Biostatistics for Life Sciences. This course includes hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on GitHub Codespaces or on your own computer. Follow the instructions below to get started:\n🔧 Option 1: Run on GitHub Codespaces (Recommended) GitHub Codespaces allows you to run everything in your browser — no need to install anything on your computer.\nSteps: Go to the course repository: https://github.com/lab-biotek-bio-ugm/BISB211203\nClick the green “Code” button, then choose “Open with Codespaces” → “New codespace”.\nAfter the Codespace loads, open the terminal and run the following commands:\nconda init\n# Then close and reopen the terminal\nconda env create -f environment.yml\nconda activate BISB211203\njupyter lab\nThe JupyterLab interface will launch in your browser. You can now open the notebooks (e.g., 03_T-test.ipynb) and start the exercises.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Then close and reopen the terminal</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pendalaman Materi 3</span>"
     ]
   },
   {
