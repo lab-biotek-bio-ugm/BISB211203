@@ -62,3 +62,16 @@ Then continue with:
 git stash
 git pull
 ```
+
+If there are changes in the environment, you can update it by:
+
+```bash
+conda env update -f environment.yml 
+```
+
+Then you can restart the jupyter to continue working on the next example:
+
+```bash
+conda activate BISB211203
+jupyter lab
+```
