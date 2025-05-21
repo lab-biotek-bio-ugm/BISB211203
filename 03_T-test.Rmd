@@ -1,0 +1,636 @@
+## Chapter 1 Introduction to T-tests
+
+### Understanding the T-distribution
+_adapted from: https://github.com/JoshuaHaden/Intro-to-Statistics-with-R-Student-s-T-test-Data-Camp_
+
+
+```R
+library(ggplot2)
+library(dplyr)
+```
+
+
+```R
+# Generate a vector of 100 values between -4 and 4
+n <- 100
+x <- seq(-4, 4, length = n)
+
+# Create a data frame for ggplot2
+df_raw <- data.frame(Index = 1:n, Value = x)
+
+# Plot using ggplot2
+ggplot(df_raw, aes(x = Index, y = Value)) +
+  geom_point(color = "blue") +
+  labs(
+    title = "Scatter Plot of Values from -4 to 4",
+    x = "Index",
+    y = "Value"
+  ) +
+  theme_minimal()
+```
+
+
+    
+![png](03_T-test_files/03_T-test_2_0.png)
+    
+
+
+To find the value of probability density function (pdf) of the Student's t-distribution given a random variable x, use the dt() function in R.
+
+```
+Syntax: dt(x, df) 
+
+Parameters:
+- x is the quantiles vector
+- df is the degrees of freedom
+```
+
+
+```R
+# Simulate the t-distribution
+y <- dt(x, df = n - 1)
+
+# Create a data frame for ggplot2
+df_T <- data.frame(Index = 1:n, Value = y)
+
+# Create the scatter plot
+ggplot(df_T, aes(x = Index, y = Value)) +
+  geom_line(color = "blue") +
+  labs(
+    title = "T-Distribution",
+    x = "Index",
+    y = "Value"
+  ) +
+  theme_minimal()
+```
+
+
+    
+![png](03_T-test_files/03_T-test_4_0.png)
+    
+
+
+
+```R
+# Step 1: Sample from t-distribution
+set.seed(123)
+sample_size <- 30
+sample_data <- rt(sample_size, df = n-1)
+sample_mean <- mean(sample_data)
+
+# Step 2: Plot with rug (horizontal tick marks showing sample values)
+tplot <- ggplot(df_T, aes(x = x, y = y)) +
+  geom_line(color = "blue", size = 1.2) +
+  geom_vline(xintercept = sample_mean, color = "red", linetype = "dashed", size = 1) +
+  geom_rug(data = data.frame(x = sample_data), aes(x = x), inherit.aes = FALSE, sides = "b", color = "black", alpha = 0.5) +
+  annotate("text", x = sample_mean, y = max(y)*0.9,
+           label = paste0("Mean = ", round(sample_mean, 2)), color = "red", hjust = -0.1) +
+  labs(title = "T-Distribution with Sample Mean",
+       x = "t-value", y = "Density") +
+  theme_minimal()
+
+tplot
+```
+
+    Warning message:
+    “[1m[22mUsing `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+    [36mℹ[39m Please use `linewidth` instead.”
+
+
+
+    
+![png](03_T-test_files/03_T-test_5_1.png)
+    
+
+
+
+```R
+# Step 1: Generate multiple samples
+set.seed(123)
+sample_size <- 30
+n_repeats <- 5
+
+# Store all sample data with sample ID
+samples <- lapply(1:n_repeats, function(i) {
+  data.frame(Sample = paste0("Sample ", i),
+             Value = rt(sample_size, df = n-1))
+}) %>% bind_rows()
+
+# Compute means for each sample
+sample_means <- samples %>%
+  group_by(Sample) %>%
+  summarise(mean = mean(Value))
+
+# Step 2: Base plot with t-distribution
+p <- ggplot(df_T, aes(x = x, y = y)) +
+  geom_line(color = "blue", size = 1.2) +
+  labs(title = "T-Distribution with Multiple Sample Rugs and Means",
+       x = "t-value", y = "Density") +
+  theme_minimal()
+
+# Step 3: Add rugs and means
+# We'll loop through each sample group and add them
+for (i in seq_len(n_repeats)) {
+  sample_name <- paste0("Sample ", i)
+  sample_vals <- samples %>% filter(Sample == sample_name)
+  sample_mean <- sample_means %>% filter(Sample == sample_name) %>% pull(mean)
+  
+  # Add rug and mean line
+  p <- p +
+    geom_rug(data = sample_vals, aes(x = Value), inherit.aes = FALSE,
+             sides = "b", alpha = 0.4, color = scales::hue_pal()(n_repeats)[i]) +
+    geom_vline(xintercept = sample_mean, color = scales::hue_pal()(n_repeats)[i],
+               linetype = "dashed", size = 0.8)
+}
+
+# Print the plot
+p
+```
+
+
+    
+![png](03_T-test_files/03_T-test_6_0.png)
+    
+
+
+The bigger degree of freedom, the closer your T distribution to normal distribution
+
+
+```R
+# Create a data frame with all distributions
+df <- data.frame(
+  x = rep(x, times = 4),
+  density = c(
+    dt(x, df = 2),
+    dt(x, df = 8),
+    dt(x, df = 32),
+    dnorm(x)
+  ),
+  distribution = factor(rep(c("df = 2", "df = 8", "df = 32", "Normal"), each = length(x)))
+)
+
+# Plot
+ggplot(df, aes(x = x, y = density, color = distribution)) +
+  geom_line(linewidth = 1.2) +
+  labs(
+    title = "Comparison of t-distributions",
+    x = "T value",
+    y = "Density",
+    color = "Distribution"
+  ) +
+  theme_minimal()
+```
+
+
+    
+![png](03_T-test_files/03_T-test_8_0.png)
+    
+
+
+## 🐟 Investigating Fish Populations Near a Factory
+
+A group of environmental biologists is conducting a study on the possible ecological impact of a local manufacturing plant. The factory is located between two small lakes that are part of the same river system:
+
+- The first lake is **upstream** of the factory and receives no direct runoff from industrial activities.
+
+- The second lake is **downstream** of the factory and could potentially be affected by effluents or waste discharge.
+
+To assess the potential impact, the team collected samples of fish from both lakes. For each fish, they recorded:
+
+- **Length** (in centimeters)
+
+- **Weight** (in grams)
+
+The scientists want to determine whether the fish population in the Downstream lake shows any significant difference in size compared to the Upstream lake. Differences in fish size (length or weight) could be an indicator of environmental stress, food availability, or contamination.
+
+### 1. Exploratory Data Analysis
+
+
+```R
+# Import Dataset
+fish_data <- read.csv("assets/data/fish_data_weight.csv")
+
+# Quick look
+head(fish_data)
+```
+
+
+<table class="dataframe">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>Lake</th><th scope=col>Length_cm</th><th scope=col>Weight_g</th></tr>
+	<tr><th></th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>Upstream</td><td>26.3</td><td>318.7</td></tr>
+	<tr><th scope=row>2</th><td>Upstream</td><td>27.3</td><td>347.7</td></tr>
+	<tr><th scope=row>3</th><td>Upstream</td><td>32.7</td><td>332.6</td></tr>
+	<tr><th scope=row>4</th><td>Upstream</td><td>28.2</td><td>329.6</td></tr>
+	<tr><th scope=row>5</th><td>Upstream</td><td>28.4</td><td>311.5</td></tr>
+	<tr><th scope=row>6</th><td>Upstream</td><td>33.1</td><td>338.6</td></tr>
+</tbody>
+</table>
+
+
+
+
+```R
+length_stats <- fish_data %>%
+  group_by(Lake) %>%
+  summarise(
+    mean = mean(Length_cm),
+    sd = sd(Length_cm),
+    n = n(),
+    se = sd / sqrt(n),
+    df = n - 1
+  )
+length_stats
+```
+
+
+<table class="dataframe">
+<caption>A tibble: 2 × 6</caption>
+<thead>
+	<tr><th scope=col>Lake</th><th scope=col>mean</th><th scope=col>sd</th><th scope=col>n</th><th scope=col>se</th><th scope=col>df</th></tr>
+	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>Downstream</td><td>28.436</td><td>2.719451</td><td>50</td><td>0.3845884</td><td>49</td></tr>
+	<tr><td>Upstream  </td><td>28.102</td><td>2.784028</td><td>50</td><td>0.3937210</td><td>49</td></tr>
+</tbody>
+</table>
+
+
+
+
+```R
+# EXCERCISE: CALCULATE THE DESCRIPTIVE STATISTICS FOR FISH WEIGHT!
+
+length_stats <- fish_data %>%
+  group_by(Lake) %>%
+  summarise(
+    mean = mean(Weight_g),
+    sd = sd(Weight_g),
+    n = n(),
+    se = sd / sqrt(n),
+    df = n - 1
+  )
+length_stats
+```
+
+
+<table class="dataframe">
+<caption>A tibble: 2 × 6</caption>
+<thead>
+	<tr><th scope=col>Lake</th><th scope=col>mean</th><th scope=col>sd</th><th scope=col>n</th><th scope=col>se</th><th scope=col>df</th></tr>
+	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>Downstream</td><td>301.160</td><td>27.93020</td><td>50</td><td>3.949926</td><td>49</td></tr>
+	<tr><td>Upstream  </td><td>332.382</td><td>29.67265</td><td>50</td><td>4.196347</td><td>49</td></tr>
+</tbody>
+</table>
+
+
+
+
+```R
+# Visualize using scatter plot to see the distribution
+ggplot(fish_data, aes(x = Length_cm, y = Weight_g, color = Lake)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(
+    title = "Fish Length vs. Weight",
+    x = "Length (cm)",
+    y = "Weight (g)",
+    color = "Lake"
+  ) +
+  theme_minimal()
+```
+
+
+    
+![png](03_T-test_files/03_T-test_13_0.png)
+    
+
+
+
+```R
+ggplot(fish_data, aes(x = Length_cm)) +
+  geom_histogram(position = "identity", alpha = 0.6, bins = 15) +
+  labs(title = "Distribution of Fish Length",
+       x = "Length (cm)",
+       y = "Count") +
+  theme_minimal()
+```
+
+
+    
+![png](03_T-test_files/03_T-test_14_0.png)
+    
+
+
+
+```R
+ggplot(fish_data, aes(x = Length_cm, fill = Lake)) +
+  geom_histogram(position = "identity", alpha = 0.6, bins = 15) +
+  labs(title = "Distribution of Fish Length",
+       x = "Length (cm)",
+       y = "Count") +
+  theme_minimal()
+```
+
+
+    
+![png](03_T-test_files/03_T-test_15_0.png)
+    
+
+
+
+```R
+# EXERCISE: PLOT THE DISTRIBUTION OF THE FISH WEIGHT
+
+ggplot(fish_data, aes(x = Weight_g, fill = Lake)) +
+  geom_histogram(position = "identity", alpha = 0.6, bins = 15) +
+  labs(title = "Distribution of Fish Weight",
+       x = "Weight (g)",
+       y = "Count") +
+  theme_minimal()
+
+
+
+
+
+
+
+```
+
+
+    
+![png](03_T-test_files/03_T-test_16_0.png)
+    
+
+
+
+```R
+# Summarise data to get mean and standard error per group
+weight_summary <- fish_data %>%
+  group_by(Lake) %>%
+  summarise(
+    mean_weight = mean(Length_cm),
+    se_weight = sd(Length_cm) / sqrt(n())
+  )
+
+# Bar plot with error bars
+ggplot(weight_summary, aes(x = Lake, y = mean_weight, fill = Lake)) +
+  geom_col(width = 0.6) +
+  geom_errorbar(aes(ymin = mean_weight - se_weight,
+                    ymax = mean_weight + se_weight),
+                width = 0.2) +
+  labs(title = "Mean Fish Length by Lake",
+       x = "Lake Type",
+       y = "Length (cm)") +
+  theme_minimal()
+```
+
+
+    
+![png](03_T-test_files/03_T-test_17_0.png)
+    
+
+
+
+```R
+ggplot(fish_data, aes(x = Lake, y = Length_cm, fill = Lake)) +
+  geom_boxplot() +
+  labs(title = "Fish Length by Lake",
+       x = "Lake Type",
+       y = "Length (cm)") +
+  theme_minimal()
+```
+
+
+    
+![png](03_T-test_files/03_T-test_18_0.png)
+    
+
+
+
+```R
+# EXERCISE: CREATE A BARPLOT OF THE FISH WEIGHT
+# Summarise data to get mean and standard error per group
+
+
+
+
+
+
+# Bar plot with error bars
+
+
+
+
+
+
+```
+
+
+```R
+# EXERCISE: PLOT THE BOXPLOT FOR THE FISH WEIGHT
+
+
+
+
+
+
+
+
+```
+
+### 2.🐟 Independent t-test: Upstream vs Downstream Fish Length
+- What you're testing:
+    > Whether the mean fish length in the Upstream area is significantly different from the Downstream area.
+
+- We will calculate the t-statistic → the number of standard errors the means are apart.
+
+- Larger `t_value` → stronger evidence of difference.
+
+- The `p` value gives the probability of seeing such a difference by chance.
+    > - p < 0.05 → statistically significant difference ✅
+    > - p ≥ 0.05 → not statistically significant 🚫
+    
+- Cohen's d tells you how big the difference is:
+
+| d | Interpretation |
+|---|----------------|
+| 0.2 |	Small effect |
+| 0.5 | Medium effect|
+| 0.8+ | Large effect|
+
+> Even if p < 0.05, a small Cohen’s d might mean the difference isn’t practically meaningful.
+
+
+```R
+### Perform an Independent t-test (Manual)
+
+# Create subsets
+fish_upstream <- subset(fish_data, Lake == "Upstream")
+fish_downstream <- subset(fish_data, Lake == "Downstream")
+
+# Means
+mean_up <- mean(fish_upstream$Length_cm)
+mean_down <- mean(fish_downstream$Length_cm)
+mean_diff <- mean_up - mean_down
+
+# Sample sizes
+n_up <- nrow(fish_upstream)
+n_down <- nrow(fish_downstream)
+
+# Degrees of freedom
+df <- n_up + n_down - 2
+
+# Variances
+var_up <- var(fish_upstream$Length_cm)
+var_down <- var(fish_downstream$Length_cm)
+
+# Pooled standard error
+se_pooled <- sqrt((var_up / n_up) + (var_down / n_down))
+
+### t-test Results
+
+# t-value
+t_value <- mean_diff / se_pooled
+
+# Two-tailed p-value
+p_value <- 2 * (1 - pt(abs(t_value), df = df))
+
+# Cohen's d (effect size)
+sd_up <- sd(fish_upstream$Length_cm)
+sd_down <- sd(fish_downstream$Length_cm)
+pooled_sd <- (sd_up + sd_down) / 2
+cohens_d <- mean_diff / pooled_sd
+
+### Print Results
+t_value     # how far apart the means are in SE units
+p_value     # is it statistically significant?
+cohens_d    # how big is the effect?
+```
+
+
+-0.606847090759995
+
+
+
+0.545355751938675
+
+
+
+-0.121377773219944
+
+
+
+```R
+# Use your computed t_value and df
+# For example:
+# t_value <- 5.87
+# df <- 98
+
+alpha <- 0.05
+t_crit <- qt(1 - alpha/2, df = df)  # two-tailed
+
+x_vals <- seq(-4, 4, length.out = 300)
+y_vals <- dt(x_vals, df = df)
+
+ggplot(data.frame(x = x_vals, y = y_vals), aes(x, y)) +
+  geom_line(color = "steelblue", size = 1) +
+  
+  # Shade critical regions
+  geom_area(data = subset(data.frame(x = x_vals, y = y_vals), x <= -t_crit),
+            aes(x = x, y = y), fill = "red", alpha = 0.3) +
+  geom_area(data = subset(data.frame(x = x_vals, y = y_vals), x >= t_crit),
+            aes(x = x, y = y), fill = "red", alpha = 0.3) +
+  
+  # Observed t-value
+  geom_vline(xintercept = t_value, color = "darkgreen", linetype = "dashed", size = 1) +
+  
+  # Labels
+  labs(
+    title = "t-Distribution Under H0",
+    subtitle = paste0("t-value = ", round(t_value, 2), 
+                      ", df = ", df, 
+                      ", alpha = 0.05"),
+    x = "t-statistic",
+    y = "Density"
+  ) +
+  theme_minimal()
+```
+
+
+    
+![png](03_T-test_files/03_T-test_23_0.png)
+    
+
+
+
+```R
+### Independent t-tests, the easy way
+
+# Conduct an independent t-test 
+t_result <- t.test(fish_upstream$Length_cm, fish_downstream$Length_cm, var.equal = T)
+t_result
+
+# Extract t-value and degrees of freedom
+t_value <- t_result$statistic  # this is named "t"
+df <- t_result$parameter       # this is named "df"
+```
+
+
+    
+    	Two Sample t-test
+    
+    data:  fish_upstream$Length_cm and fish_downstream$Length_cm
+    t = -0.60685, df = 98, p-value = 0.5454
+    alternative hypothesis: true difference in means is not equal to 0
+    95 percent confidence interval:
+     -1.4262226  0.7582226
+    sample estimates:
+    mean of x mean of y 
+       28.102    28.436 
+
+
+
+### 3.EXERCISE!🐟 Independent t-test: Upstream vs Downstream Fish Weight 🐟 
+Using the example above, decide whether there are differences in the fish weight between the two population!
+
+
+```R
+### Independent t-tests, the easy way
+
+# Run t-test and store the result
+
+
+# Extract t-value and degrees of freedom
+
+```
+
+
+```R
+# visualize your t test result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
