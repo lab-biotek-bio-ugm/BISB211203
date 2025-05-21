@@ -2,27 +2,49 @@
 title: "Pendalaman Materi 3"
 ---
 
-🧪 How to Run the Practice Sessions
-Welcome to BISB211203 – Biostatistics for Life Sciences. This course includes hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on GitHub Codespaces or on your own computer. Follow the instructions below to get started:
+## 🧪 How to Run the Practice Sessions
+In the final part of the course, we include hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on `GitHub Codespaces` or on your own computer. You will need to create a GitHub account and install VS Code in your computer first. 
 
-🔧 Option 1: Run on GitHub Codespaces (Recommended)
-GitHub Codespaces allows you to run everything in your browser — no need to install anything on your computer.
+Follow the instructions below to get started:
 
-Steps:
-Go to the course repository:
-https://github.com/lab-biotek-bio-ugm/BISB211203
+### 🔧 Run on GitHub Codespaces and Open in VS Code
+`GitHub Codespaces` allows you to run things in the cloud with VS code as the interface.
 
-Click the green “Code” button, then choose “Open with Codespaces” → “New codespace”.
+**Steps:**
 
-After the Codespace loads, open the terminal and run the following commands:
+1. Go to the course repository:
+[https://github.com/lab-biotek-bio-ugm/BISB211203](https://github.com/lab-biotek-bio-ugm/BISB211203)
 
-```bash
-conda init
-# Then close and reopen the terminal
-conda env create -f environment.yml
-conda activate BISB211203
-jupyter lab
-```
+2. Click the green `“Code”` button, then choose `“Open with Codespaces”` → `“New codespace”`.
 
-The JupyterLab interface will launch in your browser. You can now open the notebooks (e.g., 03_T-test.ipynb) and start the exercises.
+3. Open a new tab and open [https://github.com/codespaces](https://github.com/codespaces). Find your Virtual Machine, at the bottom and click the three dots `"..."` on the right of the VM, then load the codespace in Visual Studio.
 
+4. After the Codespace loads, open the terminal and run the following commands:
+
+    ```bash
+    conda init
+    ```
+
+5. It will ask you to close and reopen the terminal. You can do this by clicking the `+` button on the right top corner of the terminal.
+
+6. Create the environment by:
+
+    ```bash
+    conda env create -f environment.yml
+    ```
+
+7. Activate the environment by:
+
+    ```bash
+    conda activate BISB211203
+    ```
+
+7. Launch JupyterLab by running:
+
+    ```bash
+    jupyter lab
+    ```
+
+8. The JupyterLab interface will launch in your browser. If it does not open automatically, copy the URL displayed in the terminal (e.g., starting with `http://127.0.0.1:8888`) and paste it into your browser.
+
+9. You can now open the notebooks (e.g., `03_T-test.ipynb`) and start the exercises.
