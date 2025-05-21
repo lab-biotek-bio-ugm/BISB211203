@@ -1,0 +1,24 @@
+🧪 How to Run the Practice Sessions
+Welcome to BISB211203 – Biostatistics for Life Sciences. This course includes hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on GitHub Codespaces or on your own computer. Follow the instructions below to get started:
+
+🔧 Option 1: Run on GitHub Codespaces (Recommended)
+GitHub Codespaces allows you to run everything in your browser — no need to install anything on your computer.
+
+Steps:
+Go to the course repository:
+https://github.com/lab-biotek-bio-ugm/BISB211203
+
+Click the green “Code” button, then choose “Open with Codespaces” → “New codespace”.
+
+After the Codespace loads, open the terminal and run the following commands:
+
+```bash
+conda init
+# Then close and reopen the terminal
+conda env create -f environment.yml
+conda activate BISB211203
+jupyter lab
+```
+
+The JupyterLab interface will launch in your browser. You can now open the notebooks (e.g., 03_T-test.ipynb) and start the exercises.
+
