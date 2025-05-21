@@ -29,12 +29,6 @@ ggplot(df_raw, aes(x = Index, y = Value)) +
   theme_minimal()
 ```
 
-
-    
-![png](03_T-test_files/03_T-test_2_0.png)
-    
-
-
 To find the value of probability density function (pdf) of the Student's t-distribution given a random variable x, use the dt() function in R.
 
 ```
@@ -65,12 +59,6 @@ ggplot(df_T, aes(x = Index, y = Value)) +
 ```
 
 
-    
-![png](03_T-test_files/03_T-test_4_0.png)
-    
-
-
-
 ```R
 # Step 1: Sample from t-distribution
 set.seed(123)
@@ -91,17 +79,6 @@ tplot <- ggplot(df_T, aes(x = x, y = y)) +
 
 tplot
 ```
-
-    Warning message:
-    “[1m[22mUsing `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-    [36mℹ[39m Please use `linewidth` instead.”
-
-
-
-    
-![png](03_T-test_files/03_T-test_5_1.png)
-    
-
 
 
 ```R
@@ -147,12 +124,6 @@ for (i in seq_len(n_repeats)) {
 p
 ```
 
-
-    
-![png](03_T-test_files/03_T-test_6_0.png)
-    
-
-
 The bigger degree of freedom, the closer your T distribution to normal distribution
 
 
@@ -180,12 +151,6 @@ ggplot(df, aes(x = x, y = density, color = distribution)) +
   ) +
   theme_minimal()
 ```
-
-
-    
-![png](03_T-test_files/03_T-test_8_0.png)
-    
-
 
 ## 🐟 Investigating Fish Populations Near a Factory
 
@@ -215,25 +180,6 @@ head(fish_data)
 ```
 
 
-<table class="dataframe">
-<caption>A data.frame: 6 × 3</caption>
-<thead>
-	<tr><th></th><th scope=col>Lake</th><th scope=col>Length_cm</th><th scope=col>Weight_g</th></tr>
-	<tr><th></th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><th scope=row>1</th><td>Upstream</td><td>26.3</td><td>318.7</td></tr>
-	<tr><th scope=row>2</th><td>Upstream</td><td>27.3</td><td>347.7</td></tr>
-	<tr><th scope=row>3</th><td>Upstream</td><td>32.7</td><td>332.6</td></tr>
-	<tr><th scope=row>4</th><td>Upstream</td><td>28.2</td><td>329.6</td></tr>
-	<tr><th scope=row>5</th><td>Upstream</td><td>28.4</td><td>311.5</td></tr>
-	<tr><th scope=row>6</th><td>Upstream</td><td>33.1</td><td>338.6</td></tr>
-</tbody>
-</table>
-
-
-
-
 ```R
 length_stats <- fish_data %>%
   group_by(Lake) %>%
@@ -248,50 +194,18 @@ length_stats
 ```
 
 
-<table class="dataframe">
-<caption>A tibble: 2 × 6</caption>
-<thead>
-	<tr><th scope=col>Lake</th><th scope=col>mean</th><th scope=col>sd</th><th scope=col>n</th><th scope=col>se</th><th scope=col>df</th></tr>
-	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><td>Downstream</td><td>28.436</td><td>2.719451</td><td>50</td><td>0.3845884</td><td>49</td></tr>
-	<tr><td>Upstream  </td><td>28.102</td><td>2.784028</td><td>50</td><td>0.3937210</td><td>49</td></tr>
-</tbody>
-</table>
-
-
-
-
 ```R
 # EXCERCISE: CALCULATE THE DESCRIPTIVE STATISTICS FOR FISH WEIGHT!
 
-length_stats <- fish_data %>%
-  group_by(Lake) %>%
-  summarise(
-    mean = mean(Weight_g),
-    sd = sd(Weight_g),
-    n = n(),
-    se = sd / sqrt(n),
-    df = n - 1
-  )
-length_stats
+
+
+
+
+
+
+
+
 ```
-
-
-<table class="dataframe">
-<caption>A tibble: 2 × 6</caption>
-<thead>
-	<tr><th scope=col>Lake</th><th scope=col>mean</th><th scope=col>sd</th><th scope=col>n</th><th scope=col>se</th><th scope=col>df</th></tr>
-	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><td>Downstream</td><td>301.160</td><td>27.93020</td><td>50</td><td>3.949926</td><td>49</td></tr>
-	<tr><td>Upstream  </td><td>332.382</td><td>29.67265</td><td>50</td><td>4.196347</td><td>49</td></tr>
-</tbody>
-</table>
-
-
 
 
 ```R
@@ -308,12 +222,6 @@ ggplot(fish_data, aes(x = Length_cm, y = Weight_g, color = Lake)) +
 ```
 
 
-    
-![png](03_T-test_files/03_T-test_13_0.png)
-    
-
-
-
 ```R
 ggplot(fish_data, aes(x = Length_cm)) +
   geom_histogram(position = "identity", alpha = 0.6, bins = 15) +
@@ -322,12 +230,6 @@ ggplot(fish_data, aes(x = Length_cm)) +
        y = "Count") +
   theme_minimal()
 ```
-
-
-    
-![png](03_T-test_files/03_T-test_14_0.png)
-    
-
 
 
 ```R
@@ -340,21 +242,10 @@ ggplot(fish_data, aes(x = Length_cm, fill = Lake)) +
 ```
 
 
-    
-![png](03_T-test_files/03_T-test_15_0.png)
-    
-
-
-
 ```R
 # EXERCISE: PLOT THE DISTRIBUTION OF THE FISH WEIGHT
 
-ggplot(fish_data, aes(x = Weight_g, fill = Lake)) +
-  geom_histogram(position = "identity", alpha = 0.6, bins = 15) +
-  labs(title = "Distribution of Fish Weight",
-       x = "Weight (g)",
-       y = "Count") +
-  theme_minimal()
+
 
 
 
@@ -363,12 +254,6 @@ ggplot(fish_data, aes(x = Weight_g, fill = Lake)) +
 
 
 ```
-
-
-    
-![png](03_T-test_files/03_T-test_16_0.png)
-    
-
 
 
 ```R
@@ -393,12 +278,6 @@ ggplot(weight_summary, aes(x = Lake, y = mean_weight, fill = Lake)) +
 ```
 
 
-    
-![png](03_T-test_files/03_T-test_17_0.png)
-    
-
-
-
 ```R
 ggplot(fish_data, aes(x = Lake, y = Length_cm, fill = Lake)) +
   geom_boxplot() +
@@ -407,12 +286,6 @@ ggplot(fish_data, aes(x = Lake, y = Length_cm, fill = Lake)) +
        y = "Length (cm)") +
   theme_minimal()
 ```
-
-
-    
-![png](03_T-test_files/03_T-test_18_0.png)
-    
-
 
 
 ```R
@@ -516,18 +389,6 @@ cohens_d    # how big is the effect?
 ```
 
 
--0.606847090759995
-
-
-
-0.545355751938675
-
-
-
--0.121377773219944
-
-
-
 ```R
 # Use your computed t_value and df
 # For example:
@@ -565,12 +426,6 @@ ggplot(data.frame(x = x_vals, y = y_vals), aes(x, y)) +
 ```
 
 
-    
-![png](03_T-test_files/03_T-test_23_0.png)
-    
-
-
-
 ```R
 ### Independent t-tests, the easy way
 
@@ -582,21 +437,6 @@ t_result
 t_value <- t_result$statistic  # this is named "t"
 df <- t_result$parameter       # this is named "df"
 ```
-
-
-    
-    	Two Sample t-test
-    
-    data:  fish_upstream$Length_cm and fish_downstream$Length_cm
-    t = -0.60685, df = 98, p-value = 0.5454
-    alternative hypothesis: true difference in means is not equal to 0
-    95 percent confidence interval:
-     -1.4262226  0.7582226
-    sample estimates:
-    mean of x mean of y 
-       28.102    28.436 
-
-
 
 ### 3.EXERCISE!🐟 Independent t-test: Upstream vs Downstream Fish Weight 🐟 
 Using the example above, decide whether there are differences in the fish weight between the two population!
