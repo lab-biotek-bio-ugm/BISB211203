@@ -280,4 +280,3 @@ dependencies:
       - vl-convert-python==1.7.0
       - widgetsnbextension==4.0.13
       - xyzservices==2025.1.0
-prefix: /home/matinnu/apps/miniforge3/envs/BISB211203
