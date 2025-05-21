@@ -183,8 +183,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#how-to-run-the-practice-sessions" id="toc-how-to-run-the-practice-sessions" class="nav-link active" data-scroll-target="#how-to-run-the-practice-sessions"><span class="header-section-number">5.1</span> 🧪 How to Run the Practice Sessions</a>
+  <ul class="collapse">
+  <li><a href="#run-on-github-codespaces-and-open-in-vs-code" id="toc-run-on-github-codespaces-and-open-in-vs-code" class="nav-link" data-scroll-target="#run-on-github-codespaces-and-open-in-vs-code"><span class="header-section-number">5.1.1</span> 🔧 Run on GitHub Codespaces and Open in VS Code</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -208,19 +217,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>🧪 How to Run the Practice Sessions Welcome to BISB211203 – Biostatistics for Life Sciences. This course includes hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on GitHub Codespaces or on your own computer. Follow the instructions below to get started:</p>
-<p>🔧 Option 1: Run on GitHub Codespaces (Recommended) GitHub Codespaces allows you to run everything in your browser — no need to install anything on your computer.</p>
-<p>Steps: Go to the course repository: https://github.com/lab-biotek-bio-ugm/BISB211203</p>
-<p>Click the green “Code” button, then choose “Open with Codespaces” → “New codespace”.</p>
-<p>After the Codespace loads, open the terminal and run the following commands:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> init</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Then close and reopen the terminal</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate BISB211203</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The JupyterLab interface will launch in your browser. You can now open the notebooks (e.g., 03_T-test.ipynb) and start the exercises.</p>
+<section id="how-to-run-the-practice-sessions" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="how-to-run-the-practice-sessions"><span class="header-section-number">5.1</span> 🧪 How to Run the Practice Sessions</h2>
+<p>In the final part of the course, we include hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on <code>GitHub Codespaces</code> or on your own computer. You will need to create a GitHub account and install VS Code in your computer first.</p>
+<p>Follow the instructions below to get started:</p>
+<section id="run-on-github-codespaces-and-open-in-vs-code" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="run-on-github-codespaces-and-open-in-vs-code"><span class="header-section-number">5.1.1</span> 🔧 Run on GitHub Codespaces and Open in VS Code</h3>
+<p><code>GitHub Codespaces</code> allows you to run things in the cloud with VS code as the interface.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li><p>Go to the course repository: <a href="https://github.com/lab-biotek-bio-ugm/BISB211203">https://github.com/lab-biotek-bio-ugm/BISB211203</a></p></li>
+<li><p>Click the green <code>“Code”</code> button, then choose <code>“Open with Codespaces”</code> → <code>“New codespace”</code>.</p></li>
+<li><p>Open a new tab and open <a href="https://github.com/codespaces">https://github.com/codespaces</a>. Find your Virtual Machine, at the bottom and click the three dots <code>"..."</code> on the right of the VM, then load the codespace in Visual Studio.</p></li>
+<li><p>After the Codespace loads, open the terminal and run the following commands:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>It will ask you to close and reopen the terminal. You can do this by clicking the <code>+</code> button on the right top corner of the terminal.</p></li>
+<li><p>Create the environment by:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Activate the environment by:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate BISB211203</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Launch JupyterLab by running:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>The JupyterLab interface will launch in your browser. If it does not open automatically, copy the URL displayed in the terminal (e.g., starting with <code>http://127.0.0.1:8888</code>) and paste it into your browser.</p></li>
+<li><p>You can now open the notebooks (e.g., <code>03_T-test.ipynb</code>) and start the exercises.</p></li>
+</ol>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

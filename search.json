@@ -124,7 +124,17 @@
     "href": "03_practice.html",
     "title": "5  Pendalaman Materi 3",
     "section": "",
-    "text": "🧪 How to Run the Practice Sessions Welcome to BISB211203 – Biostatistics for Life Sciences. This course includes hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on GitHub Codespaces or on your own computer. Follow the instructions below to get started:\n🔧 Option 1: Run on GitHub Codespaces (Recommended) GitHub Codespaces allows you to run everything in your browser — no need to install anything on your computer.\nSteps: Go to the course repository: https://github.com/lab-biotek-bio-ugm/BISB211203\nClick the green “Code” button, then choose “Open with Codespaces” → “New codespace”.\nAfter the Codespace loads, open the terminal and run the following commands:\nconda init\n# Then close and reopen the terminal\nconda env create -f environment.yml\nconda activate BISB211203\njupyter lab\nThe JupyterLab interface will launch in your browser. You can now open the notebooks (e.g., 03_T-test.ipynb) and start the exercises.",
+    "text": "5.1 🧪 How to Run the Practice Sessions\nIn the final part of the course, we include hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on GitHub Codespaces or on your own computer. You will need to create a GitHub account and install VS Code in your computer first.\nFollow the instructions below to get started:",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pendalaman Materi 3</span>"
+    ]
+  },
+  {
+    "objectID": "03_practice.html#how-to-run-the-practice-sessions",
+    "href": "03_practice.html#how-to-run-the-practice-sessions",
+    "title": "5  Pendalaman Materi 3",
+    "section": "",
+    "text": "5.1.1 🔧 Run on GitHub Codespaces and Open in VS Code\nGitHub Codespaces allows you to run things in the cloud with VS code as the interface.\nSteps:\n\nGo to the course repository: https://github.com/lab-biotek-bio-ugm/BISB211203\nClick the green “Code” button, then choose “Open with Codespaces” → “New codespace”.\nOpen a new tab and open https://github.com/codespaces. Find your Virtual Machine, at the bottom and click the three dots \"...\" on the right of the VM, then load the codespace in Visual Studio.\nAfter the Codespace loads, open the terminal and run the following commands:\nconda init\nIt will ask you to close and reopen the terminal. You can do this by clicking the + button on the right top corner of the terminal.\nCreate the environment by:\nconda env create -f environment.yml\nActivate the environment by:\nconda activate BISB211203\nLaunch JupyterLab by running:\njupyter lab\nThe JupyterLab interface will launch in your browser. If it does not open automatically, copy the URL displayed in the terminal (e.g., starting with http://127.0.0.1:8888) and paste it into your browser.\nYou can now open the notebooks (e.g., 03_T-test.ipynb) and start the exercises.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pendalaman Materi 3</span>"
     ]
