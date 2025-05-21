@@ -25,7 +25,7 @@ jupyter lab
 
 This will open the interactive Jupyter environment where you can follow the course materials for each session:
 - [T test](03_T-test.ipynb)
-- [T test](04_ANOVA.ipynb)
+- [ANOVA](04_ANOVA.ipynb)
 
 ## Returning Users
 
