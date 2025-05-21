@@ -1,3 +1,7 @@
+---
+title: "Pendalaman Materi 3"
+---
+
 🧪 How to Run the Practice Sessions
 Welcome to BISB211203 – Biostatistics for Life Sciences. This course includes hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on GitHub Codespaces or on your own computer. Follow the instructions below to get started:
 
