@@ -23,6 +23,7 @@ book:
     - 01_assignments_1.qmd
     - 02_assignments_2.qmd
     - tapak_dara.qmd
+    - 03_practice.qmd
     - references.qmd
   page-footer:
     left: "Copyright 2025, Universitas Gadjah Mada"
