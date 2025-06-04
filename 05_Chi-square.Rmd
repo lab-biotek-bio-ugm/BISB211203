@@ -1,0 +1,305 @@
+# Chi-square Test
+## What is the Chi-Square Test?
+The Chi-Square Test of Independence helps us answer:
+
+- Is there a relationship between two categorical variables?
+- Or are they independent?
+
+It compares the observed frequencies (what we actually see) to the expected frequencies (what we would expect if the variables were not related).
+
+
+```R
+library(palmerpenguins)
+library(ggplot2)
+library(dplyr)
+library(ggrepel)
+library(ggthemes)
+```
+
+## 📦 Example: Penguins on Islands
+Let's take a look at our penguin dataset again.
+How are the penguins distributed in the three islands?
+
+<div style="position: relative; display: inline-block;">
+
+  <!-- Map background -->
+  <img src="assets/figures/penguins_palmer_archipelago.png" style="width: 100%;">
+
+  <!-- Penguin overlay centered -->
+  <img src="https://github.com/allisonhorst/palmerpenguins/raw/main/man/figures/lter_penguins.png"
+       style="
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         width: 40%;
+         border: 2px solid white;
+         box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+         border-radius: 4px;">
+</div>
+
+### Observed Frequencies (O)
+
+
+```R
+df <- na.omit(penguins)
+
+# Create observed contingency table
+penguin_table <- table(df$species, df$island)
+as.data.frame.matrix(penguin_table)
+```
+
+It seems that there are some preferences of the penguins to live in a certain island? Don't you think so?
+
+Let's test this question:
+> **Is species distribution associated with the islands?**
+
+### Expected Frequencies (E)
+If there's no association, the penguins would be distributed proportionally in each island.
+
+We can use this formula to calculate the expected frequency in each island.
+
+$E_{ij} = \frac{(\text{row total}_i) \times (\text{column total}_j)}{\text{grand total}}$
+
+So the Expected Table is:
+
+
+```R
+# Get totals
+row_totals <- rowSums(penguin_table)
+col_totals <- colSums(penguin_table)
+grand_total <- sum(penguin_table)
+
+# Manually compute expected frequency matrix
+expected_matrix <- outer(row_totals, col_totals, FUN = function(r, c) (r * c) / grand_total)
+
+# Round to nearest integer
+expected_matrix <- round(expected_matrix)
+
+# Assign row and column names
+rownames(expected_matrix) <- rownames(penguin_table)
+colnames(expected_matrix) <- colnames(penguin_table)
+
+# View expected frequencies
+expected_matrix
+```
+
+Let's compare the observed and expected values side by side:
+
+
+```R
+# Extract observed and expected
+observed <- as.numeric(penguin_table)
+expected <- as.numeric(expected_matrix)
+
+# Combine into a data frame with labels
+species <- rep(rownames(penguin_table), times = ncol(penguin_table))
+island <- rep(colnames(penguin_table), each = nrow(penguin_table))
+
+observation_table <- data.frame(
+  Species = species,
+  Island = island,
+  Observed = observed,
+  Expected = round(expected, 2)
+)
+
+observation_table
+```
+
+## Calculating the Chi-square
+
+The Chi-Square test statistic tells us **how different** the observed data is from what we would expect under the assumption that the two categorical variables are independent.
+
+We use the following formula:
+
+$$
+\chi^2 = \sum \frac{(O - E)^2}{E}
+$$
+
+Where:
+
+- $( O )$ = observed frequency (what we actually counted)
+- $( E )$ = expected frequency (what we would expect if there were no association)
+- $( \chi^2 )$ = the total test statistic, measuring the overall difference between observed and expected
+
+---
+
+### 🔍 How does it work?
+
+We go through each cell of the contingency table and compute:
+
+$$
+\frac{(O - E)^2}{E}
+$$
+
+This value will be:
+- **Close to 0** if observed and expected are similar
+- **Larger** when there's a big difference between the two
+
+Then we **sum up** all of these values from every cell to get the total Chi-Square statistic.
+
+---
+
+### 🎯 What does it tell us?
+
+If the resulting $( \chi^2 )$ value is **large enough**, it means the differences between observed and expected are **too big to be due to random chance**.  
+This suggests that the two variables (like *species* and *island*) are **likely associated**.
+
+---
+
+### 📊 Visualize O vs E
+
+To help you better understand where the differences come from, you can make a bar plot comparing observed vs expected frequencies:
+
+
+
+```R
+ggplot(observation_table, aes(x = Island, fill = Species)) +
+  geom_bar(aes(y = Observed), stat = "identity", position = "dodge", alpha = 0.7) +
+  geom_point(aes(y = Expected), shape = 4, size = 3,
+             position = position_dodge(width = 0.9)) +
+  labs(title = "Observed vs Expected Counts",
+       y = "Frequency", caption = "X marks expected values") +
+  theme_minimal()
+```
+
+### Let's Calculate the Chi-Square value
+
+Let's go through each cell of the contingency table and compute:
+
+$$
+\frac{(O - E)^2}{E}
+$$
+
+And at the end, we will create a sum of all the component values
+
+
+```R
+# Calculate chi-square components: (O - E)^2 / E
+component <- (observed - expected)^2 / expected
+
+# Add to the data frame (round if desired)
+observation_table$Component <- round(component, 2)
+
+# View the updated table
+observation_table
+
+# Total chi-square statistic
+cat("Total χ² =", round(sum(component), 2), "\n")
+```
+
+### Degrees of Freedom
+
+So, we got the χ² values, but how do we interpret it? Before we can interpret the value, first we need to calculate the degree of freedom first.
+
+The degrees of freedom (df) for a Chi-Square test in a contingency table is calculated as:
+
+$$
+df = (\text{\#rows} - 1) \times (\text{\#columns} - 1)
+$$
+
+In our case, there are 3 species (rows) and 3 islands (columns):
+
+$$
+df = (3 - 1)(3 - 1) = 2 \times 2 = 4
+$$
+
+We can use the df to find the critical value from a Chi-Square distribution table at a significance level of 0.05.
+
+
+
+```R
+# Parameters
+df_val <- 4
+alpha <- 0.05
+
+# Critical value (right-tail threshold)
+critical_value <- qchisq(p = 1 - alpha, df = df_val)
+
+# Generate x and y for chi-square density curve
+x <- seq(0, critical_value + 10, length.out = 500)
+y <- dchisq(x, df = df_val)
+
+# Plot the Chi-Square distribution
+plot(x, y, type = "l", lwd = 2, col = "#2171B5",
+     ylab = "Density", xlab = expression(chi^2),
+     main = bquote("Chi-Square Distribution (df = " ~ .(df_val) ~ ")"))
+
+# Add vertical line at critical value
+abline(v = critical_value, col = "#c02728", lwd = 2, lty = 2)
+
+# Shade the rejection region (right tail)
+x_shade <- seq(critical_value, max(x), length.out = 100)
+y_shade <- dchisq(x_shade, df = df_val)
+polygon(c(critical_value, x_shade, max(x_shade)),
+        c(0, y_shade, 0),
+        col = "#FF666680", border = NA)
+
+# Annotate the plot
+text(critical_value + 1.5, max(y)*0.5,
+     paste0("Critical value (0.05) = ", round(critical_value, 2)),
+     col = "#c02728")
+
+```
+
+### Interpretation
+
+Now we compare the calculated Chi-Square statistic to the critical value from a Chi-Square distribution table at a significance level of 0.05.
+
+If:
+
+- $( \chi^2 = 284.59 )$
+- $( df = 4 )$
+- Critical value at $( \alpha = 0.05 )$ is **9.49**
+
+Then:
+
+$$
+284.59 > 9.49
+$$
+
+So we **reject the null hypothesis**.
+
+---
+
+✅ **Conclusion**:  
+- There is a **statistically significant relationship** between penguin species and the islands where they are found.  
+- The distribution is **not uniform** and likely reflects ecological or behavioral preferences.
+
+## Running chi-square test in R
+
+R has a neat chi-square package, so we can directly use the library instead of calculating it manually:
+
+
+```R
+# Run the chi-square test
+chi <- chisq.test(penguin_table)
+
+chi
+```
+
+Let us also visualize the result:
+
+
+```R
+# Extract test statistic and df
+chi_stat <- chi$statistic
+df_val <- chi$parameter
+
+# Create x values for chi-square density
+x <- seq(0, chi_stat + 20, length.out = 500)
+y <- dchisq(x, df = df_val)
+
+# Plot
+plot(x, y, type = "l", lwd = 2, col = "#2171B5",
+     ylab = "Density", xlab = expression(chi^2),
+     main = paste("Chi-Square Distribution (df =", df_val, ")"))
+
+# Add vertical line at test statistic
+abline(v = chi_stat, col = "#c02728", lwd = 2, lty = 2)
+
+# Annotate
+text(chi_stat + 2, max(y)*0.8,
+     labels = paste0("X² = ", round(chi_stat, 2)),
+     col = "#c02728")
+```
