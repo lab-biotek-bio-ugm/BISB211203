@@ -23,7 +23,7 @@ How are the penguins distributed in the three islands?
 <div style="position: relative; display: inline-block;">
 
   <!-- Map background -->
-  <img src="assets/figures/penguins_palmer_archipelago.png" style="width: 100%;">
+  <img src="https://raw.githubusercontent.com/lab-biotek-bio-ugm/BISB211203/refs/heads/main/assets/figures/penguins_palmer_archipelago.png" style="width: 100%;">
 
   <!-- Penguin overlay centered -->
   <img src="https://github.com/allisonhorst/palmerpenguins/raw/main/man/figures/lter_penguins.png"

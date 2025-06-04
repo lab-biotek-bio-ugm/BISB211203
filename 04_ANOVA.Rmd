@@ -52,8 +52,21 @@ library(ggstatsplot)
 
 
 ```R
+summary(penguins)
+```
+
+
+```R
+#nrow(penguins)
 df <- na.omit(penguins)
+#nrow(df)
 head(df)
+write.csv(df, "assets/data/penguin_clean.csv", row.names = FALSE)
+```
+
+
+```R
+summary(df)
 ```
 
 
