@@ -9,9 +9,13 @@ _book/
 # knitted output directories (e.g. 03_T-test_files/)
 *_files/
 
-# renv (project uses conda, not renv)
-renv/
-renv.lock
+# renv
+renv/library/
+renv/local/
+renv/cellar/
+renv/python/
+renv/sandbox/
+renv/staging/
 
 # Jupyter
 .ipynb_checkpoints/
@@ -28,6 +32,3 @@ Thumbs.db
 
 # Student personal copies (from update workflow)
 *_personal_copy*.Rmd
-
-/.quarto/
-/.opencode/

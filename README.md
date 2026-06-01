@@ -2,33 +2,35 @@
 
 > Open **BISB211203.Rproj** in RStudio to get started.
 
-## 🚀 Getting Started
+## Getting Started
 
-### 1. Setting up the Environment
+### Clone the Repository
 
-Make sure [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is installed.
+**From RStudio (recommended):**
+1. File → New Project → Version Control → Git
+2. Enter repository URL: `https://github.com/lab-biotek-bio-ugm/BISB211203`
+3. Click "Create Project"
 
+**From terminal:**
 ```bash
-conda env create -f environment.yml
-conda activate BISB211203
+git clone https://github.com/lab-biotek-bio-ugm/BISB211203
+cd BISB211203
 ```
 
-### 2. Launch RStudio
+### Restore Packages with renv
 
-```bash
-rstudio BISB211203.Rproj
+This project uses [renv](https://rstudio.github.io/renv/) for package management. renv creates a project-local library so all students get the exact same package versions.
+
+On first open of `BISB211203.Rproj`, RStudio will prompt: *"A renv environment was detected. Would you like to activate it?"* → Click **Yes**.
+
+If renv doesn't activate automatically, run in the R console:
+```r
+renv::restore()
 ```
 
-Or open `BISB211203.Rproj` directly from RStudio's File menu.
+This installs all required packages from `renv.lock` into a project-local library. No system-wide package installation is needed.
 
-### 3. Install Packages (if needed)
-
-For fresh R installations:
-```bash
-Rscript setup.R
-```
-
-### 4. Start Learning
+### Start Learning
 
 Open any `.Rmd` file and click **"Knit"** or **"Run All"** (Ctrl+Shift+Enter).
 
@@ -36,7 +38,12 @@ Open any `.Rmd` file and click **"Knit"** or **"Run All"** (Ctrl+Shift+Enter).
 
 ```bash
 git fetch
-git status
+git pull
+```
+
+If `renv.lock` has been updated, restore packages:
+```r
+renv::restore()
 ```
 
 If you want to keep your changes in a file:
@@ -44,9 +51,4 @@ If you want to keep your changes in a file:
 cp 00_r-basics.Rmd 00_r-basics_personal_copy.Rmd
 git stash
 git pull
-```
-
-If there are changes in the environment:
-```bash
-conda env update -f environment.yml
 ```
