@@ -155,6 +155,7 @@ dependencies:
   - r-ggside=0.4.1=r45hc72bb7e_0
   - r-ggsignif=0.6.4=r45hc72bb7e_3
   - r-ggstatsplot=1.0.0=r45hc72bb7e_0
+  - r-ggthemes=5.2.0=r45hc72bb7e_0
   - r-globals=0.19.1=r45hc72bb7e_0
   - r-glue=1.8.1=r45h54b55ab_0
   - r-gmp=0.7_5.1=r45h3697838_0
@@ -304,3 +305,4 @@ dependencies:
   - xorg-libxrender=0.9.12=hb9d3cd8_0
   - xorg-libxt=1.3.1=hb9d3cd8_0
   - zstd=1.5.7=hb78ec9c_6
+
