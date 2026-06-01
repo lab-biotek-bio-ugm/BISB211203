@@ -1,0 +1,250 @@
+---
+title: "Pengantar R dan `RStudio`"
+subtitle: "Dasar-dasar R untuk Biostatistika"
+author:
+  - Tim Pengampu Biostatistika
+date: "2026-06-01"
+output: html_document
+---
+
+## Tujuan Pembelajaran
+
+Setelah sesi ini, mahasiswa akan mampu:
+
+| Mengetahui | Memahami | Melakukan |
+|------------------------|------------------------|------------------------|
+| Operator assignment `<-` | R menyimpan data dalam objek yang dapat diperiksa, disubsetting, dan divisualisasikan | Memuat dataset dengan `read.delim()` |
+| Tipe data (`numeric`, `character`, `factor`, `data.frame`) | Objek yang sama dapat dieksplorasi dengan berbagai cara | Memeriksa struktur data dengan `str()` dan `summary()` |
+| Fungsi dasar: `head()`, `str()`, `summary()` |  | Membuat visualisasi dasar dengan `ggplot2` |
+| Paket R dan cara memuatnya (`library()`) |  |  |
+
+## Mengenal `RStudio`
+
+`RStudio` adalah *Integrated Development Environment* (IDE) untuk R. Saat Anda membuka `RStudio`, Anda akan melihat empat panel:
+
+| Panel | Lokasi | Fungsi |
+|------------------------|------------------------|------------------------|
+| **Console** | Kiri bawah | Tempat R mengeksekusi kode dan menampilkan output |
+| **Source Editor** | Kiri atas | Tempat menulis dan menyimpan script (.R files) |
+| **Environment** | Kanan atas | Menampilkan objek yang ada di memori R |
+| **Files/Plots/Packages/Help** | Kanan bawah | Tab untuk navigasi file, melihat plot, mengelola paket, dan dokumentasi |
+
+> **Think-aloud (I Do):** "Saya membuka `RStudio` dan melihat empat panel. Panel yang paling sering saya gunakan adalah Console untuk menjalankan kode dan Source Editor untuk menulis script panjang. Ketika saya menjalankan kode di Console, objek yang saya buat akan muncul di panel Environment."
+
+## Objek dan Assignment
+
+Dalam R, kita menyimpan data dalam *objek* menggunakan operator assignment `<-`:
+
+```{r}
+# Membuat objek bernama 'x' yang berisi angka 5
+x <- 5
+
+# Membuat objek bernama 'nama' yang berisi teks
+nama <- "BISB211203"
+
+# Membuat objek bernama 'angka' yang berisi deret angka
+angka <- c(1, 2, 3, 4, 5)
+
+# Melihat isi objek
+x
+nama
+angka
+```
+
+> **Mengapa `<-` bukan `=`?** Keduanya bisa digunakan, tetapi `<-` adalah konvensi R. Ini membuat kode lebih mudah dibaca dan konsisten dengan kode yang ditulis oleh komunitas R.
+
+> **Self-explanation prompts:**\
+> 1. Mengapa kita perlu menyimpan data dalam objek? Apa bedanya langsung mengetik `5 + 3` vs `x <- 5; x + 3`?\
+> 2. Apa yang terjadi jika kita menjalankan `x <- 10` setelah sebelumnya `x <- 5`?
+
+## Tipe Data Dasar
+
+`R` memiliki beberapa tipe data yang penting untuk diketahui:
+
+```{r}
+# Numeric (angka)
+panjang <- c(12.5, 13.2, 11.8, 14.0)
+class(panjang)  # "numeric"
+
+# Character (teks)
+spesies <- c("setosa", "versicolor", "virginica")
+class(spesies)  # "character"
+
+# Factor (kategori)
+# Penting untuk data kategorikal dalam statistik
+kelompok <- factor(c("A", "B", "A", "C", "B"))
+class(kelompok)  # "factor"
+
+# Logical (TRUE/FALSE)
+hasil <- c(TRUE, FALSE, TRUE)
+class(hasil)  # "logical"
+```
+
+> **Mengapa factor penting?** Dalam statistik, factor digunakan untuk variabel kategorikal (jenis spesies, perlakuan, jenis tanah). R akan memperlakukan factor secara berbeda dari character — factor memiliki *levels* (tingkat kategori) yang digunakan dalam analisis.
+
+## Memuat dan Memeriksa Data
+
+![](https://www.embedded-robotics.com/wp-content/uploads/2022/01/Iris-Dataset-Classification-768x275.png
+)
+
+### Membaca File
+
+```{r}
+# Membaca file TSV
+iris_data <- read.delim("assets/data/iris_dataset.tsv")
+```
+
+### Memeriksa Struktur Data
+
+```{r}
+# Melihat 6 baris pertama
+head(iris_data)
+
+# Melihat struktur lengkap data
+str(iris_data)
+
+# Melihat ringkasan statistik
+summary(iris_data)
+```
+
+> **Think-aloud (I Do):** "Saya menjalankan `str(iris_data)` dan melihat bahwa data ini memiliki 150 observasi dan 5 variabel. Variabel 'sepal length' adalah numeric (angka), 'class' adalah factor (kategori). Ini penting karena saya akan menggunakan jenis data yang berbeda untuk analisis yang berbeda."
+
+### _Hinge Question_
+
+> **Sebelum melanjutkan tutorial ini, coba jawab pertanyaan berikut:** Anda menjalankan `str(data_mahasiswa)` dan melihat output: `Factor w/ 3 levels "A","B","C": 1 1 2 3 2 1`. Apa arti "Factor w/ 3 levels"?
+>
+> A)  Data memiliki 3 baris
+> B)  Kolom ini berisi 3 kategori (variabel kategorikal)
+> C)  Ada 3 kolom dalam dataset
+> D)  Nilainya diurutkan 1, 2, 3
+>
+> **Jawaban: B.** Ini adalah variabel kategorikal dengan 3 level kategori.
+
+## Subsetting Data
+
+Subsetting berarti mengambil sebagian data dari dataset:
+
+```{r}
+# Mengambil kolom tertentu menggunakan $
+iris_data$`sepal.length`
+
+# Mengambil baris tertentu menggunakan [ ]
+iris_data[1:5, ]  # 5 baris pertama, semua kolom
+
+# Mengambil kolom dan baris tertentu
+iris_data[1:5, 1:3]  # 5 baris pertama, 3 kolom pertama
+
+# Filter dengan dplyr
+library(dplyr)
+iris_setosa <- filter(iris_data, `class` == "Iris-setosa")
+head(iris_setosa)
+```
+
+## Visualisasi Dasar dengan ggplot2
+
+### Memuat ggplot2
+
+```{r}
+library(ggplot2)
+```
+
+### Histogram
+
+```{r}
+ggplot(iris_data, aes(x = `sepal.length`)) +
+  geom_histogram(binwidth = 0.5, fill = "steelblue", color = "white") +
+  labs(title = "Distribusi Panjang Sepal",
+        x = "Panjang Sepal (cm)",
+        y = "Frekuensi") +
+  theme_minimal()
+```
+
+### Boxplot
+
+```{r}
+ggplot(iris_data, aes(x = `class`, y = `sepal.length`, fill = `class`)) +
+  geom_boxplot() +
+  labs(title = "Perbandingan Panjang Sepal Antar Spesies",
+        x = "Spesies",
+        y = "Panjang Sepal (cm)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+**Think-aloud (I Do):** "Dalam ggplot2, saya selalu memulai dengan `ggplot(data, aes(...))` yang menentukan data dan aesthetic mapping (x dan y). Kemudian saya menambahkan *layer* dengan `geom_*` — `geom_histogram()` untuk distribusi, `geom_boxplot()` untuk perbandingan kelompok. `labs()` memberi judul dan label, `theme_minimal()` memberi tampilan yang bersih."
+
+## Latihan (You Do)
+
+Sekarang giliran Anda! Ikuti langkah-langkah berikut secara mandiri:
+
+### Latihan 1: Eksplorasi Dataset Tapak Dara
+
+1.  Muat dataset `morfologi_tapak_dara.tsv`:
+
+    ```{r eval=FALSE}
+    tapak_dara <- read.delim("assets/data/morfologi_tapak_dara.tsv")
+    ```
+
+2.  Periksa struktur data:
+
+    ```{r eval=FALSE}
+    str(tapak_dara)
+    summary(tapak_dara)
+    ```
+
+3.  Buat histogram untuk variabel `plant.height`:
+
+    ```{r eval=FALSE}
+    ggplot(tapak_dara, aes(x = plant.height)) +
+      geom_histogram(binwidth = 5, fill = "forestgreen", color = "white") +
+      labs(title = "Distribusi Tinggi Tanaman Tapak Dara",
+           x = "Tinggi Tanaman (cm)",
+           y = "Frekuensi") +
+      theme_minimal()
+    ```
+
+### Latihan 2: Perbandingan Kelompok
+
+1.  Buat boxplot `plant_height` berdasarkan lokasi (`label`):
+
+    ```{r eval=FALSE}
+    ggplot(tapak_dara, aes(x = label, y = plant.height, fill = label)) +
+      geom_boxplot() +
+      labs(title = "Perbandingan Tinggi Tanaman Berdasarkan Lokasi",
+           x = "Lokasi",
+           y = "Tinggi Tanaman (cm)") +
+      theme_minimal() +
+      theme(legend.position = "none")
+    ```
+
+2.  Hitung statistik deskriptif per kelompok:
+
+    ```{r eval=FALSE}
+    tapak_dara %>%
+      group_by(label) %>%
+      summarise(
+        n = n(),
+        mean_height = mean(plant.height),
+        sd_height = sd(plant.height)
+      )
+    ```
+
+### Latihan 3: _Challenges_
+
+Coba buat visualisasi yang berbeda dari dataset iris:  
+- Histogram untuk `petal width`  
+- Boxplot `petal length` per spesies  
+- Scatter plot `sepal length` vs `sepal width` dengan warna berdasarkan spesies
+
+## Ringkasan
+
+Dalam sesi ini, kita telah mempelajari:  
+- Empat panel `RStudio` dan fungsinya  
+- Objek dan assignment dengan `<-`  
+- Tipe data dasar: numeric, character, factor, logical  
+- Membaca data dengan `read.delim()`  
+- Memeriksa data dengan `str()`, `summary()`, `head()`  
+- Subsetting data dengan `$`, `[ ]`, dan `dplyr::filter()`  
+- Visualisasi dasar dengan `ggplot2`: histogram dan boxplot  
+
+Di sesi berikutnya, kita akan menggunakan kemampuan ini untuk melakukan analisis statistik yang lebih mendalam — dimulai dengan **T-test**.

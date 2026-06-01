@@ -1,3 +1,33 @@
-/.quarto/
-.ipynb_checkpoints/
+# Quarto render output
 _book/
+.quarto/
+
+# RStudio
+.Rproj.user
+.Rhistory
+
+# knitted output directories (e.g. 03_T-test_files/)
+*_files/
+
+# renv (project uses conda, not renv)
+renv/
+renv.lock
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Student personal copies (from update workflow)
+*_personal_copy*.Rmd
+
+/.quarto/
+/.opencode/
