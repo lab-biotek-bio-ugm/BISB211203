@@ -1,0 +1,329 @@
+# Tes Chi-Square
+
+## Latihan Retrieval & Pengantar
+
+> **Latihan Retrieval:** Sebelum mempelajari Chi-square, coba ingat kembali:
+> - Apa perbedaan antara variabel kategorikal dan variabel numerik?
+> - Berikan contoh variabel kategorikal dalam penelitian biologi!
+> - Bagaimana cara menyajikan data kategorikal dalam tabel?
+
+## Apa itu Tes Chi-Square?
+
+Tes Chi-Square of Independence membantu kita menjawab:
+
+- Apakah ada hubungan antara dua variabel kategorikal?
+- Atau apakah mereka independen?
+
+Ini membandingkan frekuensi yang diamati (yang sebenarnya kita lihat) dengan frekuensi yang diharapkan (yang akan kita harapkan jika variabel-variabel tersebut tidak berhubungan).
+
+> **Pertanyaan Hinge:** Anda sedang meneliti apakah jenis tanah (lempung, berpasir, liat) mempengaruhi jenis tanaman yang tumbuh (bunga, sayur, pohon). Variabel apa yang kategorikal?
+>
+> A) Hanya jenis tanah
+> B) Hanya jenis tanaman
+> C) Kedua variabel (jenis tanah DAN jenis tanaman)
+> D) Tidak ada variabel kategorikal
+>
+> **Jawaban: C.** Kedua variabel adalah kategorikal — Chi-square test digunakan untuk menguji hubungan antara dua variabel kategorikal.
+
+
+```R
+library(palmerpenguins)
+library(ggplot2)
+library(dplyr)
+library(ggrepel)
+library(ggthemes)
+```
+
+## Contoh: Penguin di Pulau
+
+Mari kita lihat dataset penguin kita lagi.
+Bagaimana penguin terdistribusi di ketiga pulau?
+
+<div style="position: relative; display: inline-block;">
+
+  <!-- Map background -->
+  <img src="https://raw.githubusercontent.com/lab-biotek-bio-ugm/BISB211203/refs/heads/main/assets/figures/penguins_palmer_archipelago.png" style="width: 100%;">
+
+  <!-- Penguin overlay centered -->
+  <img src="https://github.com/allisonhorst/palmerpenguins/raw/main/man/figures/lter_penguins.png"
+       style="
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         width: 40%;
+         border: 2px solid white;
+         box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+         border-radius: 4px;">
+</div>
+
+### Frekuensi yang Diamati (O)
+
+
+```R
+df <- na.omit(penguins)
+
+# Buat tabel kontingensi yang diamati
+penguin_table <- table(df$species, df$island)
+as.data.frame.matrix(penguin_table)
+```
+
+Tampaknya ada beberapa preferensi penguin untuk tinggal di pulau tertentu? Apakah Anda tidak setuju?
+
+Mari kita uji pertanyaan ini:
+> **Apakah distribusi spesies terkait dengan pulau-pulau?**
+
+### Frekuensi yang Diharapkan (E)
+Jika tidak ada asosiasi, penguin akan terdistribusi secara proporsional di setiap pulau.
+
+Kita dapat menggunakan formula ini untuk menghitung frekuensi yang diharapkan di setiap pulau.
+
+$E_{ij} = \frac{(\text{total baris}_i) \times (\text{total kolom}_j)}{\text{total keseluruhan}}$
+
+Jadi Tabel yang Diharapkan adalah:
+
+
+```R
+# Dapatkan total
+row_totals <- rowSums(penguin_table)
+col_totals <- colSums(penguin_table)
+grand_total <- sum(penguin_table)
+
+# Hitung manual matriks frekuensi yang diharapkan
+expected_matrix <- outer(row_totals, col_totals, FUN = function(r, c) (r * c) / grand_total)
+
+# Bulatkan ke bilangan bulat terdekat
+expected_matrix <- round(expected_matrix)
+
+# Berikan nama baris dan kolom
+rownames(expected_matrix) <- rownames(penguin_table)
+colnames(expected_matrix) <- colnames(penguin_table)
+
+# Lihat frekuensi yang diharapkan
+expected_matrix
+```
+
+Mari bandingkan nilai yang diamati dan yang diharapkan side by side:
+
+
+```R
+# Ekstrak yang diamati dan yang diharapkan
+observed <- as.numeric(penguin_table)
+expected <- as.numeric(expected_matrix)
+
+# Gabungkan menjadi data frame dengan label
+species <- rep(rownames(penguin_table), times = ncol(penguin_table))
+island <- rep(colnames(penguin_table), each = nrow(penguin_table))
+
+observation_table <- data.frame(
+  Species = species,
+  Island = island,
+  Observed = observed,
+  Expected = round(expected, 2)
+)
+
+observation_table
+```
+
+## Menghitung Chi-Square
+
+Statistik tes Chi-Square memberi tahu kita **seberapa berbeda** data yang diamati dari yang kita harapkan berdasarkan asumsi bahwa dua variabel kategorikal independen.
+
+Kita menggunakan formula berikut:
+
+$$
+\chi^2 = \sum \frac{(O - E)^2}{E}
+$$
+
+Di mana:
+
+- $( O )$ = frekuensi yang diamati (yang sebenarnya kita hitung)
+- $( E )$ = frekuensi yang diharapkan (yang akan kita harapkan jika tidak ada asosiasi)
+- $( \chi^2 )$ = statistik tes total, mengukur perbedaan keseluruhan antara yang diamati dan yang diharapkan
+
+---
+
+### Bagaimana Cara Kerjanya?
+
+Kita melewati setiap sel tabel kontingensi dan menghitung:
+
+$$
+\frac{(O - E)^2}{E}
+$$
+
+Nilai ini akan:
+- **Dekat dengan 0** jika yang diamati dan yang diharapkan mirip
+- **Lebih besar** ketika ada perbedaan besar antara keduanya
+
+Kemudian kita **jumlahkan** semua nilai ini dari setiap sel untuk mendapatkan statistik Chi-Square total.
+
+---
+
+### Apa yang Dikatakannya?
+
+Jika nilai $( \chi^2 )$ yang dihasilkan **cukup besar**, ini berarti perbedaan antara yang diamati dan yang diharapkan **terlalu besar untuk disebabkan oleh kebetulan acak**.  
+Ini menunjukkan bahwa dua variabel (seperti *spesies* dan *pulau*) **kemungkinan besar terkait**.
+
+---
+
+### Visualisasi O vs E
+
+Untuk membantu Anda lebih memahami dari mana perbedaan berasal, Anda dapat membuat bar plot yang membandingkan frekuensi yang diamati vs yang diharapkan:
+
+
+
+```R
+ggplot(observation_table, aes(x = Island, fill = Species)) +
+  geom_bar(aes(y = Observed), stat = "identity", position = "dodge", alpha = 0.7) +
+  geom_point(aes(y = Expected), shape = 4, size = 3,
+             position = position_dodge(width = 0.9)) +
+  labs(title = "Frekuensi Diamati vs Diharapkan",
+       y = "Frekuensi", caption = "X menandai nilai yang diharapkan") +
+  theme_minimal()
+```
+
+### Mari Hitung Nilai Chi-Square
+
+Mari kita lewati setiap sel tabel kontingensi dan hitung:
+
+$$
+\frac{(O - E)^2}{E}
+$$
+
+Dan pada akhirnya, kita akan membuat penjumlahan dari semua nilai komponen
+
+
+```R
+# Hitung komponen chi-square: (O - E)^2 / E
+component <- (observed - expected)^2 / expected
+
+# Tambahkan ke data frame (bulatkan jika diinginkan)
+observation_table$Component <- round(component, 2)
+
+# Lihat tabel yang diperbarui
+observation_table
+
+# Statistik chi-square total
+cat("Total χ² =", round(sum(component), 2), "\n")
+```
+
+### Derajat Kebebasan
+
+Jadi, kita mendapat nilai χ², tapi bagaimana kita menginterpretasikannya? Sebelum kita dapat menginterpretasikan nilai tersebut, pertama-tama kita perlu menghitung derajat kebebasan.
+
+Derajat kebebasan (df) untuk tes Chi-Square dalam tabel kontingensi dihitung sebagai:
+
+$$
+df = (\text{\#baris} - 1) \times (\text{\#kolom} - 1)
+$$
+
+Dalam kasus kita, ada 3 spesies (baris) dan 3 pulau (kolom):
+
+$$
+df = (3 - 1)(3 - 1) = 2 \times 2 = 4
+$$
+
+Kita dapat menggunakan df untuk menemukan nilai kritis dari tabel distribusi Chi-Square pada tingkat signifikansi 0.05.
+
+
+
+```R
+# Parameter
+df_val <- 4
+alpha <- 0.05
+
+# Nilai kritis (ambang batas right-tail)
+critical_value <- qchisq(p = 1 - alpha, df = df_val)
+
+# Generate x dan y untuk kurva densitas chi-square
+x <- seq(0, critical_value + 10, length.out = 500)
+y <- dchisq(x, df = df_val)
+
+# Plot distribusi Chi-Square
+plot(x, y, type = "l", lwd = 2, col = "#2171B5",
+     ylab = "Density", xlab = expression(chi^2),
+     main = bquote("Distribusi Chi-Square (df = " ~ .(df_val) ~ ")"))
+
+# Tambahkan garis vertikal di nilai kritis
+abline(v = critical_value, col = "#c02728", lwd = 2, lty = 2)
+
+# Bayangkan daerah penolakan (right tail)
+x_shade <- seq(critical_value, max(x), length.out = 100)
+y_shade <- dchisq(x_shade, df = df_val)
+polygon(c(critical_value, x_shade, max(x_shade)),
+        c(0, y_shade, 0),
+        col = "#FF666680", border = NA)
+
+# Anotasi plot
+text(critical_value + 1.5, max(y)*0.5,
+     paste0("Nilai kritis (0.05) = ", round(critical_value, 2)),
+     col = "#c02728")
+
+```
+
+### Interpretasi
+
+Sekarang kita membandingkan statistik Chi-Square yang dihitung dengan nilai kritis dari tabel distribusi Chi-Square pada tingkat signifikansi 0.05.
+
+Jika:
+
+- $( \chi^2 = 284.59 )$
+- $( df = 4 )$
+- Nilai kritis pada $( \alpha = 0.05 )$ adalah **9.49**
+
+Maka:
+
+$$
+284.59 > 9.49
+$$
+
+Jadi kita **menolak hipotesis nol**.
+
+---
+
+**Kesimpulan**:  
+- Ada **hubungan secara statistik signifikan** antara spesies penguin dan pulau tempat mereka ditemukan.  
+- Distribusi **tidak seragam** dan kemungkinan mencerminkan preferensi ekologis atau perilaku.
+
+## Menjalankan tes chi-square di R
+
+R memiliki paket chi-square yang bagus, jadi kita dapat langsung menggunakan library alih-alih menghitungnya secara manual:
+
+> **Tangga Petunjuk:** Jika Anda bingung cara menghitung Chi-square secara manual:
+> - **Petunjuk 1:** Ingat formula: χ² = Σ(O - E)² / E
+> - **Petunjuk 2:** Hitung frekuensi expected: E = (total baris × total kolom) / total keseluruhan
+> - **Petunjuk 3:** Gunakan `chisq.test()` untuk hasil langsung
+
+
+```R
+# Jalankan tes chi-square
+chi <- chisq.test(penguin_table)
+
+chi
+```
+
+Mari kita juga visualisasikan hasilnya:
+
+
+```R
+# Ekstrak statistik tes dan df
+chi_stat <- chi$statistic
+df_val <- chi$parameter
+
+# Buat nilai x untuk densitas chi-square
+x <- seq(0, chi_stat + 20, length.out = 500)
+y <- dchisq(x, df = df_val)
+
+# Plot
+plot(x, y, type = "l", lwd = 2, col = "#2171B5",
+     ylab = "Density", xlab = expression(chi^2),
+     main = paste("Distribusi Chi-Square (df =", df_val, ")"))
+
+# Tambahkan garis vertikal di statistik tes
+abline(v = chi_stat, col = "#c02728", lwd = 2, lty = 2)
+
+# Anotasi
+text(chi_stat + 2, max(y)*0.8,
+     labels = paste0("X² = ", round(chi_stat, 2)),
+     col = "#c02728")
+```

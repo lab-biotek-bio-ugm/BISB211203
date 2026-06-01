@@ -1,16 +1,33 @@
-## Chapter 1 Introduction to T-tests
+---
+title: "[EN] T-test"
+subtitle: "Comparing Means of Two Groups"
+author:
+  - Biostatistics Teaching Team
+date: "2026-06-01"
+output: html_document
+---
 
-### Understanding the T-distribution
-_adapted from: https://github.com/JoshuaHaden/Intro-to-Statistics-with-R-Student-s-T-test-Data-Camp_
+## Learning Objectives
 
+After this session, students will be able to:
 
-```R
+| Know | Understand | Do |
+|------------------------|------------------------|------------------------|
+| T-test assumptions (normality, homogeneity of variance) | T-test measures how many standard errors separate two means | Perform independent t-test with `t.test()` |
+| Interpretation of t-value, p-value, and Cohen's d | p-value is the probability of seeing such a difference by chance | Calculate descriptive statistics per group |
+| Difference between one-sample, paired, and independent t-tests | Effect size (Cohen's d) provides practical context beyond statistical significance | Visualize t-test results with ggplot2 |
+| Interpretation of t-test results in biological context |  |  |
+
+## Understanding the T-distribution
+
+`R` has the Student's t-distribution, which is similar to the normal distribution but has heavier tails, especially with small degrees of freedom (df).
+
+```{r}
 library(ggplot2)
 library(dplyr)
 ```
 
-
-```R
+```{r}
 # Generate a vector of 100 values between -4 and 4
 n <- 100
 x <- seq(-4, 4, length = n)
@@ -29,18 +46,9 @@ ggplot(df_raw, aes(x = Index, y = Value)) +
   theme_minimal()
 ```
 
-To find the value of probability density function (pdf) of the Student's t-distribution given a random variable x, use the dt() function in R.
+To find the value of the probability density function (pdf) of the Student's t-distribution given a random variable x, use the `dt()` function in `R`.
 
-```
-Syntax: dt(x, df) 
-
-Parameters:
-- x is the quantiles vector
-- df is the degrees of freedom
-```
-
-
-```R
+```{r}
 # Simulate the t-distribution
 y <- dt(x, df = n - 1)
 
@@ -58,12 +66,11 @@ ggplot(df_T, aes(x = Index, y = Value)) +
   theme_minimal()
 ```
 
-
-```R
+```{r}
 # Step 1: Sample from t-distribution
 set.seed(123)
 sample_size <- 30
-sample_data <- rt(sample_size, df = n-1)
+sample_data <- rt(sample_size, df = n - 1)
 sample_mean <- mean(sample_data)
 
 # Step 2: Plot with rug (horizontal tick marks showing sample values)
@@ -71,7 +78,7 @@ tplot <- ggplot(df_T, aes(x = x, y = y)) +
   geom_line(color = "blue", size = 1.2) +
   geom_vline(xintercept = sample_mean, color = "red", linetype = "dashed", size = 1) +
   geom_rug(data = data.frame(x = sample_data), aes(x = x), inherit.aes = FALSE, sides = "b", color = "black", alpha = 0.5) +
-  annotate("text", x = sample_mean, y = max(y)*0.9,
+  annotate("text", x = sample_mean, y = max(y) * 0.9,
            label = paste0("Mean = ", round(sample_mean, 2)), color = "red", hjust = -0.1) +
   labs(title = "T-Distribution with Sample Mean",
        x = "t-value", y = "Density") +
@@ -80,8 +87,7 @@ tplot <- ggplot(df_T, aes(x = x, y = y)) +
 tplot
 ```
 
-
-```R
+```{r}
 # Step 1: Generate multiple samples
 set.seed(123)
 sample_size <- 30
@@ -90,7 +96,7 @@ n_repeats <- 5
 # Store all sample data with sample ID
 samples <- lapply(1:n_repeats, function(i) {
   data.frame(Sample = paste0("Sample ", i),
-             Value = rt(sample_size, df = n-1))
+             Value = rt(sample_size, df = n - 1))
 }) %>% bind_rows()
 
 # Compute means for each sample
@@ -111,7 +117,7 @@ for (i in seq_len(n_repeats)) {
   sample_name <- paste0("Sample ", i)
   sample_vals <- samples %>% filter(Sample == sample_name)
   sample_mean <- sample_means %>% filter(Sample == sample_name) %>% pull(mean)
-  
+
   # Add rug and mean line
   p <- p +
     geom_rug(data = sample_vals, aes(x = Value), inherit.aes = FALSE,
@@ -124,10 +130,9 @@ for (i in seq_len(n_repeats)) {
 p
 ```
 
-The bigger degree of freedom, the closer your T distribution to normal distribution
+> **Why is the t-distribution important?** The larger the degrees of freedom, the closer the t-distribution is to the normal distribution. In practice, when sample size > 30, the t-distribution and normal distribution are nearly identical.
 
-
-```R
+```{r}
 # Create a data frame with all distributions
 df <- data.frame(
   x = rep(x, times = 4),
@@ -144,34 +149,47 @@ df <- data.frame(
 ggplot(df, aes(x = x, y = density, color = distribution)) +
   geom_line(linewidth = 1.2) +
   labs(
-    title = "Comparison of t-distributions",
-    x = "T value",
+    title = "Comparison of t-Distributions",
+    x = "T Value",
     y = "Density",
     color = "Distribution"
   ) +
   theme_minimal()
 ```
 
-## 🐟 Investigating Fish Populations Near a Factory
+## Investigating Fish Populations Near a Factory
+
+```{mermaid}
+flowchart LR
+    Hulu["🏞️ Upstream Lake"] --> Pabrik["🏭 Factory"] --> Hilir["🏞️ Downstream Lake"]
+
+    style Hulu fill:#e1f5fe
+    style Pabrik fill:#fff3e0
+    style Hilir fill:#ffebee
+```
 
 A group of environmental biologists is conducting a study on the possible ecological impact of a local manufacturing plant. The factory is located between two small lakes that are part of the same river system:
 
 - The first lake is **upstream** of the factory and receives no direct runoff from industrial activities.
-
 - The second lake is **downstream** of the factory and could potentially be affected by effluents or waste discharge.
 
 To assess the potential impact, the team collected samples of fish from both lakes. For each fish, they recorded:
 
 - **Length** (in centimeters)
-
 - **Weight** (in grams)
 
 The scientists want to determine whether the fish population in the Downstream lake shows any significant difference in size compared to the Upstream lake. Differences in fish size (length or weight) could be an indicator of environmental stress, food availability, or contamination.
 
-### 1. Exploratory Data Analysis
+> **Think-aloud (I Do):** "I have data from two independent groups — fish from the upstream lake and the downstream lake. I want to compare the mean fish length between the two lakes. An independent t-test is the right choice because I'm comparing two different groups."
 
+### Exploratory Data Analysis
 
-```R
+> **Retrieval Practice:** Before continuing, try to recall:
+> - What does `read.csv()` do in `R`?
+> - How do you inspect data structure?
+> - Write the code!
+
+```{r}
 # Import Dataset
 fish_data <- read.csv("assets/data/fish_data_weight.csv")
 
@@ -179,8 +197,7 @@ fish_data <- read.csv("assets/data/fish_data_weight.csv")
 head(fish_data)
 ```
 
-
-```R
+```{r}
 length_stats <- fish_data %>%
   group_by(Lake) %>%
   summarise(
@@ -193,22 +210,12 @@ length_stats <- fish_data %>%
 length_stats
 ```
 
-
-```R
-# EXCERCISE: CALCULATE THE DESCRIPTIVE STATISTICS FOR FISH WEIGHT!
-
-
-
-
-
-
-
-
-
+```{r eval=FALSE}
+# EXERCISE: CALCULATE DESCRIPTIVE STATISTICS FOR FISH WEIGHT!
+# Hint: Follow the pattern from the code above, replace Length_cm with Weight_g
 ```
 
-
-```R
+```{r}
 # Visualize using scatter plot to see the distribution
 ggplot(fish_data, aes(x = Length_cm, y = Weight_g, color = Lake)) +
   geom_point(size = 3, alpha = 0.7) +
@@ -221,8 +228,7 @@ ggplot(fish_data, aes(x = Length_cm, y = Weight_g, color = Lake)) +
   theme_minimal()
 ```
 
-
-```R
+```{r}
 ggplot(fish_data, aes(x = Length_cm)) +
   geom_histogram(position = "identity", alpha = 0.6, bins = 15) +
   labs(title = "Distribution of Fish Length",
@@ -231,8 +237,7 @@ ggplot(fish_data, aes(x = Length_cm)) +
   theme_minimal()
 ```
 
-
-```R
+```{r}
 ggplot(fish_data, aes(x = Length_cm, fill = Lake)) +
   geom_histogram(position = "identity", alpha = 0.6, bins = 15) +
   labs(title = "Distribution of Fish Length",
@@ -241,22 +246,14 @@ ggplot(fish_data, aes(x = Length_cm, fill = Lake)) +
   theme_minimal()
 ```
 
-
-```R
-# EXERCISE: PLOT THE DISTRIBUTION OF THE FISH WEIGHT
-
-
-
-
-
-
-
-
-
+```{r eval=FALSE}
+# EXERCISE: PLOT THE DISTRIBUTION OF FISH WEIGHT
+# Hint 1: Use geom_histogram() as above
+# Hint 2: Replace Length_cm with Weight_g
+# Hint 3: Don't forget to change the x-axis label
 ```
 
-
-```R
+```{r}
 # Summarise data to get mean and standard error per group
 weight_summary <- fish_data %>%
   group_by(Lake) %>%
@@ -277,8 +274,7 @@ ggplot(weight_summary, aes(x = Lake, y = mean_weight, fill = Lake)) +
   theme_minimal()
 ```
 
-
-```R
+```{r}
 ggplot(fish_data, aes(x = Lake, y = Length_cm, fill = Lake)) +
   geom_boxplot() +
   labs(title = "Fish Length by Lake",
@@ -287,39 +283,34 @@ ggplot(fish_data, aes(x = Lake, y = Length_cm, fill = Lake)) +
   theme_minimal()
 ```
 
-
-```R
-# EXERCISE: CREATE A BARPLOT OF THE FISH WEIGHT
+```{r eval=FALSE}
+# EXERCISE: CREATE A BARPLOT OF FISH WEIGHT
 # Summarise data to get mean and standard error per group
-
-
-
-
-
+# Hint 1: Use the weight_summary code above as a template
+# Hint 2: Replace Length_cm with Weight_g
+# Hint 3: Use geom_col() for barplot and geom_errorbar() for error bars
 
 # Bar plot with error bars
-
-
-
-
-
-
 ```
 
-
-```R
-# EXERCISE: PLOT THE BOXPLOT FOR THE FISH WEIGHT
-
-
-
-
-
-
-
-
+```{r eval=FALSE}
+# EXERCISE: PLOT THE BOXPLOT FOR FISH WEIGHT
+# Hint: Use geom_boxplot() as above, replace Length_cm with Weight_g
 ```
 
-### 2.🐟 Independent t-test: Upstream vs Downstream Fish Length
+### _Hinge Question_
+
+> **Before continuing, try answering:** You run a t-test and get this output: `t = 2.45, df = 98, p = 0.016`. What is your conclusion?
+>
+> A)  No significant difference because p > 0.01
+> B)  Significant difference because p < 0.05
+> C)  Sample size is too small to make a conclusion
+> D)  You need to run ANOVA, not a t-test
+>
+> **Answer: B.** Since p = 0.016 < 0.05, we reject the null hypothesis and conclude there is a significant difference.
+
+### 2. Independent t-test: Upstream vs Downstream Fish Length
+
 - What you're testing:
     > Whether the mean fish length in the Upstream area is significantly different from the Downstream area.
 
@@ -328,21 +319,20 @@ ggplot(fish_data, aes(x = Lake, y = Length_cm, fill = Lake)) +
 - Larger `t_value` → stronger evidence of difference.
 
 - The `p` value gives the probability of seeing such a difference by chance.
-    > - p < 0.05 → statistically significant difference ✅
-    > - p ≥ 0.05 → not statistically significant 🚫
-    
+    > - p < 0.05 → statistically significant difference
+    > - p ≥ 0.05 → not statistically significant
+
 - Cohen's d tells you how big the difference is:
 
 | d | Interpretation |
 |---|----------------|
-| 0.2 |	Small effect |
-| 0.5 | Medium effect|
-| 0.8+ | Large effect|
+| 0.2 | Small effect |
+| 0.5 | Medium effect |
+| 0.8+ | Large effect |
 
-> Even if p < 0.05, a small Cohen’s d might mean the difference isn’t practically meaningful.
+> Even if p < 0.05, a small Cohen's d might mean the difference isn't practically meaningful.
 
-
-```R
+```{r}
 ### Perform an Independent t-test (Manual)
 
 # Create subsets
@@ -388,36 +378,35 @@ p_value     # is it statistically significant?
 cohens_d    # how big is the effect?
 ```
 
-
-```R
+```{r}
 # Use your computed t_value and df
 # For example:
 # t_value <- 5.87
 # df <- 98
 
 alpha <- 0.05
-t_crit <- qt(1 - alpha/2, df = df)  # two-tailed
+t_crit <- qt(1 - alpha / 2, df = df)  # two-tailed
 
 x_vals <- seq(-4, 4, length.out = 300)
 y_vals <- dt(x_vals, df = df)
 
 ggplot(data.frame(x = x_vals, y = y_vals), aes(x, y)) +
   geom_line(color = "steelblue", size = 1) +
-  
+
   # Shade critical regions
   geom_area(data = subset(data.frame(x = x_vals, y = y_vals), x <= -t_crit),
             aes(x = x, y = y), fill = "red", alpha = 0.3) +
   geom_area(data = subset(data.frame(x = x_vals, y = y_vals), x >= t_crit),
             aes(x = x, y = y), fill = "red", alpha = 0.3) +
-  
+
   # Observed t-value
   geom_vline(xintercept = t_value, color = "darkgreen", linetype = "dashed", size = 1) +
-  
+
   # Labels
   labs(
     title = "t-Distribution Under H0",
-    subtitle = paste0("t-value = ", round(t_value, 2), 
-                      ", df = ", df, 
+    subtitle = paste0("t-value = ", round(t_value, 2),
+                      ", df = ", df,
                       ", alpha = 0.05"),
     x = "t-statistic",
     y = "Density"
@@ -425,12 +414,11 @@ ggplot(data.frame(x = x_vals, y = y_vals), aes(x, y)) +
   theme_minimal()
 ```
 
+```{r}
+### Independent t-test, the easy way
 
-```R
-### Independent t-tests, the easy way
-
-# Conduct an independent t-test 
-t_result <- t.test(fish_upstream$Length_cm, fish_downstream$Length_cm, var.equal = T)
+# Conduct an independent t-test
+t_result <- t.test(fish_upstream$Length_cm, fish_downstream$Length_cm, var.equal = TRUE)
 t_result
 
 # Extract t-value and degrees of freedom
@@ -438,39 +426,36 @@ t_value <- t_result$statistic  # this is named "t"
 df <- t_result$parameter       # this is named "df"
 ```
 
-### 3.EXERCISE!🐟 Independent t-test: Upstream vs Downstream Fish Weight 🐟 
-Using the example above, decide whether there are differences in the fish weight between the two population!
+### 3. Independent t-test: Upstream vs Downstream Fish Weight
 
+Using the example above, determine whether there are differences in fish weight between the two populations!
 
-```R
-### Independent t-tests, the easy way
+> **Retrieval Practice:** Before working on this, recall:
+> - What function is used to perform a t-test in `R`?
+> - How do you split data by group?
+> - Write down the t-test formula shown above!
+
+> **Hint Ladder:**
+> - **Hint 1:** Use `subset()` to split Upstream and Downstream data by `Weight_g`
+> - **Hint 2:** Use `t.test()` with parameter `var.equal = TRUE`
+> - **Hint 3:** See the t-test code for `Length_cm` above as a reference
+
+```{r eval=FALSE}
+### Independent t-test, the easy way
 
 # Run t-test and store the result
-
+# Hint: Replace Length_cm with Weight_g everywhere
+fish_upstream_weight <- subset(fish_data, Lake == "Upstream")
+fish_downstream_weight <- subset(fish_data, Lake == "Downstream")
 
 # Extract t-value and degrees of freedom
-
+t_result_weight <- t.test(fish_upstream_weight$Weight_g, fish_downstream_weight$Weight_g, var.equal = TRUE)
+t_result_weight
 ```
 
-
-```R
-# visualize your t test result
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```{r eval=FALSE}
+# Visualize your t-test result
+# Hint: Use the t-test visualization code for Length_cm as a template
+# Replace all Length_cm references with Weight_g
+# Replace t_value and df with results from t_result_weight
 ```

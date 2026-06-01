@@ -1,4 +1,12 @@
 # Chi-square Test
+
+## Retrieval Practice & Introduction
+
+> **Retrieval Practice:** Sebelum mempelajari Chi-square, coba ingat kembali:
+> - Apa perbedaan antara variabel kategorikal dan variabel numerik?
+> - Berikan contoh variabel kategorikal dalam penelitian biologi!
+> - Bagaimana cara menyajikan data kategorikal dalam tabel?
+
 ## What is the Chi-Square Test?
 The Chi-Square Test of Independence helps us answer:
 
@@ -6,6 +14,15 @@ The Chi-Square Test of Independence helps us answer:
 - Or are they independent?
 
 It compares the observed frequencies (what we actually see) to the expected frequencies (what we would expect if the variables were not related).
+
+> **Hinge Question:** Anda sedang meneliti apakah jenis tanah (lempung, berpasir, liat) mempengaruhi jenis tanaman yang tumbuh (bunga, sayur, pohon). Variabel apa yang kategorikal?
+>
+> A) Hanya jenis tanah
+> B) Hanya jenis tanaman
+> C) Kedua variabel (jenis tanah DAN jenis tanaman)
+> D) Tidak ada variabel kategorikal
+>
+> **Jawaban: C.** Kedua variabel adalah kategorikal — Chi-square test digunakan untuk menguji hubungan antara dua variabel kategorikal.
 
 
 ```R
@@ -16,7 +33,7 @@ library(ggrepel)
 library(ggthemes)
 ```
 
-## 📦 Example: Penguins on Islands
+## Example: Penguins on Islands
 Let's take a look at our penguin dataset again.
 How are the penguins distributed in the three islands?
 
@@ -124,7 +141,7 @@ Where:
 
 ---
 
-### 🔍 How does it work?
+### How does it work?
 
 We go through each cell of the contingency table and compute:
 
@@ -140,14 +157,14 @@ Then we **sum up** all of these values from every cell to get the total Chi-Squa
 
 ---
 
-### 🎯 What does it tell us?
+### What does it tell us?
 
 If the resulting $( \chi^2 )$ value is **large enough**, it means the differences between observed and expected are **too big to be due to random chance**.  
 This suggests that the two variables (like *species* and *island*) are **likely associated**.
 
 ---
 
-### 📊 Visualize O vs E
+### Visualize O vs E
 
 To help you better understand where the differences come from, you can make a bar plot comparing observed vs expected frequencies:
 
@@ -262,13 +279,18 @@ So we **reject the null hypothesis**.
 
 ---
 
-✅ **Conclusion**:  
+**Conclusion**:  
 - There is a **statistically significant relationship** between penguin species and the islands where they are found.  
 - The distribution is **not uniform** and likely reflects ecological or behavioral preferences.
 
 ## Running chi-square test in R
 
 R has a neat chi-square package, so we can directly use the library instead of calculating it manually:
+
+> **Hint Ladder:** Jika Anda bingung cara menghitung Chi-square secara manual:
+> - **Hint 1:** Ingat formula: χ² = Σ(O - E)² / E
+> - **Hint 2:** Hitung expected frequency: E = (row total × column total) / grand total
+> - **Hint 3:** Gunakan `chisq.test()` untuk hasil langsung
 
 
 ```R

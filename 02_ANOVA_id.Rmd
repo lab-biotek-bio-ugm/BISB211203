@@ -1,0 +1,582 @@
+# ANOVA
+_diadaptasi dari: [https://statsandr.com/blog/anova-in-r/#introduction](https://statsandr.com/blog/anova-in-r/#introduction)_
+
+## Apa itu ANOVA?
+
+**ANOVA** adalah singkatan dari **Analysis of Variance** (Analisis Variansi). Ini adalah metode statistik yang digunakan untuk mengetahui apakah ada perbedaan signifikan antara **rata-rata dua kelompok atau lebih**. Dengan kata lain, ini membantu kita menjawab pertanyaan: *Apakah rata-rata kelompok berbeda satu sama lain, atau apakah perbedaan hanya disebabkan oleh kebetulan acak?*
+
+## Kapan Kita Menggunakan ANOVA?
+
+- Jika Anda hanya memiliki **2 kelompok**, Anda dapat menggunakan **t-test** untuk membandingkannya.
+- Jika Anda memiliki **3 kelompok atau lebih**, **ANOVA** adalah alat yang lebih baik untuk digunakan.
+
+## Jenis-jenis ANOVA
+
+Ada beberapa jenis ANOVA tergantung pada desain studi (seperti one-way, two-way, atau repeated measures).  
+Dalam kursus ini, kita akan fokus pada **one-way ANOVA**, yang merupakan versi paling sederhana. Ini disebut "one-way" karena kita melihat efek dari **satu faktor** atau variabel independen
+
+## Membandingkan Fenotipe Antar Spesies Penguin
+
+![](https://github.com/allisonhorst/palmerpenguins/raw/main/man/figures/lter_penguins.png)
+
+Bayangkan Anda adalah peneliti satwa liar yang mempelajari penguin di Antartika. Anda memiliki akses ke data dari **tiga spesies penguin yang berbeda**:
+
+- **Adelie**
+- **Chinstrap**
+- **Gentoo**
+
+Anda penasaran: *Apakah spesies penguin ini memiliki panjang sirip rata-rata yang berbeda?*  
+Panjang sirip dapat memberi kita banyak informasi tentang bagaimana penguin berenang, berburu, dan beradaptasi dengan lingkungan mereka.
+
+Untuk mengeksplorasi pertanyaan ini, Anda menggunakan dataset yang disebut `penguins`, yang berisi pengukuran nyata dari 344 penguin. Di antara banyak variabel yang dicatat, Anda fokus pada:
+
+- **Species** — jenis penguin apa itu
+- **Flipper length** — diukur dalam milimeter
+
+Tujuan Anda adalah untuk mengetahui apakah **setidaknya satu spesies memiliki panjang sirip rata-rata yang secara signifikan berbeda** dibandingkan dengan yang lain.
+
+Karena Anda membandingkan lebih dari **dua kelompok**, ini adalah kasus yang sempurna untuk menggunakan **ANOVA** (Analysis of Variance)!
+
+
+
+
+```R
+# install.packages("palmerpenguins")
+# install.packages("report")
+library(report)
+library(palmerpenguins)
+library(ggplot2)
+library(dplyr)
+library(multcomp)
+library(ggstatsplot)
+```
+
+
+```R
+summary(penguins)
+```
+
+
+```R
+#nrow(penguins)
+df <- na.omit(penguins)
+#nrow(df)
+head(df)
+write.csv(df, "assets/data/penguin_clean.csv", row.names = FALSE)
+```
+
+
+```R
+summary(df)
+```
+
+
+```R
+ggplot(df) +
+  aes(x = species, y = flipper_length_mm, color = species) +
+  geom_jitter() +
+  theme(legend.position = "none")
+```
+
+## Hipotesis ANOVA
+
+Dalam contoh penguin, kita ingin menjawab pertanyaan:
+
+> **Apakah panjang sirip berbeda antara penguin Adelie, Chinstrap, dan Gentoo?**
+
+Saat melakukan ANOVA, kita menetapkan dua hipotesis:
+
+- **Hipotesis nol ($H_0$)**:  
+  Panjang sirip rata-rata adalah **sama** untuk ketiga spesies.  
+  $H_0$: $\mu_{Adelie} = \mu_{Chinstrap} = \mu_{Gentoo}$
+
+- **Hipotesis alternatif ($H_1$)**:  
+  **Setidaknya satu** spesies memiliki panjang sirip rata-rata yang berbeda.  
+  $H_1$: Setidaknya satu mean berbeda
+
+> Penting: Hipotesis alternatif **tidak** mengatakan bahwa semua mean berbeda. Ini hanya mengatakan bahwa setidaknya satu dari mereka berbeda.
+
+> **Pertanyaan Hinge:** ANOVA menunjukkan p-value = 0.03. Apa interpretasi yang benar?
+>
+> A) Semua spesies penguin memiliki flipper length yang berbeda
+> B) Setidaknya satu spesies penguin memiliki flipper length yang berbeda
+> C) Tidak ada perbedaan flipper length antar spesies
+> D) Rata-rata flipper length semua spesies sama dengan nol
+>
+> **Jawaban: B.** ANOVA hanya memberitahu kita bahwa *setidaknya satu* kelompok berbeda, bukan bahwa semua kelompok berbeda.
+
+Misalnya, mungkin penguin Gentoo memiliki sirip yang lebih panjang, tetapi Adelie dan Chinstrap masih cukup mirip satu sama lain.
+
+Untuk mengetahui kelompok mana yang berbeda, kita perlu melakukan **tes tambahan** setelah ANOVA — ini disebut **post-hoc tests**.
+
+## Latihan Retrieval & Analisis Pendahuluan
+
+> **Latihan Retrieval:** Sebelum melanjutkan ke ANOVA, coba ingat kembali dari sesi T-test:
+> - Apa perbedaan antara t-test dan ANOVA?
+> - Kapan kita menggunakan t-test vs ANOVA?
+> - Apa yang diuji oleh hipotesis nol dalam ANOVA?
+
+Sebelum menjalankan ANOVA, ide yang baik adalah pertama-tama **mengeksplorasi dan memvisualisasikan data**. Ini membantu kita memahami pola dan menemukan nilai yang tidak biasa.
+
+### Langkah 1: Membuat Boxplot
+
+Salah satu cara terbaik untuk melihat perbedaan panjang sirip antar spesies penguin adalah menggunakan **boxplot**.
+
+
+```R
+ggplot(df) +
+  aes(x = species, y = flipper_length_mm, color = species) +
+  geom_boxplot()
+```
+
+Boxplot menunjukkan distribusi **panjang sirip** untuk setiap spesies:
+
+- Penguin **Gentoo** tampaknya memiliki **sirip terpanjang**
+- Penguin **Adelie** tampaknya memiliki **sirip terpendek**
+- Penguin **Chinstrap** berada di antaranya
+
+Pemeriksaan visual ini membantu kita melihat apakah kelompok-kelompok terlihat cukup berbeda untuk mengharapkan hasil signifikan dari ANOVA.
+
+### Langkah 2: Statistik Deskriptif
+
+Selain boxplot, kita juga harus menghitung **statistik ringkasan** untuk setiap spesies, seperti:
+
+- **Mean** (rata-rata panjang sirip)
+- **Standard deviation** (sebaran panjang sirip)
+
+Angka-angka ini memberi kita gambaran yang lebih jelas tentang kecenderungan sentral dan variabilitas di setiap kelompok sebelum menjalankan tes formal.
+
+
+
+```R
+length_stats <- df %>%
+  group_by(species) %>%
+  summarise(
+    mean = mean(flipper_length_mm),
+    sd = sd(flipper_length_mm),
+    n = n(),
+    se = sd / sqrt(n),
+    df = n - 1
+  )
+length_stats
+```
+
+## Menjalankan ANOVA di R
+
+Sejauh ini, kita telah mengeksplorasi data secara visual dan menghitung beberapa statistik ringkasan.  
+Tapi untuk **menguji secara formal** apakah panjang sirip secara signifikan berbeda antara ketiga spesies penguin, kita perlu melakukan **ANOVA**.
+
+Ini akan membantu kita menjawab pertanyaan penelitian asli:
+
+> **"Apakah panjang sirip berbeda antara penguin Adelie, Chinstrap, dan Gentoo?"**
+
+ANOVA memungkinkan kita membuat kesimpulan tentang **seluruh populasi** berdasarkan **data sample** yang kita miliki.
+
+Di langkah berikutnya, kita akan belajar bagaimana menjalankan tes ini di R dan menginterpretasikan hasilnya.
+
+
+```R
+res_aov <- aov(flipper_length_mm ~ species,
+  data = df)
+
+summary(res_aov)
+```
+
+### Memahami dan Menginterpretasikan Output
+
+Ketika Anda menjalankan `summary(res_aov)`, R akan menampilkan **tabel ANOVA**. Berikut yang perlu diperhatikan:
+
+- **Nilai F**: Statistik tes. Nilai F yang lebih tinggi menunjukkan bukti perbedaan yang lebih kuat antara mean kelompok.
+- **Pr(>F)**: Ini adalah **p-value**. Jika kurang dari 0.05, kita dapat menyimpulkan bahwa **setidaknya satu spesies** memiliki panjang sirip rata-rata yang berbeda.
+
+Tabel juga mencakup:
+
+- **Degrees of freedom (Df)**: Memberitahu kita berapa banyak kelompok yang dibandingkan dan berapa banyak observasi yang tersisa.
+- **Mean Squares (Mean Sq)**: Mengukur variasi antar dan dalam kelompok.
+
+---
+
+### Menginterpretasikan Hasil
+
+Dalam kasus kita, nilai *p* adalah **lebih kecil dari 0.05** (*p* < 2.2e-16), jadi kita **menolak hipotesis nol**.
+
+Ini berarti kita memiliki cukup bukti untuk mengatakan bahwa **setidaknya satu spesies memiliki panjang sirip rata-rata yang berbeda**.
+
+> Kita tidak dapat mengatakan bahwa *semua* spesies berbeda — hanya bahwa setidaknya satu spesies berbeda dari yang lain.
+
+---
+
+> *Jika p-value lebih besar dari 0.05*:  
+> Kita akan **tidak menolak** hipotesis nol.  
+> Itu berarti kita akan **tidak memiliki bukti kuat** untuk mengatakan bahwa spesies berbeda dalam panjang sirip.
+
+---
+
+### Opsional: Melaporkan Hasil
+
+Cara yang bersih untuk meringkas hasil ANOVA di R adalah dengan menggunakan fungsi `report()` dari paket `{report}`:
+
+```r
+# install.packages("report")  # jika belum diinstal
+library(report)
+report(res_aov)
+
+
+
+```R
+library(report)
+print(report(res_aov))
+```
+
+## Apa yang Terjadi Setelah ANOVA?
+
+### Jika **hipotesis nol tidak ditolak** (p-value ≥ 0.05):
+
+- Kita **tidak memiliki cukup bukti** untuk mengatakan bahwa mean kelompok berbeda.
+- Dalam kasus ini, proses ANOVA biasanya **berhenti di sini**.
+- Meskipun analisis lain masih dapat dilakukan, **kita tidak dapat menyimpulkan** bahwa kelompok mana pun berbeda berdasarkan data yang ada.
+
+---
+
+### Jika **hipotesis nol ditolak** (p-value < 0.05):
+
+- Kita telah menunjukkan bahwa **setidaknya satu kelompok berbeda** dari yang lain.
+- Jika tujuan Anda hanya untuk menguji apakah semua mean kelompok sama, **Anda dapat berhenti di sini**.
+
+Tapi seringkali, kita ingin pergi lebih jauh dan bertanya:
+
+> **Kelompok mana yang berbeda satu sama lain?**
+
+Di sinilah **ANOVA saja tidak cukup** — ini hanya memberi tahu kita bahwa *beberapa* perbedaan ada, tapi **tidak di mana** perbedaan itu terletak.
+
+---
+
+## Apa Selanjutnya? Post-hoc Tests
+
+Untuk mengetahui **kelompok mana yang spesifik berbeda**, kita perlu melakukan **post-hoc tests**.
+
+- Istilah *post-hoc* berarti "setelah ini" dalam bahasa Latin — jadi tes ini dilakukan **setelah** hasil ANOVA yang signifikan.
+- Mereka juga disebut **multiple pairwise comparison tests**.
+
+Tes ini membandingkan kelompok **dua per dua** untuk mengidentifikasi **tepat kelompok mana** yang memiliki mean secara signifikan berbeda.
+
+## Masalah Multiple Testing
+
+Setelah ANOVA memberi tahu kita bahwa **setidaknya satu kelompok berbeda**, langkah logis berikutnya adalah mencari tahu **kelompok mana** yang berbeda.  
+Untuk melakukan ini, kita perlu **membandingkan kelompok dua-dua**.
+
+Dalam dataset penguin kita dengan 3 spesies, kita akan melakukan perbandingan berpasangan berikut:
+
+1. Chinstrap vs. Adelie  
+2. Gentoo vs. Adelie  
+3. Gentoo vs. Chinstrap
+
+Pada awalnya, sepertinya tidak masalah menjalankan **t-test** untuk setiap perbandingan ini — setelah semua, t-test dibuat untuk membandingkan dua kelompok.  
+Tapi ini menimbulkan masalah besar: **multiple testing** (juga disebut **multiplicity**).
+
+---
+
+### Mengapa Multiple Testing Menjadi Masalah
+
+Setiap kali kita melakukan tes hipotesis (seperti t-test), ada kemungkinan kecil — biasanya 5% jika α = 0.05 — bahwa kita menemukan hasil signifikan **hanya karena kebetulan**, bahkan jika hipotesis nol benar.
+
+Jadi apa yang terjadi jika kita menjalankan **multiple** tests?
+
+Misalkan kita menjalankan 3 perbandingan berpasangan dan menetapkan tingkat signifikansi kita pada 0.05. Probabilitas mendapatkan **setidaknya satu hasil signifikan hanya karena kebetulan** menjadi:
+
+\begin{equation}
+\begin{split}
+P(\text{at least 1 sig. result}) & = 1 - P(\text{no sig. results}) \\
+ & = 1 - (1 - 0.05)^3 \\
+ & = 0.142625
+\end{split}
+\end{equation}
+
+Ini berarti ada kemungkinan **14.26%** untuk menemukan false positive — hampir **3 kali lebih tinggi** dari tingkat error 5% yang kita inginkan!
+
+---
+
+### Lebih Banyak Kelompok, Lebih Banyak Masalah
+
+Seiring meningkatnya jumlah kelompok, jumlah perbandingan berpasangan meningkat dengan cepat:
+
+- 4 kelompok → 6 perbandingan  
+- 5 kelompok → 10 perbandingan  
+- 10 kelompok → 45 perbandingan
+
+Dengan 10 kelompok, kemungkinan mendapatkan false positive menjadi **90%**, dan dengan 14 kelompok atau lebih, hampir dijamin — lebih dari **99%**.
+
+![](https://imgs.xkcd.com/comics/significant.png)
+
+---
+
+## Post-hoc Tests di R dan Interpretasinya
+
+Setelah ANOVA memberi tahu kita bahwa ada perbedaan, **post-hoc tests** membantu kita mengidentifikasi **kelompok mana yang spesifik berbeda**. Ada beberapa jenis post-hoc tests, dan yang paling umum adalah:
+
+- **Tukey HSD**: Membandingkan **semua pasangan** kelompok.
+- **Dunnett**: Membandingkan **setiap kelompok dengan kelompok referensi** (misalnya, kelompok kontrol).
+- **Koreksi Bonferroni**: Digunakan ketika Anda memiliki **perbandingan yang direncanakan secara spesifik**.
+
+---
+
+### Koreksi Bonferroni
+
+Ini adalah metode paling sederhana. Anda membagi tingkat signifikansi yang diinginkan (misalnya, 0.05) dengan jumlah perbandingan.
+
+Dalam contoh penguin kita, kita membandingkan 3 pasangan:
+
+\[
+\alpha' = \frac{0.05}{3} = 0.0167
+\]
+
+Kemudian Anda melakukan **t-test** individual dan membandingkan nilai *p* mereka dengan **0.0167**.  
+Jika nilai *p* lebih kecil dari level yang disesuaikan ini, perbedaan dianggap signifikan.
+
+> Catatan: Bonferroni sederhana tetapi konservatif. Ini mengurangi false positive tetapi mungkin melewatkan perbedaan sejati (false negative).
+
+### Bonferroni di R
+
+Kita bisa menjalankan koreksi Bonferroni menggunakan `pairwise.t.test()`:
+
+```R
+# Koreksi Bonferroni
+pairwise.t.test(df$flipper_length_mm, df$species,
+                p.adjust.method = "bonferroni",
+                pool.sd = FALSE)
+```
+
+### Tes Tukey HSD
+
+Dalam kasus kita, kita tidak memiliki kelompok referensi dan kita ingin membandingkan **semua spesies** — jadi kita akan menggunakan **tes Tukey HSD**.
+
+Kita dapat menggunakan kembali hasil ANOVA (`res_aov`) dan menjalankan tes seperti ini:
+
+
+```R
+# Tes Tukey HSD:
+post_test <- glht(res_aov,
+linfct = mcp(species = "Tukey")
+)
+
+summary(post_test)
+```
+
+Setelah menjalankan tes Tukey HSD dengan `summary(post_test)`, R menampilkan bagian yang berjudul `Linear Hypotheses:`. Tabel ini menunjukkan perbandingan berpasangan antar kelompok.
+
+Fokus pada dua kolom kunci:
+
+- **Kolom pertama**: Daftar **perbandingan** yang dilakukan  
+  (misalnya, `Chinstrap - Adelie == 0`)
+- **Kolom terakhir** (`Pr(>|t|)`): Menampilkan **nilai *p* yang disesuaikan**  
+  Ini dikoreksi untuk multiple testing untuk memastikan tingkat error keseluruhan tetap pada 0.05
+
+> Hipotesis nol dalam setiap kasus adalah bahwa **dua kelompok memiliki mean yang sama**.  
+> Jika nilai *p* kurang dari 0.05, kita **menolak** hipotesis ini — dua kelompok secara signifikan berbeda.
+
+---
+
+Dalam kasus kita, tes Tukey membandingkan:
+
+1. **Chinstrap vs. Adelie** (`Chinstrap - Adelie == 0`)
+2. **Gentoo vs. Adelie** (`Gentoo - Adelie == 0`)
+3. **Gentoo vs. Chinstrap** (`Gentoo - Chinstrap == 0`)
+
+Ketiga nilai *p* yang disesuaikan adalah **kurang dari 0.05**, jadi kita **menolak hipotesis nol** untuk setiap perbandingan.
+
+Ini berarti bahwa **ketiga spesies penguin secara signifikan berbeda** satu sama lain dalam hal panjang sirip.
+
+---
+
+#### Memvisualisasikan Hasil
+
+Anda dapat menggunakan fungsi `plot()` untuk menghasilkan plot confidence interval:
+
+
+
+```R
+par(mar=c(3,8,3,3)) # Atur margin untuk spacing label yang lebih baik
+plot(post_test)
+```
+
+Kita melihat bahwa confidence intervals tidak memotong garis nol, yang menunjukkan bahwa semua kelompok secara signifikan berbeda.
+
+### Tes Dunnett
+
+Kita telah melihat bahwa ketika **jumlah kelompok meningkat**, begitu juga jumlah **perbandingan berpasangan**.  
+Ini menimbulkan masalah: untuk menjaga tingkat error keseluruhan (misalnya, 5%) agar tetap terkendali, kita harus menurunkan ambang batas untuk setiap tes individual.  
+
+Tapi ketika kita melakukan itu, kita juga **mengurangi power statistik** — artinya lebih sulit untuk mendeteksi perbedaan nyata antar kelompok.
+
+---
+
+#### Bagaimana Tes Dunnett Membantu
+
+Salah satu cara untuk **meningkatkan power** adalah dengan **mengurangi jumlah perbandingan**.  
+Ini sangat berguna dalam eksperimen di mana ada **kelompok kontrol** dan satu atau lebih **kelompok perlakuan**.
+
+Alih-alih membandingkan setiap kelompok dengan setiap kelompok lain (seperti yang dilakukan Tukey HSD), **tes Dunnett**:
+
+- Membandingkan setiap kelompok **hanya dengan kelompok referensi**
+- **Tidak** membandingkan kelompok non-referensi satu sama lain
+
+---
+
+#### Tukey vs. Dunnett
+
+| Tipe Tes     | Membandingkan                     | Power Statistik |
+|---------------|------------------------------|-------------------|
+| **Tukey HSD** | Semua kelompok satu sama lain     | Lebih Rendah             |
+| **Dunnett**   | Setiap kelompok dengan referensi    | Lebih Tinggi            |
+
+---
+
+#### Menerapkan Tes Dunnett
+
+Misalkan kita ingin menggunakan `Adelie` sebagai **kelompok referensi** kita dan membandingkan dua spesies lainnya (**Chinstrap** dan **Gentoo**) dengannya.
+
+Berikut cara menjalankan **tes Dunnett** di R:
+
+
+```R
+# Tes post-hoc Dunnett
+post_test_dunnett <- glht(res_aov, linfct = mcp(species = "Dunnett"))
+
+summary(post_test_dunnett)
+```
+
+> Catatan: Ini sama dengan code tes Tukey, kecuali kita mengubah `"Tukey"` menjadi `"Dunnett"` di baris `linfct`.
+
+Output bekerja mirip dengan tes Tukey — Anda akan melihat perbandingan dan nilai p yang disesuaikan.
+
+Tapi kali ini, hanya perbandingan dengan kelompok referensi (Adelie) yang disertakan:
+
+1. **Chinstrap vs. Adelie**
+2. **Gentoo vs. Adelie**
+
+Ini dapat membantu ketika Anda hanya peduli dengan bagaimana setiap spesies dibandingkan dengan referensi, dan bukan bagaimana mereka dibandingkan satu sama lain.
+
+Dalam output `summary(post_test_dunnett)`, fokus pada **kolom terakhir**, yang menampilkan **nilai *p* yang disesuaikan**.
+
+Dalam contoh kita, kedua nilai p yang disesuaikan adalah **di bawah 0.05**, jadi kita **menolak hipotesis nol** untuk kedua perbandingan:
+
+- **Chinstrap vs. Adelie**: Perbedaan signifikan  
+- **Gentoo vs. Adelie**: Perbedaan signifikan  
+
+Ini berarti bahwa:
+
+> **Kedua penguin Chinstrap dan Gentoo memiliki panjang sirip yang secara signifikan berbeda dibandingkan dengan penguin Adelie.**
+
+> Namun, **tidak ada yang dapat dikatakan** tentang perbandingan antara Chinstrap dan Gentoo — karena **tes Dunnett hanya membandingkan dengan kelompok referensi**.
+
+
+```R
+par(mar = c(3, 8, 3, 3))  # Atur margin untuk spacing label yang lebih baik
+plot(post_test_dunnett)
+```
+
+## Visualisasi ANOVA dan Post-hoc Tests pada Plot yang Sama
+
+Untuk membuat hasil Anda lebih mudah diinterpretasikan dan lebih menarik secara visual, seringkali membantu untuk menampilkan **hasil ANOVA** dan **post-hoc tests langsung di boxplot Anda**.
+
+
+
+```R
+ggbetweenstats(
+  data = df,
+  x = species,
+  y = flipper_length_mm,
+  type = "parametric", # ANOVA atau Kruskal-Wallis
+  var.equal = TRUE, # ANOVA atau Welch ANOVA
+  plot.type = "box",
+  pairwise.comparisons = TRUE,
+  pairwise.display = "significant",
+  centrality.plotting = FALSE,
+  bf.message = FALSE
+)
+```
+
+Dalam plot contoh di atas, setiap **boxplot per spesies** ditampilkan bersama dengan:
+
+- **Nilai *p* dari ANOVA** — biasanya ditampilkan di **subtitle** plot (misalnya, `p = 1.59e-107`)
+- **Nilai *p* dari post-hoc tests** — ditampilkan **di atas setiap perbandingan berpasangan**
+
+
+## Latihan: Memilih Post-hoc Test yang Tepat
+
+Setelah ANOVA menunjukkan perbedaan signifikan, tugas Anda adalah memilih post-hoc test yang tepat.
+
+### Soal 1: Studi Pertumbuhan Tanaman
+
+Seorang peneliti ingin mengetahui apakah jenis pupuk (Pupuk A, Pupuk B, Pupuk Kontrol) mempengaruhi tinggi tanaman tomat. ANOVA menunjukkan perbedaan signifikan (p < 0.001). Peneliti sudah merencanakan sebelumnya untuk membandingkan kedua pupuk baru terhadap kontrol.
+
+**Pertanyaan:** Post-hoc test mana yang paling tepat?
+- A) Tukey HSD
+- B) Dunnett
+- C) Bonferroni
+- D) Tidak perlu post-hoc
+
+<details>
+<summary>Klik untuk melihat jawaban</summary>
+
+**Jawaban: B) Dunnett.** Karena peneliti hanya ingin membandingkan setiap perlakuan terhadap kelompok kontrol (bukan membandingkan Pupuk A vs Pupuk B), Dunnett's test adalah pilihan yang tepat — lebih powerful daripada Tukey untuk skenario ini.
+
+</details>
+
+### Soal 2: Studi Spesies Ikan
+
+Seorang ekolog membandingkan panjang tubuh ikan dari 4 danau berbeda. ANOVA menunjukkan perbedaan signifikan (p = 0.003). Peneliti ingin mengetahui danau mana saja yang berbeda dari danau lainnya.
+
+**Pertanyaan:** Post-hoc test mana yang paling tepat?
+- A) Tukey HSD
+- B) Dunnett
+- C) Bonferroni
+- D) Tidak perlu post-hoc
+
+<details>
+<summary>Klik untuk melihat jawaban</summary>
+
+**Jawaban: A) Tukey HSD.** Karena peneliti ingin membandingkan semua pasangan danau (6 perbandingan), Tukey HSD adalah pilihan yang tepat — mengontrol error rate untuk semua pairwise comparisons.
+
+</details>
+
+### Latihan Kode: Bonferroni pada Data Tapak Dara
+
+Coba gunakan data tapak dara untuk menguji apakah tinggi tanaman (`plant-height`) berbeda antar lokasi (`label`):
+
+```R
+# 1. Load data
+tapak_dara <- read.csv("assets/data/morfologi_tapak_dara.tsv")
+
+# 2. Lakukan ANOVA
+res_aov_tapak <- aov(`plant-height` ~ label, data = tapak_dara)
+summary(res_aov_tapak)
+
+# 3. Jika signifikan, jalankan Bonferroni
+pairwise.t.test(tapak_dara$`plant-height`, tapak_dara$label,
+                p.adjust.method = "bonferroni")
+```
+
+**Interpretasi:**
+- Jika p-value ANOVA < 0.05 → ada perbedaan antar lokasi
+- Jika p-value Bonferroni < 0.05 → pasangan lokasi tersebut berbeda signifikan
+
+
+Output menunjukkan perbandingan berpasangan dengan p-value yang sudah disesuaikan menggunakan metode Bonferroni.
+
+> **Perbandingan Tukey vs. Bonferroni:**
+> - **Tukey HSD**: Lebih powerful untuk *all-pairwise* comparisons (semua pasangan)
+> - **Bonferroni**: Lebih konservatif, cocok untuk *planned comparisons* (perbandingan yang direncanakan sebelumnya)
+
+---
+
+## Ringkasan
+
+Dalam latihan ini, kita mengeksplorasi konsep-konsep kunci dan langkah-langkah praktis yang terlibat dalam melakukan analisis **ANOVA**:
+
+- Kita mulai dengan meninjau **tujuan** ANOVA — untuk menguji apakah mean beberapa kelompok sama — dan menyatakan **hipotesis nol dan alternatif**.
+- Kita mendemonstrasikan cara **melakukan ANOVA di R** dan menginterpretasikan output, terutama **nilai F** dan **nilai p**.
+- Kita membahas **post-hoc tests**, termasuk:
+  - **Tukey HSD**, digunakan untuk membandingkan **semua pasangan kelompok**
+  - **Tes Dunnett**, digunakan untuk membandingkan **kelompok perlakuan dengan kelompok referensi**
+- Terakhir, kita menunjukkan cara **memvisualisasikan data dan hasil statistik bersama** pada satu plot untuk interpretasi yang lebih mudah.
