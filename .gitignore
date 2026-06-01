@@ -32,3 +32,5 @@ Thumbs.db
 
 # Student personal copies (from update workflow)
 *_personal_copy*.Rmd
+
+/.quarto/

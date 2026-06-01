@@ -27,10 +27,10 @@ book:
     - 00_r-basics_en.Rmd
     - 01_T-test_id.Rmd
     - 01_T-test_en.Rmd
-    #- 02_ANOVA_id.Rmd
-    #- 02_ANOVA_en.Rmd
-    #- 03_Chi-square_id.Rmd
-    #- 03_Chi-square_en.Rmd
+    - 02_ANOVA_id.Rmd
+    - 02_ANOVA_en.Rmd
+    - 03_Chi-square_id.Rmd
+    - 03_Chi-square_en.Rmd
     - references.qmd
   page-footer:
     left: "Copyright 2026, Universitas Gadjah Mada"

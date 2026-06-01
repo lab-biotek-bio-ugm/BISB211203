@@ -1,5 +1,22 @@
-# ANOVA
-_diadaptasi dari: [https://statsandr.com/blog/anova-in-r/#introduction](https://statsandr.com/blog/anova-in-r/#introduction)_
+---
+title: "ANOVA"
+subtitle: "Analisis Varians untuk Membandingkan Lebih dari Dua Kelompok"
+author:
+  - Tim Pengampu Biostatistika
+date: "2026-06-01"
+output: html_document
+---
+
+## Tujuan Pembelajaran
+
+Setelah sesi ini, mahasiswa akan mampu:
+
+| Mengetahui | Memahami | Melakukan |
+|------------------------|------------------------|------------------------|
+| Asumsi ANOVA (normalitas, homogenitas varians, independensi) | ANOVA menguji apakah ada perbedaan signifikan antara tiga kelompok atau lebih | Melakukan one-way ANOVA dengan `aov()` |
+| Interpretasi nilai F dan p-value dalam ANOVA | p-value < 0.05 berarti setidaknya satu kelompok berbeda | Menghitung statistik deskriptif per kelompok |
+| Perbedaan post-hoc tests (Tukey, Dunnett, Bonferroni) | Post-hoc tests mengidentifikasi kelompok mana yang berbeda setelah ANOVA signifikan | Melakukan post-hoc test dengan `glht()` |
+| Cara melaporkan hasil ANOVA dalam format ilmiah |  | Memvisualisasikan hasil ANOVA dengan ggplot2 |
 
 ## Apa itu ANOVA?
 
@@ -13,7 +30,7 @@ _diadaptasi dari: [https://statsandr.com/blog/anova-in-r/#introduction](https://
 ## Jenis-jenis ANOVA
 
 Ada beberapa jenis ANOVA tergantung pada desain studi (seperti one-way, two-way, atau repeated measures).  
-Dalam kursus ini, kita akan fokus pada **one-way ANOVA**, yang merupakan versi paling sederhana. Ini disebut "one-way" karena kita melihat efek dari **satu faktor** atau variabel independen
+Dalam kursus ini, kita akan fokus pada **one-way ANOVA**, yang merupakan versi paling sederhana. Ini disebut "one-way" karena kita melihat efek dari **satu faktor** atau variabel independen.
 
 ## Membandingkan Fenotipe Antar Spesies Penguin
 
@@ -37,12 +54,17 @@ Tujuan Anda adalah untuk mengetahui apakah **setidaknya satu spesies memiliki pa
 
 Karena Anda membandingkan lebih dari **dua kelompok**, ini adalah kasus yang sempurna untuk menggunakan **ANOVA** (Analysis of Variance)!
 
+```{mermaid}
+flowchart LR
+    Adelie["🐧 Adelie"] --> Penguin["📊 Analisis ANOVA"] --> Chinstrap["🐧 Chinstrap"]
+    Gentoo["🐧 Gentoo"] --> Penguin
+    style Adelie fill:#e3f2fd
+    style Gentoo fill:#ffebee
+    style Chinstrap fill:#e8f5e9
+    style Penguin fill:#f3e5f5
+```
 
-
-
-```R
-# install.packages("palmerpenguins")
-# install.packages("report")
+```{r}
 library(report)
 library(palmerpenguins)
 library(ggplot2)
@@ -51,27 +73,22 @@ library(multcomp)
 library(ggstatsplot)
 ```
 
-
-```R
+```{r}
 summary(penguins)
 ```
 
-
-```R
-#nrow(penguins)
+```{r}
+# Hapus baris dengan nilai NA
 df <- na.omit(penguins)
-#nrow(df)
 head(df)
 write.csv(df, "assets/data/penguin_clean.csv", row.names = FALSE)
 ```
 
-
-```R
+```{r}
 summary(df)
 ```
 
-
-```R
+```{r}
 ggplot(df) +
   aes(x = species, y = flipper_length_mm, color = species) +
   geom_jitter() +
@@ -96,7 +113,9 @@ Saat melakukan ANOVA, kita menetapkan dua hipotesis:
 
 > Penting: Hipotesis alternatif **tidak** mengatakan bahwa semua mean berbeda. Ini hanya mengatakan bahwa setidaknya satu dari mereka berbeda.
 
-> **Pertanyaan Hinge:** ANOVA menunjukkan p-value = 0.03. Apa interpretasi yang benar?
+### _Hinge Question_
+
+> ANOVA menunjukkan p-value = 0.03. Apa interpretasi yang benar?
 >
 > A) Semua spesies penguin memiliki flipper length yang berbeda
 > B) Setidaknya satu spesies penguin memiliki flipper length yang berbeda
@@ -118,12 +137,11 @@ Untuk mengetahui kelompok mana yang berbeda, kita perlu melakukan **tes tambahan
 
 Sebelum menjalankan ANOVA, ide yang baik adalah pertama-tama **mengeksplorasi dan memvisualisasikan data**. Ini membantu kita memahami pola dan menemukan nilai yang tidak biasa.
 
-### Langkah 1: Membuat Boxplot
+### Membuat Boxplot
 
 Salah satu cara terbaik untuk melihat perbedaan panjang sirip antar spesies penguin adalah menggunakan **boxplot**.
 
-
-```R
+```{r}
 ggplot(df) +
   aes(x = species, y = flipper_length_mm, color = species) +
   geom_boxplot()
@@ -137,7 +155,7 @@ Boxplot menunjukkan distribusi **panjang sirip** untuk setiap spesies:
 
 Pemeriksaan visual ini membantu kita melihat apakah kelompok-kelompok terlihat cukup berbeda untuk mengharapkan hasil signifikan dari ANOVA.
 
-### Langkah 2: Statistik Deskriptif
+### Statistik Deskriptif
 
 Selain boxplot, kita juga harus menghitung **statistik ringkasan** untuk setiap spesies, seperti:
 
@@ -146,9 +164,7 @@ Selain boxplot, kita juga harus menghitung **statistik ringkasan** untuk setiap 
 
 Angka-angka ini memberi kita gambaran yang lebih jelas tentang kecenderungan sentral dan variabilitas di setiap kelompok sebelum menjalankan tes formal.
 
-
-
-```R
+```{r}
 length_stats <- df %>%
   group_by(species) %>%
   summarise(
@@ -174,8 +190,7 @@ ANOVA memungkinkan kita membuat kesimpulan tentang **seluruh populasi** berdasar
 
 Di langkah berikutnya, kita akan belajar bagaimana menjalankan tes ini di R dan menginterpretasikan hasilnya.
 
-
-```R
+```{r}
 res_aov <- aov(flipper_length_mm ~ species,
   data = df)
 
@@ -216,16 +231,10 @@ Ini berarti kita memiliki cukup bukti untuk mengatakan bahwa **setidaknya satu s
 
 Cara yang bersih untuk meringkas hasil ANOVA di R adalah dengan menggunakan fungsi `report()` dari paket `{report}`:
 
-```r
+```{r}
 # install.packages("report")  # jika belum diinstal
 library(report)
 report(res_aov)
-
-
-
-```R
-library(report)
-print(report(res_aov))
 ```
 
 ## Apa yang Terjadi Setelah ANOVA?
@@ -339,7 +348,7 @@ Jika nilai *p* lebih kecil dari level yang disesuaikan ini, perbedaan dianggap s
 
 Kita bisa menjalankan koreksi Bonferroni menggunakan `pairwise.t.test()`:
 
-```R
+```{r}
 # Koreksi Bonferroni
 pairwise.t.test(df$flipper_length_mm, df$species,
                 p.adjust.method = "bonferroni",
@@ -352,8 +361,7 @@ Dalam kasus kita, kita tidak memiliki kelompok referensi dan kita ingin membandi
 
 Kita dapat menggunakan kembali hasil ANOVA (`res_aov`) dan menjalankan tes seperti ini:
 
-
-```R
+```{r}
 # Tes Tukey HSD:
 post_test <- glht(res_aov,
 linfct = mcp(species = "Tukey")
@@ -392,9 +400,7 @@ Ini berarti bahwa **ketiga spesies penguin secara signifikan berbeda** satu sama
 
 Anda dapat menggunakan fungsi `plot()` untuk menghasilkan plot confidence interval:
 
-
-
-```R
+```{r}
 par(mar=c(3,8,3,3)) # Atur margin untuk spacing label yang lebih baik
 plot(post_test)
 ```
@@ -437,8 +443,7 @@ Misalkan kita ingin menggunakan `Adelie` sebagai **kelompok referensi** kita dan
 
 Berikut cara menjalankan **tes Dunnett** di R:
 
-
-```R
+```{r}
 # Tes post-hoc Dunnett
 post_test_dunnett <- glht(res_aov, linfct = mcp(species = "Dunnett"))
 
@@ -469,8 +474,7 @@ Ini berarti bahwa:
 
 > Namun, **tidak ada yang dapat dikatakan** tentang perbandingan antara Chinstrap dan Gentoo — karena **tes Dunnett hanya membandingkan dengan kelompok referensi**.
 
-
-```R
+```{r}
 par(mar = c(3, 8, 3, 3))  # Atur margin untuk spacing label yang lebih baik
 plot(post_test_dunnett)
 ```
@@ -479,9 +483,7 @@ plot(post_test_dunnett)
 
 Untuk membuat hasil Anda lebih mudah diinterpretasikan dan lebih menarik secara visual, seringkali membantu untuk menampilkan **hasil ANOVA** dan **post-hoc tests langsung di boxplot Anda**.
 
-
-
-```R
+```{r}
 ggbetweenstats(
   data = df,
   x = species,
@@ -500,7 +502,6 @@ Dalam plot contoh di atas, setiap **boxplot per spesies** ditampilkan bersama de
 
 - **Nilai *p* dari ANOVA** — biasanya ditampilkan di **subtitle** plot (misalnya, `p = 1.59e-107`)
 - **Nilai *p* dari post-hoc tests** — ditampilkan **di atas setiap perbandingan berpasangan**
-
 
 ## Latihan: Memilih Post-hoc Test yang Tepat
 
@@ -544,7 +545,7 @@ Seorang ekolog membandingkan panjang tubuh ikan dari 4 danau berbeda. ANOVA menu
 
 Coba gunakan data tapak dara untuk menguji apakah tinggi tanaman (`plant-height`) berbeda antar lokasi (`label`):
 
-```R
+```{r, eval=FALSE}
 # 1. Load data
 tapak_dara <- read.csv("assets/data/morfologi_tapak_dara.tsv")
 

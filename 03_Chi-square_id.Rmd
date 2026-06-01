@@ -1,4 +1,21 @@
-# Tes Chi-Square
+---
+title: "Tes Chi-Square"
+subtitle: "Menguji Hubungan Antara Dua Variabel Kategorikal"
+author:
+  - Tim Pengampu Biostatistika
+date: "2026-06-01"
+output: html_document
+---
+
+## Tujuan Pembelajaran
+
+Setelah sesi ini, mahasiswa akan mampu:
+
+| Mengetahui | Memahami | Melakukan |
+|------------------------|------------------------|------------------------|
+| Asumsi tes Chi-Square (independensi, ukuran sampel cukup) | Chi-Square menguji apakah ada hubungan antara dua variabel kategorikal | Melakukan tes Chi-Square dengan `chisq.test()` |
+| Interpretasi statistik Chi-Square dan p-value | p-value < 0.05 berarti ada hubungan signifikan antara variabel | Membuat tabel kontingensi dengan `table()` |
+| Cara melaporkan hasil Chi-Square dalam format ilmiah |  | Memvisualisasikan hasil dengan ggplot2 |
 
 ## Latihan Retrieval & Pengantar
 
@@ -16,7 +33,9 @@ Tes Chi-Square of Independence membantu kita menjawab:
 
 Ini membandingkan frekuensi yang diamati (yang sebenarnya kita lihat) dengan frekuensi yang diharapkan (yang akan kita harapkan jika variabel-variabel tersebut tidak berhubungan).
 
-> **Pertanyaan Hinge:** Anda sedang meneliti apakah jenis tanah (lempung, berpasir, liat) mempengaruhi jenis tanaman yang tumbuh (bunga, sayur, pohon). Variabel apa yang kategorikal?
+### _Hinge Question_
+
+> Anda sedang meneliti apakah jenis tanah (lempung, berpasir, liat) mempengaruhi jenis tanaman yang tumbuh (bunga, sayur, pohon). Variabel apa yang kategorikal?
 >
 > A) Hanya jenis tanah
 > B) Hanya jenis tanaman
@@ -25,8 +44,7 @@ Ini membandingkan frekuensi yang diamati (yang sebenarnya kita lihat) dengan fre
 >
 > **Jawaban: C.** Kedua variabel adalah kategorikal — Chi-square test digunakan untuk menguji hubungan antara dua variabel kategorikal.
 
-
-```R
+```{r}
 library(palmerpenguins)
 library(ggplot2)
 library(dplyr)
@@ -39,28 +57,24 @@ library(ggthemes)
 Mari kita lihat dataset penguin kita lagi.
 Bagaimana penguin terdistribusi di ketiga pulau?
 
-<div style="position: relative; display: inline-block;">
+![](https://raw.githubusercontent.com/lab-biotek-bio-ugm/BISB211203/refs/heads/main/assets/figures/penguins_palmer_archipelago.png)
 
-  <!-- Map background -->
-  <img src="https://raw.githubusercontent.com/lab-biotek-bio-ugm/BISB211203/refs/heads/main/assets/figures/penguins_palmer_archipelago.png" style="width: 100%;">
-
-  <!-- Penguin overlay centered -->
-  <img src="https://github.com/allisonhorst/palmerpenguins/raw/main/man/figures/lter_penguins.png"
-       style="
-         position: absolute;
-         top: 50%;
-         left: 50%;
-         transform: translate(-50%, -50%);
-         width: 40%;
-         border: 2px solid white;
-         box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-         border-radius: 4px;">
-</div>
+```{mermaid}
+flowchart LR
+    Adelie["🐧 Adelie"] --> Penguin["📊 Tes Chi-Square"] --> Chinstrap["🐧 Chinstrap"]
+    Gentoo["🐧 Gentoo"] --> Penguin
+    Torgensen["🏝️ Torgersen"] --> Penguin
+    Dream["🏝️ Dream"] --> Penguin
+    Biscoe["🏝️ Biscoe"] --> Penguin
+    style Adelie fill:#e3f2fd
+    style Gentoo fill:#ffebee
+    style Chinstrap fill:#e8f5e9
+    style Penguin fill:#f3e5f5
+```
 
 ### Frekuensi yang Diamati (O)
 
-
-```R
+```{r}
 df <- na.omit(penguins)
 
 # Buat tabel kontingensi yang diamati
@@ -74,6 +88,7 @@ Mari kita uji pertanyaan ini:
 > **Apakah distribusi spesies terkait dengan pulau-pulau?**
 
 ### Frekuensi yang Diharapkan (E)
+
 Jika tidak ada asosiasi, penguin akan terdistribusi secara proporsional di setiap pulau.
 
 Kita dapat menggunakan formula ini untuk menghitung frekuensi yang diharapkan di setiap pulau.
@@ -82,8 +97,7 @@ $E_{ij} = \frac{(\text{total baris}_i) \times (\text{total kolom}_j)}{\text{tota
 
 Jadi Tabel yang Diharapkan adalah:
 
-
-```R
+```{r}
 # Dapatkan total
 row_totals <- rowSums(penguin_table)
 col_totals <- colSums(penguin_table)
@@ -105,8 +119,7 @@ expected_matrix
 
 Mari bandingkan nilai yang diamati dan yang diharapkan side by side:
 
-
-```R
+```{r}
 # Ekstrak yang diamati dan yang diharapkan
 observed <- as.numeric(penguin_table)
 expected <- as.numeric(expected_matrix)
@@ -127,7 +140,7 @@ observation_table
 
 ## Menghitung Chi-Square
 
-Statistik tes Chi-Square memberi tahu kita **seberapa berbeda** data yang diamati dari yang kita harapkan berdasarkan asumsi bahwa dua variabel kategorikal independen.
+Statistik tes Chi-Square memberi kita **seberapa berbeda** data yang diamati dari yang kita harapkan berdasarkan asumsi bahwa dua variabel kategorikal independen.
 
 Kita menggunakan formula berikut:
 
@@ -170,9 +183,7 @@ Ini menunjukkan bahwa dua variabel (seperti *spesies* dan *pulau*) **kemungkinan
 
 Untuk membantu Anda lebih memahami dari mana perbedaan berasal, Anda dapat membuat bar plot yang membandingkan frekuensi yang diamati vs yang diharapkan:
 
-
-
-```R
+```{r}
 ggplot(observation_table, aes(x = Island, fill = Species)) +
   geom_bar(aes(y = Observed), stat = "identity", position = "dodge", alpha = 0.7) +
   geom_point(aes(y = Expected), shape = 4, size = 3,
@@ -192,8 +203,7 @@ $$
 
 Dan pada akhirnya, kita akan membuat penjumlahan dari semua nilai komponen
 
-
-```R
+```{r}
 # Hitung komponen chi-square: (O - E)^2 / E
 component <- (observed - expected)^2 / expected
 
@@ -225,9 +235,7 @@ $$
 
 Kita dapat menggunakan df untuk menemukan nilai kritis dari tabel distribusi Chi-Square pada tingkat signifikansi 0.05.
 
-
-
-```R
+```{r}
 # Parameter
 df_val <- 4
 alpha <- 0.05
@@ -287,15 +295,14 @@ Jadi kita **menolak hipotesis nol**.
 
 ## Menjalankan tes chi-square di R
 
-R memiliki paket chi-square yang bagus, jadi kita dapat langsung menggunakan library alih-alih menghitungnya secara manual:
+R memiliki fungsi bawaan untuk tes chi-square, jadi kita dapat langsung menggunakan `chisq.test()` alih-alih menghitungnya secara manual:
 
 > **Tangga Petunjuk:** Jika Anda bingung cara menghitung Chi-square secara manual:
 > - **Petunjuk 1:** Ingat formula: χ² = Σ(O - E)² / E
 > - **Petunjuk 2:** Hitung frekuensi expected: E = (total baris × total kolom) / total keseluruhan
 > - **Petunjuk 3:** Gunakan `chisq.test()` untuk hasil langsung
 
-
-```R
+```{r}
 # Jalankan tes chi-square
 chi <- chisq.test(penguin_table)
 
@@ -304,8 +311,7 @@ chi
 
 Mari kita juga visualisasikan hasilnya:
 
-
-```R
+```{r}
 # Ekstrak statistik tes dan df
 chi_stat <- chi$statistic
 df_val <- chi$parameter

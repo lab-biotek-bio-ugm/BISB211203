@@ -1,13 +1,31 @@
-# Chi-square Test
+---
+title: "Chi-Square Test"
+subtitle: "Testing Relationships Between Two Categorical Variables"
+author:
+  - Biostatistics Teaching Team
+date: "2026-06-01"
+output: html_document
+---
+
+## Learning Objectives
+
+After this session, students will be able to:
+
+| Know | Understand | Do |
+|------------------------|------------------------|------------------------|
+| Chi-Square test assumptions (independence, adequate sample size) | Chi-Square tests whether there is a relationship between two categorical variables | Perform Chi-Square test with `chisq.test()` |
+| Interpretation of Chi-Square statistic and p-value | p-value < 0.05 means there is a significant relationship between variables | Create contingency tables with `table()` |
+| How to report Chi-Square results in scientific format |  | Visualize results with ggplot2 |
 
 ## Retrieval Practice & Introduction
 
-> **Retrieval Practice:** Sebelum mempelajari Chi-square, coba ingat kembali:
-> - Apa perbedaan antara variabel kategorikal dan variabel numerik?
-> - Berikan contoh variabel kategorikal dalam penelitian biologi!
-> - Bagaimana cara menyajikan data kategorikal dalam tabel?
+> **Retrieval Practice:** Before learning about Chi-square, try to recall:
+> - What is the difference between categorical and numerical variables?
+> - Give an example of categorical variables in biological research!
+> - How do you present categorical data in a table?
 
 ## What is the Chi-Square Test?
+
 The Chi-Square Test of Independence helps us answer:
 
 - Is there a relationship between two categorical variables?
@@ -15,17 +33,18 @@ The Chi-Square Test of Independence helps us answer:
 
 It compares the observed frequencies (what we actually see) to the expected frequencies (what we would expect if the variables were not related).
 
-> **Hinge Question:** Anda sedang meneliti apakah jenis tanah (lempung, berpasir, liat) mempengaruhi jenis tanaman yang tumbuh (bunga, sayur, pohon). Variabel apa yang kategorikal?
->
-> A) Hanya jenis tanah
-> B) Hanya jenis tanaman
-> C) Kedua variabel (jenis tanah DAN jenis tanaman)
-> D) Tidak ada variabel kategorikal
->
-> **Jawaban: C.** Kedua variabel adalah kategorikal — Chi-square test digunakan untuk menguji hubungan antara dua variabel kategorikal.
+### _Hinge Question_
 
+> You are researching whether soil type (clay, sandy, loam) affects the type of plant growing (flower, vegetable, tree). Which variables are categorical?
+>
+> A) Only soil type
+> B) Only plant type
+> C) Both variables (soil type AND plant type)
+> D) No categorical variables
+>
+> **Answer: C.** Both variables are categorical — Chi-square test is used to test the relationship between two categorical variables.
 
-```R
+```{r}
 library(palmerpenguins)
 library(ggplot2)
 library(dplyr)
@@ -34,31 +53,28 @@ library(ggthemes)
 ```
 
 ## Example: Penguins on Islands
+
 Let's take a look at our penguin dataset again.
 How are the penguins distributed in the three islands?
 
-<div style="position: relative; display: inline-block;">
+![](https://raw.githubusercontent.com/lab-biotek-bio-ugm/BISB211203/refs/heads/main/assets/figures/penguins_palmer_archipelago.png)
 
-  <!-- Map background -->
-  <img src="https://raw.githubusercontent.com/lab-biotek-bio-ugm/BISB211203/refs/heads/main/assets/figures/penguins_palmer_archipelago.png" style="width: 100%;">
-
-  <!-- Penguin overlay centered -->
-  <img src="https://github.com/allisonhorst/palmerpenguins/raw/main/man/figures/lter_penguins.png"
-       style="
-         position: absolute;
-         top: 50%;
-         left: 50%;
-         transform: translate(-50%, -50%);
-         width: 40%;
-         border: 2px solid white;
-         box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-         border-radius: 4px;">
-</div>
+```{mermaid}
+flowchart LR
+    Adelie["🐧 Adelie"] --> Penguin["📊 Chi-Square Test"] --> Chinstrap["🐧 Chinstrap"]
+    Gentoo["🐧 Gentoo"] --> Penguin
+    Torgersen["🏝️ Torgersen"] --> Penguin
+    Dream["🏝️ Dream"] --> Penguin
+    Biscoe["🏝️ Biscoe"] --> Penguin
+    style Adelie fill:#e3f2fd
+    style Gentoo fill:#ffebee
+    style Chinstrap fill:#e8f5e9
+    style Penguin fill:#f3e5f5
+```
 
 ### Observed Frequencies (O)
 
-
-```R
+```{r}
 df <- na.omit(penguins)
 
 # Create observed contingency table
@@ -72,6 +88,7 @@ Let's test this question:
 > **Is species distribution associated with the islands?**
 
 ### Expected Frequencies (E)
+
 If there's no association, the penguins would be distributed proportionally in each island.
 
 We can use this formula to calculate the expected frequency in each island.
@@ -80,8 +97,7 @@ $E_{ij} = \frac{(\text{row total}_i) \times (\text{column total}_j)}{\text{grand
 
 So the Expected Table is:
 
-
-```R
+```{r}
 # Get totals
 row_totals <- rowSums(penguin_table)
 col_totals <- colSums(penguin_table)
@@ -103,8 +119,7 @@ expected_matrix
 
 Let's compare the observed and expected values side by side:
 
-
-```R
+```{r}
 # Extract observed and expected
 observed <- as.numeric(penguin_table)
 expected <- as.numeric(expected_matrix)
@@ -123,7 +138,7 @@ observation_table <- data.frame(
 observation_table
 ```
 
-## Calculating the Chi-square
+## Calculating the Chi-Square
 
 The Chi-Square test statistic tells us **how different** the observed data is from what we would expect under the assumption that the two categorical variables are independent.
 
@@ -168,9 +183,7 @@ This suggests that the two variables (like *species* and *island*) are **likely 
 
 To help you better understand where the differences come from, you can make a bar plot comparing observed vs expected frequencies:
 
-
-
-```R
+```{r}
 ggplot(observation_table, aes(x = Island, fill = Species)) +
   geom_bar(aes(y = Observed), stat = "identity", position = "dodge", alpha = 0.7) +
   geom_point(aes(y = Expected), shape = 4, size = 3,
@@ -190,8 +203,7 @@ $$
 
 And at the end, we will create a sum of all the component values
 
-
-```R
+```{r}
 # Calculate chi-square components: (O - E)^2 / E
 component <- (observed - expected)^2 / expected
 
@@ -223,9 +235,7 @@ $$
 
 We can use the df to find the critical value from a Chi-Square distribution table at a significance level of 0.05.
 
-
-
-```R
+```{r}
 # Parameters
 df_val <- 4
 alpha <- 0.05
@@ -283,17 +293,16 @@ So we **reject the null hypothesis**.
 - There is a **statistically significant relationship** between penguin species and the islands where they are found.  
 - The distribution is **not uniform** and likely reflects ecological or behavioral preferences.
 
-## Running chi-square test in R
+## Running Chi-Square Test in R
 
-R has a neat chi-square package, so we can directly use the library instead of calculating it manually:
+R has a built-in function for the Chi-Square test, so we can directly use `chisq.test()` instead of calculating it manually:
 
-> **Hint Ladder:** Jika Anda bingung cara menghitung Chi-square secara manual:
-> - **Hint 1:** Ingat formula: χ² = Σ(O - E)² / E
-> - **Hint 2:** Hitung expected frequency: E = (row total × column total) / grand total
-> - **Hint 3:** Gunakan `chisq.test()` untuk hasil langsung
+> **Hint Ladder:** If you're confused about how to calculate Chi-Square manually:
+> - **Hint 1:** Remember the formula: χ² = Σ(O - E)² / E
+> - **Hint 2:** Calculate expected frequency: E = (row total × column total) / grand total
+> - **Hint 3:** Use `chisq.test()` for direct results
 
-
-```R
+```{r}
 # Run the chi-square test
 chi <- chisq.test(penguin_table)
 
@@ -302,8 +311,7 @@ chi
 
 Let us also visualize the result:
 
-
-```R
+```{r}
 # Extract test statistic and df
 chi_stat <- chi$statistic
 df_val <- chi$parameter
