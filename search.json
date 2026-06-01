@@ -6,147 +6,227 @@
     "section": "",
     "text": "Prakata\nModul ini dirancang untuk membantu mahasiswa program sarjana (S1) Biologi dalam memahami konsep-konsep dasar biostatistika serta penerapannya dalam berbagai bidang ilmu hayati dan kesehatan. Biostatistika merupakan cabang ilmu yang memiliki peran penting dalam penelitian dan analisis data di bidang biologi, kedokteran, farmasi, serta ilmu kesehatan lainnya. Pemahaman yang baik mengenai biostatistika akan membekali mahasiswa dengan keterampilan analisis data yang kuat, sehingga mereka dapat menginterpretasikan hasil penelitian secara akurat dan valid. Semoga modul ini dapat menjadi referensi yang bermanfaat bagi mahasiswa dalam memahami dan mengaplikasikan biostatistika dalam studi dan penelitian mereka.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction / Pengantar</span>"
     ]
   },
   {
-    "objectID": "01_assignments_1.html",
-    "href": "01_assignments_1.html",
-    "title": "2  Pendalaman Materi 1",
+    "objectID": "index.html#preface",
+    "href": "index.html#preface",
+    "title": "Biostatistika",
+    "section": "Preface",
+    "text": "Preface\nThis module is designed to help undergraduate (S1) Biology students understand fundamental biostatistics concepts and their applications in various life sciences and health disciplines. Biostatistics is a branch of science that plays an important role in research and data analysis in biology, medicine, pharmacy, and other health sciences. A good understanding of biostatistics will equip students with strong data analysis skills, enabling them to interpret research results accurately and validly. May this module serve as a useful reference for students in understanding and applying biostatistics in their studies and research.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction / Pengantar</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#struktur-modul-module-structure",
+    "href": "index.html#struktur-modul-module-structure",
+    "title": "Biostatistika",
+    "section": "0.1 📚 Struktur Modul / Module Structure",
+    "text": "0.1 📚 Struktur Modul / Module Structure\n\n\n\n\n\n\n\n\nSesi / Session\nTopik / Topic\nFormat\n\n\n\n\n00\nPengantar R dan RStudio / Introduction to R and RStudio\n.Rmd\n\n\n01\nT-test / T-test\n.Rmd\n\n\n02\nANOVA + Post-hoc Tests / ANOVA + Post-hoc Tests\n.Rmd\n\n\n03\nChi-square Test / Chi-square Test\n.Rmd\n\n\n\nCara menggunakan / How to use:\n\nBuku digital / Digital book: Baca versi .qmd yang sudah di-render di _book/ / Read the rendered .qmd version in _book/\nPraktik di RStudio / Practice in RStudio: Buka versi .Rmd, lalu knit (Ctrl+Shift+K) atau run all (Ctrl+Shift+Enter) / Open the .Rmd version, then knit (Ctrl+Shift+K) or run all (Ctrl+Shift+Enter)\nDataset: Tersedia di folder assets/data/ / Available in the assets/data/ folder",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction / Pengantar</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics_id.html",
+    "href": "00_r-basics_id.html",
+    "title": "2  [ID] Pengantar R dan RStudio",
     "section": "",
-    "text": "2.1 Pendahuluan\nDalam tugas ini, kita akan membahas konsep asumsi, hipotesis, distribusi data, dan sampel. Konsep-konsep ini merupakan dasar dalam statistik dan analisis data.",
+    "text": "2.1 Tujuan Pembelajaran\nSetelah sesi ini, mahasiswa akan mampu:",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 1</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>[ID] Pengantar R dan `RStudio`</span>"
     ]
   },
   {
-    "objectID": "01_assignments_1.html#pendahuluan",
-    "href": "01_assignments_1.html#pendahuluan",
-    "title": "2  Pendalaman Materi 1",
+    "objectID": "00_r-basics_id.html#tujuan-pembelajaran",
+    "href": "00_r-basics_id.html#tujuan-pembelajaran",
+    "title": "2  [ID] Pengantar R dan RStudio",
     "section": "",
-    "text": "2.1.1 Asumsi\nAsumsi adalah kondisi yang kita anggap benar untuk keperluan analisis. Asumsi membentuk dasar bagi model statistik dan uji statistik. Beberapa asumsi umum meliputi:\n\nIndependensi observasi\nKenormalan data\nHomogenitas varians\n\n\n\n2.1.2 Hipotesis\nHipotesis adalah pernyataan yang dapat diuji secara statistik. Terdapat dua jenis hipotesis:\n\nHipotesis Nol (H0): Hipotesis yang menyatakan tidak ada efek atau perbedaan.\nHipotesis Alternatif (H1): Hipotesis yang menyatakan adanya efek atau perbedaan.\n\n\n\n2.1.3 Distribusi Data\nDistribusi data mengacu pada cara data tersebar atau terdistribusi. Beberapa jenis distribusi data yang umum meliputi:\n\nDistribusi normal\nDistribusi binomial\nDistribusi Poisson",
+    "text": "Mengetahui\nMemahami\nMelakukan\n\n\n\n\nOperator assignment &lt;-\nR menyimpan data dalam objek yang dapat diperiksa, disubsetting, dan divisualisasikan\nMemuat dataset dengan read.delim()\n\n\nTipe data (numeric, character, factor, data.frame)\nObjek yang sama dapat dieksplorasi dengan berbagai cara\nMemeriksa struktur data dengan str() dan summary()\n\n\nFungsi dasar: head(), str(), summary()\n\nMembuat visualisasi dasar dengan ggplot2\n\n\nPaket R dan cara memuatnya (library())",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 1</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>[ID] Pengantar R dan `RStudio`</span>"
     ]
   },
   {
-    "objectID": "01_assignments_1.html#contoh-visualisasi-dataset",
-    "href": "01_assignments_1.html#contoh-visualisasi-dataset",
-    "title": "2  Pendalaman Materi 1",
-    "section": "2.2 Contoh Visualisasi Dataset",
-    "text": "2.2 Contoh Visualisasi Dataset\nUntuk berlatih mengaplikasikan apa yang sudah kita pelajari terkait dengan asumsi, hipotesis, dan distribusi data, kita akan mencoba memvisualisasikan data dari bunga Iris (Unwin and Kleinman 2021), sebuah data penting yang sering digunakan dalam pengajaran statistika dan machine learning.\nSemua data pengukuran morfologi bunga Iris versicolor dan Iris setosa dikumpulkan oleh ahli botani Edgar Anderson pada tahun 1935 di lokasi yang sama. Anderson juga mengumpulkan data sebelumnya tentang Iris virginica, yang kemudian ditambahkan oleh Fisher ke dalam kumpulan dataset ini.\nAnderson memilih untuk meneliti iris karena ia ingin memahami sifat dasar spesies dengan mempelajari spesies yang mudah dikenali dan dibedakan. Penelitiannya sejak tahun 1923 hingga 1928 membawanya pada kesimpulan bahwa I. versicolor dan I. virginica, yang awalnya sulit dibedakan, sebenarnya adalah dua spesies yang berbeda.\nDalam makalahnya pada tahun 1936, Anderson menyarankan bahwa I. versicolor mungkin merupakan hasil hibridisasi antara I. virginica dan spesies iris lain, kemungkinan besar I. setosa. Ia kemudian mengembangkan gagasan tentang hibridisasi introgressif, yaitu proses kawin silang berulang yang dapat menjadi mekanisme penting dalam evolusi.\n\n\n\n\n\n\n\n\n\n\n\n(a) Iris setosa\n\n\n\n\n\n\n\n\n\n\n\n(b) Iris versicolor\n\n\n\n\n\n\n\n\n\n\n\n(c) Iris virginica\n\n\n\n\n\n\n\nFigure 2.1: Tiga spesies bunga Iris\n\n\n\n\n\n\n\nTable 2.1: Iris Dataset\n\n\n\n\n\n\n\n\n\n\nsepal length\nsepal width\npetal length\npetal width\nclass\n\n\n\n\n0\n5.1\n3.5\n1.4\n0.2\nIris-setosa\n\n\n1\n4.9\n3.0\n1.4\n0.2\nIris-setosa\n\n\n2\n4.7\n3.2\n1.3\n0.2\nIris-setosa\n\n\n3\n4.6\n3.1\n1.5\n0.2\nIris-setosa\n\n\n4\n5.0\n3.6\n1.4\n0.2\nIris-setosa\n\n\n...\n...\n...\n...\n...\n...\n\n\n145\n6.7\n3.0\n5.2\n2.3\nIris-virginica\n\n\n146\n6.3\n2.5\n5.0\n1.9\nIris-virginica\n\n\n147\n6.5\n3.0\n5.2\n2.0\nIris-virginica\n\n\n148\n6.2\n3.4\n5.4\n2.3\nIris-virginica\n\n\n149\n5.9\n3.0\n5.1\n1.8\nIris-virginica\n\n\n\n\n150 rows × 5 columns\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 2.2: Distribusi panjang sepal dari tiga spesies bunga Iris",
+    "objectID": "00_r-basics_id.html#mengenal-rstudio",
+    "href": "00_r-basics_id.html#mengenal-rstudio",
+    "title": "2  [ID] Pengantar R dan RStudio",
+    "section": "2.2 Mengenal RStudio",
+    "text": "2.2 Mengenal RStudio\nRStudio adalah Integrated Development Environment (IDE) untuk R. Saat Anda membuka RStudio, Anda akan melihat empat panel:\n\n\n\n\n\n\n\n\nPanel\nLokasi\nFungsi\n\n\n\n\nConsole\nKiri bawah\nTempat R mengeksekusi kode dan menampilkan output\n\n\nSource Editor\nKiri atas\nTempat menulis dan menyimpan script (.R files)\n\n\nEnvironment\nKanan atas\nMenampilkan objek yang ada di memori R\n\n\nFiles/Plots/Packages/Help\nKanan bawah\nTab untuk navigasi file, melihat plot, mengelola paket, dan dokumentasi\n\n\n\n\nThink-aloud (I Do): “Saya membuka RStudio dan melihat empat panel. Panel yang paling sering saya gunakan adalah Console untuk menjalankan kode dan Source Editor untuk menulis script panjang. Ketika saya menjalankan kode di Console, objek yang saya buat akan muncul di panel Environment.”",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 1</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>[ID] Pengantar R dan `RStudio`</span>"
     ]
   },
   {
-    "objectID": "01_assignments_1.html#tugas",
-    "href": "01_assignments_1.html#tugas",
-    "title": "2  Pendalaman Materi 1",
-    "section": "2.3 TUGAS",
-    "text": "2.3 TUGAS\n\nDosen atau Ketua Kelas membagi mahasiswa menjadi 10 kelompok\nMasing-masing kelompok akan melakukan analisis dan visualisasi data dari dataset yang tersedia di tabel berikut:\n\n\n\n\nKelompok\nDeskripsi Dataset\nUnduh\nReferensi\n\n\n\n\n1\nBunga Iris\nUnduh Dataset\n(Unwin and Kleinman 2021)\n\n\n2\nBunga Iris\nUnduh Dataset\n(Unwin and Kleinman 2021)\n\n\n3\nWolf River Pollution\nUnduh Dataset\n(Jaffe, Parker, and Wilson 1982)\n\n\n4\nWolf River Pollution\nUnduh Dataset\n(Jaffe, Parker, and Wilson 1982)\n\n\n5\nChildhood Respiratory Disease\nUnduh Dataset\n(Tager et al. 1979)\n\n\n6\nChildhood Respiratory Disease\nUnduh Dataset\n(Tager et al. 1979)\n\n\n7\nSleep in Mammals\nUnduh Dataset\n(Allison and Cicchetti 1976)\n\n\n8\nSleep in Mammals\nUnduh Dataset\n(Allison and Cicchetti 1976)\n\n\n9\nTapak Dara\nUnduh Dataset\n\n\n\n10\nTapak Dara\nUnduh Dataset\n\n\n\n\n\nBerdasarkan informasi atau keterangan singkat yang ada dalam masing-masing dataset serta jurnal referensi, diskusikan hal berikut:\n\na. Ajukan asumsi statistik yang mungkin berlaku dalam dataset anda!\nb. Buatlah hipotesis statistik berdasarkan asumsi yang anda ajukan!\nc. Uji statistik apa yang dapat digunakan untuk menguji hipotesis yang anda kemukakan?\nd. Ajukan judul penelitian yang sesuai dengan hipotesis dan uji statistik yang dapat digunakan!\n\nUnduh data yang sudah disediakan untuk masing-masing kelompok dan lakukan hal berikut:\n\na. Susunlah raw data (data mentah) yang diperoleh ke dalam salah satu bentuk visualisasi data yang relevan untuk digunakan!\nb. Tentukan jenis data yang diperoleh, cara pengukurannya, dan alasan visualisasi yang dipilih pada poin a!\n\nRangkum hasil diskusi dan visualisasi ke dalam bentuk file presentasi Power Point (.pptx) dan buat rekaman video narasi dari presentasi tersebut. Detail pengiriman tugas akan disampaikan oleh dosen. DEADLINE: 26 Maret 2025\n\n\n\n\n\nAllison, T, and D V Cicchetti. 1976. “Sleep in Mammals: Ecological and Constitutional Correlates.” Science 194 (November): 732–34. https://doi.org/10.1126/science.982039.\n\n\nJaffe, Peter R, Frank L Parker, and David J Wilson. 1982. “Distribution of Toxic Substances in Rivers.” J. Environ. Eng. Div. 108 (August): 639–49. https://doi.org/10.1061/jeegav.0001315.\n\n\nTager, I B, S T Weiss, B Rosner, and F E Speizer. 1979. “Effect of Parental Cigarette Smoking on the Pulmonary Function of Children.” Am. J. Epidemiol. 110 (July): 15–26. https://doi.org/10.1093/oxfordjournals.aje.a112783.\n\n\nUnwin, Antony, and Kim Kleinman. 2021. “The Iris Data Set: In Search of the Source ofvirginica.” Signif. (Oxf.) 18 (December): 26–29. https://doi.org/10.1111/1740-9713.01589.",
+    "objectID": "00_r-basics_id.html#objek-dan-assignment",
+    "href": "00_r-basics_id.html#objek-dan-assignment",
+    "title": "2  [ID] Pengantar R dan RStudio",
+    "section": "2.3 Objek dan Assignment",
+    "text": "2.3 Objek dan Assignment\nDalam R, kita menyimpan data dalam objek menggunakan operator assignment &lt;-:\n\n# Membuat objek bernama 'x' yang berisi angka 5\nx &lt;- 5\n\n# Membuat objek bernama 'nama' yang berisi teks\nnama &lt;- \"BISB211203\"\n\n# Membuat objek bernama 'angka' yang berisi deret angka\nangka &lt;- c(1, 2, 3, 4, 5)\n\n# Melihat isi objek\nx\n\n[1] 5\n\nnama\n\n[1] \"BISB211203\"\n\nangka\n\n[1] 1 2 3 4 5\n\n\n\nMengapa &lt;- bukan =? Keduanya bisa digunakan, tetapi &lt;- adalah konvensi R. Ini membuat kode lebih mudah dibaca dan konsisten dengan kode yang ditulis oleh komunitas R.\n\n\nSelf-explanation prompts:\n1. Mengapa kita perlu menyimpan data dalam objek? Apa bedanya langsung mengetik 5 + 3 vs x &lt;- 5; x + 3?\n2. Apa yang terjadi jika kita menjalankan x &lt;- 10 setelah sebelumnya x &lt;- 5?",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pendalaman Materi 1</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>[ID] Pengantar R dan `RStudio`</span>"
     ]
   },
   {
-    "objectID": "02_assignments_2.html",
-    "href": "02_assignments_2.html",
-    "title": "3  Pendalaman Materi 2",
+    "objectID": "00_r-basics_id.html#tipe-data-dasar",
+    "href": "00_r-basics_id.html#tipe-data-dasar",
+    "title": "2  [ID] Pengantar R dan RStudio",
+    "section": "2.4 Tipe Data Dasar",
+    "text": "2.4 Tipe Data Dasar\nR memiliki beberapa tipe data yang penting untuk diketahui:\n\n# Numeric (angka)\npanjang &lt;- c(12.5, 13.2, 11.8, 14.0)\nclass(panjang)  # \"numeric\"\n\n[1] \"numeric\"\n\n# Character (teks)\nspesies &lt;- c(\"setosa\", \"versicolor\", \"virginica\")\nclass(spesies)  # \"character\"\n\n[1] \"character\"\n\n# Factor (kategori)\n# Penting untuk data kategorikal dalam statistik\nkelompok &lt;- factor(c(\"A\", \"B\", \"A\", \"C\", \"B\"))\nclass(kelompok)  # \"factor\"\n\n[1] \"factor\"\n\n# Logical (TRUE/FALSE)\nhasil &lt;- c(TRUE, FALSE, TRUE)\nclass(hasil)  # \"logical\"\n\n[1] \"logical\"\n\n\n\nMengapa factor penting? Dalam statistik, factor digunakan untuk variabel kategorikal (jenis spesies, perlakuan, jenis tanah). R akan memperlakukan factor secara berbeda dari character — factor memiliki levels (tingkat kategori) yang digunakan dalam analisis.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>[ID] Pengantar R dan `RStudio`</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics_id.html#memuat-dan-memeriksa-data",
+    "href": "00_r-basics_id.html#memuat-dan-memeriksa-data",
+    "title": "2  [ID] Pengantar R dan RStudio",
+    "section": "2.5 Memuat dan Memeriksa Data",
+    "text": "2.5 Memuat dan Memeriksa Data\n\n\n2.5.1 Membaca File\n\n# Membaca file TSV\niris_data &lt;- read.delim(\"assets/data/iris_dataset.tsv\")\n\n\n\n2.5.2 Memeriksa Struktur Data\n\n# Melihat 6 baris pertama\nhead(iris_data)\n\n  sepal.length sepal.width petal.length petal.width       class\n1          5.1         3.5          1.4         0.2 Iris-setosa\n2          4.9         3.0          1.4         0.2 Iris-setosa\n3          4.7         3.2          1.3         0.2 Iris-setosa\n4          4.6         3.1          1.5         0.2 Iris-setosa\n5          5.0         3.6          1.4         0.2 Iris-setosa\n6          5.4         3.9          1.7         0.4 Iris-setosa\n\n# Melihat struktur lengkap data\nstr(iris_data)\n\n'data.frame':   150 obs. of  5 variables:\n $ sepal.length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...\n $ sepal.width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...\n $ petal.length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...\n $ petal.width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...\n $ class       : chr  \"Iris-setosa\" \"Iris-setosa\" \"Iris-setosa\" \"Iris-setosa\" ...\n\n# Melihat ringkasan statistik\nsummary(iris_data)\n\n  sepal.length    sepal.width     petal.length    petal.width   \n Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  \n 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  \n Median :5.800   Median :3.000   Median :4.350   Median :1.300  \n Mean   :5.843   Mean   :3.054   Mean   :3.759   Mean   :1.199  \n 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  \n Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  \n    class          \n Length:150        \n Class :character  \n Mode  :character  \n                   \n                   \n                   \n\n\n\nThink-aloud (I Do): “Saya menjalankan str(iris_data) dan melihat bahwa data ini memiliki 150 observasi dan 5 variabel. Variabel ‘sepal length’ adalah numeric (angka), ‘class’ adalah factor (kategori). Ini penting karena saya akan menggunakan jenis data yang berbeda untuk analisis yang berbeda.”\n\n\n\n2.5.3 Hinge Question\n\nSebelum melanjutkan tutorial ini, coba jawab pertanyaan berikut: Anda menjalankan str(data_mahasiswa) dan melihat output: Factor w/ 3 levels \"A\",\"B\",\"C\": 1 1 2 3 2 1. Apa arti “Factor w/ 3 levels”?\n\nData memiliki 3 baris\nKolom ini berisi 3 kategori (variabel kategorikal)\nAda 3 kolom dalam dataset\nNilainya diurutkan 1, 2, 3\n\nJawaban: B. Ini adalah variabel kategorikal dengan 3 level kategori.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>[ID] Pengantar R dan `RStudio`</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics_id.html#subsetting-data",
+    "href": "00_r-basics_id.html#subsetting-data",
+    "title": "2  [ID] Pengantar R dan RStudio",
+    "section": "2.6 Subsetting Data",
+    "text": "2.6 Subsetting Data\nSubsetting berarti mengambil sebagian data dari dataset:\n\n# Mengambil kolom tertentu menggunakan $\niris_data$`sepal.length`\n\n  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1\n [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0\n [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5\n [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1\n [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5\n [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3\n[109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2\n[127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8\n[145] 6.7 6.7 6.3 6.5 6.2 5.9\n\n# Mengambil baris tertentu menggunakan [ ]\niris_data[1:5, ]  # 5 baris pertama, semua kolom\n\n  sepal.length sepal.width petal.length petal.width       class\n1          5.1         3.5          1.4         0.2 Iris-setosa\n2          4.9         3.0          1.4         0.2 Iris-setosa\n3          4.7         3.2          1.3         0.2 Iris-setosa\n4          4.6         3.1          1.5         0.2 Iris-setosa\n5          5.0         3.6          1.4         0.2 Iris-setosa\n\n# Mengambil kolom dan baris tertentu\niris_data[1:5, 1:3]  # 5 baris pertama, 3 kolom pertama\n\n  sepal.length sepal.width petal.length\n1          5.1         3.5          1.4\n2          4.9         3.0          1.4\n3          4.7         3.2          1.3\n4          4.6         3.1          1.5\n5          5.0         3.6          1.4\n\n# Filter dengan dplyr\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\niris_setosa &lt;- filter(iris_data, `class` == \"Iris-setosa\")\nhead(iris_setosa)\n\n  sepal.length sepal.width petal.length petal.width       class\n1          5.1         3.5          1.4         0.2 Iris-setosa\n2          4.9         3.0          1.4         0.2 Iris-setosa\n3          4.7         3.2          1.3         0.2 Iris-setosa\n4          4.6         3.1          1.5         0.2 Iris-setosa\n5          5.0         3.6          1.4         0.2 Iris-setosa\n6          5.4         3.9          1.7         0.4 Iris-setosa",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>[ID] Pengantar R dan `RStudio`</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics_id.html#visualisasi-dasar-dengan-ggplot2",
+    "href": "00_r-basics_id.html#visualisasi-dasar-dengan-ggplot2",
+    "title": "2  [ID] Pengantar R dan RStudio",
+    "section": "2.7 Visualisasi Dasar dengan ggplot2",
+    "text": "2.7 Visualisasi Dasar dengan ggplot2\n\n2.7.1 Memuat ggplot2\n\nlibrary(ggplot2)\n\n\n\n2.7.2 Histogram\n\nggplot(iris_data, aes(x = `sepal.length`)) +\n  geom_histogram(binwidth = 0.5, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Distribusi Panjang Sepal\",\n        x = \"Panjang Sepal (cm)\",\n        y = \"Frekuensi\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\n2.7.3 Boxplot\n\nggplot(iris_data, aes(x = `class`, y = `sepal.length`, fill = `class`)) +\n  geom_boxplot() +\n  labs(title = \"Perbandingan Panjang Sepal Antar Spesies\",\n        x = \"Spesies\",\n        y = \"Panjang Sepal (cm)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\nThink-aloud (I Do): “Dalam ggplot2, saya selalu memulai dengan ggplot(data, aes(...)) yang menentukan data dan aesthetic mapping (x dan y). Kemudian saya menambahkan layer dengan geom_* — geom_histogram() untuk distribusi, geom_boxplot() untuk perbandingan kelompok. labs() memberi judul dan label, theme_minimal() memberi tampilan yang bersih.”",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>[ID] Pengantar R dan `RStudio`</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics_id.html#latihan-you-do",
+    "href": "00_r-basics_id.html#latihan-you-do",
+    "title": "2  [ID] Pengantar R dan RStudio",
+    "section": "2.8 Latihan (You Do)",
+    "text": "2.8 Latihan (You Do)\nSekarang giliran Anda! Ikuti langkah-langkah berikut secara mandiri:\n\n2.8.1 Latihan 1: Eksplorasi Dataset Tapak Dara\n\nMuat dataset morfologi_tapak_dara.tsv:\n\ntapak_dara &lt;- read.delim(\"assets/data/morfologi_tapak_dara.tsv\")\n\nPeriksa struktur data:\n\nstr(tapak_dara)\nsummary(tapak_dara)\n\nBuat histogram untuk variabel plant.height:\n\nggplot(tapak_dara, aes(x = plant.height)) +\n  geom_histogram(binwidth = 5, fill = \"forestgreen\", color = \"white\") +\n  labs(title = \"Distribusi Tinggi Tanaman Tapak Dara\",\n       x = \"Tinggi Tanaman (cm)\",\n       y = \"Frekuensi\") +\n  theme_minimal()\n\n\n\n\n2.8.2 Latihan 2: Perbandingan Kelompok\n\nBuat boxplot plant_height berdasarkan lokasi (label):\n\nggplot(tapak_dara, aes(x = label, y = plant.height, fill = label)) +\n  geom_boxplot() +\n  labs(title = \"Perbandingan Tinggi Tanaman Berdasarkan Lokasi\",\n       x = \"Lokasi\",\n       y = \"Tinggi Tanaman (cm)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\nHitung statistik deskriptif per kelompok:\n\ntapak_dara %&gt;%\n  group_by(label) %&gt;%\n  summarise(\n    n = n(),\n    mean_height = mean(plant.height),\n    sd_height = sd(plant.height)\n  )\n\n\n\n\n2.8.3 Latihan 3: Challenges\nCoba buat visualisasi yang berbeda dari dataset iris:\n- Histogram untuk petal width\n- Boxplot petal length per spesies\n- Scatter plot sepal length vs sepal width dengan warna berdasarkan spesies",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>[ID] Pengantar R dan `RStudio`</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics_id.html#ringkasan",
+    "href": "00_r-basics_id.html#ringkasan",
+    "title": "2  [ID] Pengantar R dan RStudio",
+    "section": "2.9 Ringkasan",
+    "text": "2.9 Ringkasan\nDalam sesi ini, kita telah mempelajari:\n- Empat panel RStudio dan fungsinya\n- Objek dan assignment dengan &lt;-\n- Tipe data dasar: numeric, character, factor, logical\n- Membaca data dengan read.delim()\n- Memeriksa data dengan str(), summary(), head()\n- Subsetting data dengan $, [ ], dan dplyr::filter()\n- Visualisasi dasar dengan ggplot2: histogram dan boxplot\nDi sesi berikutnya, kita akan menggunakan kemampuan ini untuk melakukan analisis statistik yang lebih mendalam — dimulai dengan T-test.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>[ID] Pengantar R dan `RStudio`</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics_en.html",
+    "href": "00_r-basics_en.html",
+    "title": "3  [EN] Introduction to R and RStudio",
     "section": "",
-    "text": "3.1 Soal 1: Jenis Data dan Pengukuran\nUnduh lembar jawab di link berikut:\nUnduh Lembar Jawab\nSeorang peneliti melakukan penelitian tentang hubungan antara ekspresi gen tertentu (Gen X) dengan tinggi tanaman dan jumlah daun pada tanaman hasil rekayasa genetika. Data yang diperoleh dari 15 sampel tanaman adalah sebagai berikut:\nTable 3.1: Soal 1\n\n\n\n\n\n\n\n\n\n\nID Tanaman\nGenotipe\nEkspresi Gen X (Ct Value)\nTinggi Tanaman (cm)\nJumlah Daun\nWarna Daun\n\n\nNo\n\n\n\n\n\n\n\n\n\n\n1\nT001\nAA\n22.5\n45\n10\nHijau\n\n\n2\nT002\nAG\n24.8\n50\n12\nHijau\n\n\n3\nT003\nGG\n21.2\n48\n11\nHijau\n\n\n4\nT004\nAA\n23.1\n42\n9\nKuning\n\n\n5\nT005\nAG\n25.3\n47\n10\nHijau\n\n\n6\nT006\nGG\n20.5\n53\n14\nHijau\n\n\n7\nT007\nAA\n22.8\n44\n10\nKuning\n\n\n8\nT008\nAG\n24.1\n49\n12\nHijau\n\n\n9\nT009\nGG\n21.6\n51\n13\nHijau\n\n\n10\nT010\nAA\n23.9\n46\n11\nKuning\n\n\n11\nT011\nAG\n25.0\n48\n12\nHijau\n\n\n12\nT012\nGG\n20.9\n54\n15\nHijau\n\n\n13\nT013\nAA\n22.3\n43\n10\nKuning\n\n\n14\nT014\nAG\n24.5\n50\n13\nHijau\n\n\n15\nT015\nGG\n21.0\n52\n14\nHijau\nUnduh Dataset",
+    "text": "3.1 Learning Objectives\nAfter this session, students will be able to:",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>[EN] Introduction to R and `RStudio`</span>"
     ]
   },
   {
-    "objectID": "02_assignments_2.html#soal-1-jenis-data-dan-pengukuran",
-    "href": "02_assignments_2.html#soal-1-jenis-data-dan-pengukuran",
-    "title": "3  Pendalaman Materi 2",
+    "objectID": "00_r-basics_en.html#learning-objectives",
+    "href": "00_r-basics_en.html#learning-objectives",
+    "title": "3  [EN] Introduction to R and RStudio",
     "section": "",
-    "text": "3.1.1 Identifikasi jenis skala yang digunakan pada data di setiap kolom dalam tabel.\n\nManakah yang termasuk data nominal? Jelaskan.\nManakah yang termasuk data ordinal? Jelaskan.\nManakah yang termasuk data interval dan rasio? Berikan alasan.\n\n\n\n3.1.2 Analisis berdasarkan jenis datanya\n\nApakah ekspresi Gen X (Ct Value) termasuk data diskrit atau kontinu? Jelaskan.\nManakah yang merupakan data kualitatif dan kuantitatif? Berikan alasan.",
+    "text": "Know\nUnderstand\nDo\n\n\n\n\nAssignment operator &lt;-\nR stores data in objects that can be inspected, subsetted, and visualized\nLoad a dataset with read.delim()\n\n\nData types (numeric, character, factor, data.frame)\nThe same object can be explored in different ways\nInspect data structure with str() and summary()\n\n\nBasic functions: head(), str(), summary()\n\nCreate basic visualizations with ggplot2\n\n\nR packages and how to load them (library())",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>[EN] Introduction to R and `RStudio`</span>"
     ]
   },
   {
-    "objectID": "02_assignments_2.html#soal-2-pemilihan-visualisasi-data-dalam-penelitian-mikrobiologi-tanaman",
-    "href": "02_assignments_2.html#soal-2-pemilihan-visualisasi-data-dalam-penelitian-mikrobiologi-tanaman",
-    "title": "3  Pendalaman Materi 2",
-    "section": "3.2 Soal 2: Pemilihan Visualisasi Data dalam Penelitian Mikrobiologi Tanaman",
-    "text": "3.2 Soal 2: Pemilihan Visualisasi Data dalam Penelitian Mikrobiologi Tanaman\nSeorang peneliti melakukan studi mengenai pengaruh jenis mikroba dan kondisi tanah terhadap pertumbuhan tanaman tomat. Berikut adalah hasil penelitian yang diperoleh:\nData 1: Pertumbuhan Tanaman Tomat di Tanah yang Diberi Inokulum Mikroba\nHasil pengukuran tinggi tanaman setelah 30 hari pada tiga perlakuan yang berbeda adalah sebagai berikut:\n\n\n\n\nTable 3.2: Soal 2.1\n\n\n\n\n\n\n\n\n\n\nPerlakuan\nRata-rata Tinggi Tanaman (cm)\nStandar Deviasi\n\n\n\n\n0\nKontrol (Tanpa Mikroba)\n35.4\n±3.1\n\n\n1\nInokulum Bacillus spp.\n42.7\n±2.8\n\n\n2\nInokulum Pseudomonas spp.\n40.3\n±3.0\n\n\n\n\n\n\n\n\n\n\nUnduh Dataset\nData 2: Distribusi Mikroorganisme di Rhizosfer Tanaman Tomat\nPersentase mikroba yang ditemukan di sekitar akar tanaman tomat sehat adalah:\n\n\n\n\nTable 3.3: Soal 2.2\n\n\n\n\n\n\n\n\n\n\nJenis Mikroba\nPersentase\n\n\n\n\n0\nBacillus spp.\n30%\n\n\n1\nPseudomonas spp.\n25%\n\n\n2\nActinobacteria\n20%\n\n\n3\nFungi Mikoriza\n15%\n\n\n4\nLainnya\n10%\n\n\n\n\n\n\n\n\n\n\nUnduh Dataset\nData 3: Perubahan pH Tanah dalam 4 Minggu Setelah Aplikasi Mikroba\nPengukuran pH tanah dilakukan setiap minggu selama 4 minggu setelah aplikasi mikroba:\n\n\n\n\nTable 3.4: Soal 2.3\n\n\n\n\n\n\n\n\n\n\nMinggu\npH Tanah (Kontrol)\npH Tanah (Bacillus spp.)\npH Tanah (Pseudomonas spp.)\n\n\n\n\n0\n0\n6.5\n6.5\n6.5\n\n\n1\n1\n6.4\n6.7\n6.6\n\n\n2\n2\n6.3\n6.8\n6.7\n\n\n3\n3\n6.2\n7.0\n6.8\n\n\n4\n4\n6.1\n7.2\n7.0\n\n\n\n\n\n\n\n\n\n\nUnduh Dataset\n\n3.2.1 Pilih jenis visualisasi data yang paling sesuai untuk menyajikan setiap dataset di atas. Jelaskan alasan pemilihan visualisasi tersebut.\n\nData 1 (Pertumbuhan tanaman dengan inokulum mikroba)\nData 2 (Distribusi mikroorganisme di rhizosfer)\nData 3 (Perubahan pH tanah dalam 4 minggu)\n\n\n\n3.2.2 Buat grafik yang sesuai untuk masing-masing dataset dan berikan interpretasi berdasarkan grafik tersebut.",
+    "objectID": "00_r-basics_en.html#getting-to-know-rstudio",
+    "href": "00_r-basics_en.html#getting-to-know-rstudio",
+    "title": "3  [EN] Introduction to R and RStudio",
+    "section": "3.2 Getting to Know RStudio",
+    "text": "3.2 Getting to Know RStudio\nRStudio is an Integrated Development Environment (IDE) for R. When you open RStudio, you will see four panels:\n\n\n\n\n\n\n\n\nPanel\nLocation\nFunction\n\n\n\n\nConsole\nBottom left\nWhere R executes code and displays output\n\n\nSource Editor\nTop left\nWhere you write and save scripts (.R files)\n\n\nEnvironment\nTop right\nShows objects in R memory\n\n\nFiles/Plots/Packages/Help\nBottom right\nTabs for file navigation, viewing plots, managing packages, and documentation\n\n\n\n\nThink-aloud (I Do): “I open RStudio and see four panels. The panels I use most often are the Console for running code and the Source Editor for writing longer scripts. When I run code in the Console, the objects I create appear in the Environment panel.”",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>[EN] Introduction to R and `RStudio`</span>"
     ]
   },
   {
-    "objectID": "02_assignments_2.html#soal-3-pengukuran",
-    "href": "02_assignments_2.html#soal-3-pengukuran",
-    "title": "3  Pendalaman Materi 2",
-    "section": "3.3 Soal 3: Pengukuran",
-    "text": "3.3 Soal 3: Pengukuran\nSeorang peneliti ingin mengetahui bagaimana variasi berat biji kedelai (gram) yang tumbuh di tiga kondisi tanah berbeda: tanah lempung, tanah berpasir, dan tanah liat. Sebanyak 15 sampel biji kedelai diambil secara acak, dan hasil pengukurannya adalah sebagai berikut:\n\n\n\n\nTable 3.5: Soal 3\n\n\n\n\n\n\n\n\n\n\nSampel\nBerat Biji (gram)\n\n\n\n\n0\n1\n15.2\n\n\n1\n2\n14.8\n\n\n2\n3\n16.1\n\n\n3\n4\n15.5\n\n\n4\n5\n14.9\n\n\n5\n6\n15.7\n\n\n6\n7\n16.2\n\n\n7\n8\n14.5\n\n\n8\n9\n15.0\n\n\n9\n10\n15.8\n\n\n10\n11\n16.0\n\n\n11\n12\n15.3\n\n\n12\n13\n14.7\n\n\n13\n14\n15.6\n\n\n14\n15\n15.4\n\n\n\n\n\n\n\n\n\n\nUnduh Dataset\n\n3.3.1 Hitung mean (rata-rata) dari berat biji kedelai.\n\n\n3.3.2 Tentukan median dari dataset.\n\n\n3.3.3 Tentukan modus, jika ada.\n\n\n3.3.4 Hitung range (jangkauan) dari data.\n\n\n3.3.5 Hitung variansi (s²) dari data tersebut.\n\n\n3.3.6 Hitung standar deviasi (s) dari data tersebut.\n\n\n3.3.7 Berdasarkan hasil statistik yang diperoleh, apakah distribusi berat biji kedelai cukup homogen atau memiliki variasi yang besar? Jelaskan.",
+    "objectID": "00_r-basics_en.html#objects-and-assignment",
+    "href": "00_r-basics_en.html#objects-and-assignment",
+    "title": "3  [EN] Introduction to R and RStudio",
+    "section": "3.3 Objects and Assignment",
+    "text": "3.3 Objects and Assignment\nIn R, we store data in objects using the assignment operator &lt;-:\n\n# Create an object named 'x' containing the number 5\nx &lt;- 5\n\n# Create an object named 'name' containing text\nname &lt;- \"BISB211203\"\n\n# Create an object named 'numbers' containing a sequence\nnumbers &lt;- c(1, 2, 3, 4, 5)\n\n# View the contents of objects\nx\n\n[1] 5\n\nname\n\n[1] \"BISB211203\"\n\nnumbers\n\n[1] 1 2 3 4 5\n\n\n\nWhy &lt;- instead of =? Both can be used, but &lt;- is the R convention. This makes code easier to read and consistent with code written by the R community.\n\n\nSelf-explanation prompts:\n1. Why do we need to store data in objects? What’s the difference between typing 5 + 3 directly vs x &lt;- 5; x + 3?\n2. What happens if we run x &lt;- 10 after previously setting x &lt;- 5?",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Pendalaman Materi 2</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>[EN] Introduction to R and `RStudio`</span>"
     ]
   },
   {
-    "objectID": "tapak_dara.html",
-    "href": "tapak_dara.html",
-    "title": "4  Dataset Tapak Dara",
-    "section": "",
-    "text": "4.1 Deskripsi\nTapak dara (Catharantus roseus L.) merupakan tanaman yang banyak dimanfaatkan dalam dunia medis, selain daripada pemanfaatannya sebagai tanaman hias pada pekarangan. Sebagai tanaman obat, tapak dara mengandung senyawa metabolit sekunder seperti alkaloids, flavonoids, phenolic acids, dan senyawa volatil (Kumar et al., 2022). Senyawa metabolit sekunder spesifik yang ditemukan pada tanaman tapak dara adalah catharantine yang dapat dibagi menjadi dua jenis senyawa, yaitu vincristine dan vinblastine. Metabolit tersebut disintesis pada organ akar tanaman.\nSenyawa metabolit sekunder merupakan senyawa yang bersifat sensitif, dipengaruhi interaksi dari faktor biotik dan abiotik (Dewick, 2002). Salah satu faktor yang disinyalir mempengaruhi biosintesis vinkristine dan vinblastine adalah kandungan bijih besi pada tanah. Penelitian ini dilakukan pada tanaman tapak dara yang tumbuh secara alami di tiga kawasan berbeda, yaitu kawasan pertama pada pesisir pantai Trisik yang mengandung banyak bijih besi, kawasan kedua pada ketinggian 100-300 mdpl, dan kawasan ketiga pada ketinggian &gt;800 mdpl.\nDalam melihat urgensi kandungan metabolit sekunder, perlu dilakukan penelitian dasar terlebih dahulu untuk mengukur karakter morfologi dari tanaman tapak dara yang tumbuh dari tiga kawasan berbeda tersebut.",
+    "objectID": "00_r-basics_en.html#basic-data-types",
+    "href": "00_r-basics_en.html#basic-data-types",
+    "title": "3  [EN] Introduction to R and RStudio",
+    "section": "3.4 Basic Data Types",
+    "text": "3.4 Basic Data Types\nR has several data types that are important to know:\n\n# Numeric (numbers)\nlength &lt;- c(12.5, 13.2, 11.8, 14.0)\nclass(length)  # \"numeric\"\n\n[1] \"numeric\"\n\n# Character (text)\nspecies &lt;- c(\"setosa\", \"versicolor\", \"virginica\")\nclass(species)  # \"character\"\n\n[1] \"character\"\n\n# Factor (categories)\n# Important for categorical data in statistics\ngroup &lt;- factor(c(\"A\", \"B\", \"A\", \"C\", \"B\"))\nclass(group)  # \"factor\"\n\n[1] \"factor\"\n\n# Logical (TRUE/FALSE)\nresult &lt;- c(TRUE, FALSE, TRUE)\nclass(result)  # \"logical\"\n\n[1] \"logical\"\n\n\n\nWhy are factors important? In statistics, factors are used for categorical variables (species type, treatment, soil type). R treats factors differently from character — factors have levels (category levels) that are used in analysis.",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dataset Tapak Dara</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>[EN] Introduction to R and `RStudio`</span>"
     ]
   },
   {
-    "objectID": "tapak_dara.html#deskripsi",
-    "href": "tapak_dara.html#deskripsi",
-    "title": "4  Dataset Tapak Dara",
-    "section": "",
-    "text": "Variabel\nDeskripsi\n\n\n\n\naccession\nNomor identifikasi unik untuk setiap sampel tanaman tapak dara yang diamati.\n\n\nleaf-color\nWarna daun tanaman tapak dara berdasarkan skala warna RHS (Royal Horticultural Society).\n\n\nleaf-length\nPanjang daun dalam satuan cm, diukur dari pangkal hingga ujung daun (cm).\n\n\nleaf-width\nLebar daun dalam satuan cm, diukur pada bagian terlebar dari daun (cm).\n\n\nleaf-ratio\nRasio panjang terhadap lebar daun untuk menggambarkan proporsi bentuk daun.\n\n\nleaf-shape\nBentuk daun yang dikategorikan berdasarkan morfologi seperti oblongus (bulat memanjang) atau elipticus (membulat).\n\n\nstem-diameter\nDiameter batang tanaman dalam satuan cm, diukur pada bagian tengah batang (cm).\n\n\nstem-color\nWarna batang tanaman berdasarkan skala warna RHS.\n\n\nnode-length\nPanjang ruas batang dalam satuan cm, diukur dari satu nodus ke nodus berikutnya (cm).\n\n\nplant-height\nTinggi tanaman dalam satuan cm, diukur dari permukaan tanah hingga titik tertinggi tanaman (cm).\n\n\nflower-color\nWarna bunga tanaman tapak dara berdasarkan skala warna RHS.\n\n\nlabel\nKategori lokasi tempat tanaman tumbuh, seperti pesisir pantai atau ketinggian tertentu.",
+    "objectID": "00_r-basics_en.html#loading-and-inspecting-data",
+    "href": "00_r-basics_en.html#loading-and-inspecting-data",
+    "title": "3  [EN] Introduction to R and RStudio",
+    "section": "3.5 Loading and Inspecting Data",
+    "text": "3.5 Loading and Inspecting Data\n\n\n3.5.1 Reading Files\n\n# Read a TSV file\niris_data &lt;- read.delim(\"assets/data/iris_dataset.tsv\")\n\n\n\n3.5.2 Inspecting Data Structure\n\n# View the first 6 rows\nhead(iris_data)\n\n  sepal.length sepal.width petal.length petal.width       class\n1          5.1         3.5          1.4         0.2 Iris-setosa\n2          4.9         3.0          1.4         0.2 Iris-setosa\n3          4.7         3.2          1.3         0.2 Iris-setosa\n4          4.6         3.1          1.5         0.2 Iris-setosa\n5          5.0         3.6          1.4         0.2 Iris-setosa\n6          5.4         3.9          1.7         0.4 Iris-setosa\n\n# View the complete data structure\nstr(iris_data)\n\n'data.frame':   150 obs. of  5 variables:\n $ sepal.length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...\n $ sepal.width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...\n $ petal.length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...\n $ petal.width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...\n $ class       : chr  \"Iris-setosa\" \"Iris-setosa\" \"Iris-setosa\" \"Iris-setosa\" ...\n\n# View statistical summary\nsummary(iris_data)\n\n  sepal.length    sepal.width     petal.length    petal.width   \n Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  \n 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  \n Median :5.800   Median :3.000   Median :4.350   Median :1.300  \n Mean   :5.843   Mean   :3.054   Mean   :3.759   Mean   :1.199  \n 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  \n Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  \n    class          \n Length:150        \n Class :character  \n Mode  :character  \n                   \n                   \n                   \n\n\n\nThink-aloud (I Do): “I run str(iris_data) and see that this data has 150 observations and 5 variables. The ‘sepal length’ variable is numeric (numbers), and ‘class’ is a factor (categories). This is important because I will use different data types for different analyses.”\n\n\n\n3.5.3 Hinge Question\n\nBefore continuing, try answering: You run str(student_data) and see the output: Factor w/ 3 levels \"A\",\"B\",\"C\": 1 1 2 3 2 1. What does “Factor w/ 3 levels” mean?\n\nThe data has 3 rows\nThis column contains 3 categories (categorical variable)\nThere are 3 columns in the dataset\nThe values are sorted 1, 2, 3\n\nAnswer: B. This is a categorical variable with 3 category levels.",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dataset Tapak Dara</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>[EN] Introduction to R and `RStudio`</span>"
     ]
   },
   {
-    "objectID": "tapak_dara.html#unduh",
-    "href": "tapak_dara.html#unduh",
-    "title": "4  Dataset Tapak Dara",
-    "section": "4.2 Unduh",
-    "text": "4.2 Unduh\nData File (tab-delimited text)",
+    "objectID": "00_r-basics_en.html#data-subsetting",
+    "href": "00_r-basics_en.html#data-subsetting",
+    "title": "3  [EN] Introduction to R and RStudio",
+    "section": "3.6 Data Subsetting",
+    "text": "3.6 Data Subsetting\nSubsetting means taking a portion of data from a dataset:\n\n# Extract a specific column using $\niris_data$`sepal.length`\n\n  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1\n [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0\n [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5\n [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1\n [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5\n [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3\n[109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2\n[127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8\n[145] 6.7 6.7 6.3 6.5 6.2 5.9\n\n# Extract specific rows using [ ]\niris_data[1:5, ]  # First 5 rows, all columns\n\n  sepal.length sepal.width petal.length petal.width       class\n1          5.1         3.5          1.4         0.2 Iris-setosa\n2          4.9         3.0          1.4         0.2 Iris-setosa\n3          4.7         3.2          1.3         0.2 Iris-setosa\n4          4.6         3.1          1.5         0.2 Iris-setosa\n5          5.0         3.6          1.4         0.2 Iris-setosa\n\n# Extract specific rows and columns\niris_data[1:5, 1:3]  # First 5 rows, first 3 columns\n\n  sepal.length sepal.width petal.length\n1          5.1         3.5          1.4\n2          4.9         3.0          1.4\n3          4.7         3.2          1.3\n4          4.6         3.1          1.5\n5          5.0         3.6          1.4\n\n# Filter with dplyr\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\niris_setosa &lt;- filter(iris_data, `class` == \"Iris-setosa\")\nhead(iris_setosa)\n\n  sepal.length sepal.width petal.length petal.width       class\n1          5.1         3.5          1.4         0.2 Iris-setosa\n2          4.9         3.0          1.4         0.2 Iris-setosa\n3          4.7         3.2          1.3         0.2 Iris-setosa\n4          4.6         3.1          1.5         0.2 Iris-setosa\n5          5.0         3.6          1.4         0.2 Iris-setosa\n6          5.4         3.9          1.7         0.4 Iris-setosa",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dataset Tapak Dara</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>[EN] Introduction to R and `RStudio`</span>"
     ]
   },
   {
-    "objectID": "03_practice.html",
-    "href": "03_practice.html",
-    "title": "5  Pendalaman Materi 3",
-    "section": "",
-    "text": "5.1 🧪 How to Run the Practice Sessions\nIn the final part of the course, we include hands-on practice sessions delivered as interactive Jupyter Notebooks. You can run the materials directly on GitHub Codespaces or on your own computer. You will need to create a GitHub account and install VS Code in your computer first.\nFollow the instructions below to get started:",
+    "objectID": "00_r-basics_en.html#basic-visualization-with-ggplot2",
+    "href": "00_r-basics_en.html#basic-visualization-with-ggplot2",
+    "title": "3  [EN] Introduction to R and RStudio",
+    "section": "3.7 Basic Visualization with ggplot2",
+    "text": "3.7 Basic Visualization with ggplot2\n\n3.7.1 Loading ggplot2\n\nlibrary(ggplot2)\n\n\n\n3.7.2 Histogram\n\nggplot(iris_data, aes(x = `sepal.length`)) +\n  geom_histogram(binwidth = 0.5, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Sepal Length Distribution\",\n        x = \"Sepal Length (cm)\",\n        y = \"Frequency\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\n3.7.3 Boxplot\n\nggplot(iris_data, aes(x = `class`, y = `sepal.length`, fill = `class`)) +\n  geom_boxplot() +\n  labs(title = \"Sepal Length Comparison by Species\",\n        x = \"Species\",\n        y = \"Sepal Length (cm)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\nThink-aloud (I Do): “In ggplot2, I always start with ggplot(data, aes(...)) which specifies the data and aesthetic mapping (x and y). Then I add layers with geom_* — geom_histogram() for distributions, geom_boxplot() for group comparisons. labs() adds titles and labels, theme_minimal() gives a clean appearance.”",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pendalaman Materi 3</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>[EN] Introduction to R and `RStudio`</span>"
     ]
   },
   {
-    "objectID": "03_practice.html#how-to-run-the-practice-sessions",
-    "href": "03_practice.html#how-to-run-the-practice-sessions",
-    "title": "5  Pendalaman Materi 3",
-    "section": "",
-    "text": "5.1.1 🔧 Run on GitHub Codespaces and Open in VS Code\nGitHub Codespaces allows you to run things in the cloud with VS code as the interface.\nSteps:\n\nGo to the course repository: https://github.com/lab-biotek-bio-ugm/BISB211203\nClick the green “Code” button, then choose “Open with Codespaces” → “New codespace”.\nOpen a new tab and open https://github.com/codespaces. Find your Virtual Machine, at the bottom and click the three dots \"...\" on the right of the VM, then load the codespace in Visual Studio.\nAfter the Codespace loads, open the terminal and run the following commands:\nconda init\nIt will ask you to close and reopen the terminal. You can do this by clicking the + button on the right top corner of the terminal.\nCreate the environment by:\nconda env create -f environment.yml\nActivate the environment by:\nconda activate BISB211203\nLaunch JupyterLab by running:\njupyter lab\nThe JupyterLab interface will launch in your browser. If it does not open automatically, copy the URL displayed in the terminal (e.g., starting with http://127.0.0.1:8888) and paste it into your browser.\nYou can now open the notebooks (e.g., 03_T-test.ipynb) and start the exercises.",
+    "objectID": "00_r-basics_en.html#exercises-you-do",
+    "href": "00_r-basics_en.html#exercises-you-do",
+    "title": "3  [EN] Introduction to R and RStudio",
+    "section": "3.8 Exercises (You Do)",
+    "text": "3.8 Exercises (You Do)\nNow it’s your turn! Follow these steps independently:\n\n3.8.1 Exercise 1: Explore the Tapak Dara Dataset\n\nLoad the morfologi_tapak_dara.tsv dataset:\n\ntapak_dara &lt;- read.delim(\"assets/data/morfologi_tapak_dara.tsv\")\n\nInspect the data structure:\n\nstr(tapak_dara)\nsummary(tapak_dara)\n\nCreate a histogram for the plant_height variable:\n\nggplot(tapak_dara, aes(x = plant_height)) +\n  geom_histogram(binwidth = 5, fill = \"forestgreen\", color = \"white\") +\n  labs(title = \"Tapak Dara Plant Height Distribution\",\n       x = \"Plant Height (cm)\",\n       y = \"Frequency\") +\n  theme_minimal()\n\n\n\n\n3.8.2 Exercise 2: Group Comparison\n\nCreate a boxplot of plant_height by location (label):\n\nggplot(tapak_dara, aes(x = label, y = plant_height, fill = label)) +\n  geom_boxplot() +\n  labs(title = \"Plant Height Comparison by Location\",\n       x = \"Location\",\n       y = \"Plant Height (cm)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\nCalculate descriptive statistics per group:\n\ntapak_dara %&gt;%\n  group_by(label) %&gt;%\n  summarise(\n    n = n(),\n    mean_height = mean(plant_height),\n    sd_height = sd(plant_height)\n  )\n\n\n\n\n3.8.3 Exercise 3: Challenges\nTry creating different visualizations from the iris dataset:\n- Histogram for petal width\n- Boxplot of petal length by species\n- Scatter plot of sepal length vs sepal width colored by species",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Pendalaman Materi 3</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>[EN] Introduction to R and `RStudio`</span>"
     ]
   },
   {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "Referensi",
-    "section": "",
-    "text": "Allison, T, and D V Cicchetti. 1976. “Sleep in Mammals: Ecological\nand Constitutional Correlates.” Science 194 (November):\n732–34. https://doi.org/10.1126/science.982039.\n\n\nJaffe, Peter R, Frank L Parker, and David J Wilson. 1982.\n“Distribution of Toxic Substances in Rivers.” J.\nEnviron. Eng. Div. 108 (August): 639–49. https://doi.org/10.1061/jeegav.0001315.\n\n\nTager, I B, S T Weiss, B Rosner, and F E Speizer. 1979. “Effect of\nParental Cigarette Smoking on the Pulmonary Function of\nChildren.” Am. J. Epidemiol. 110 (July): 15–26. https://doi.org/10.1093/oxfordjournals.aje.a112783.\n\n\nUnwin, Antony, and Kim Kleinman. 2021. “The Iris Data Set: In\nSearch of the Source ofvirginica.” Signif.\n(Oxf.) 18 (December): 26–29. https://doi.org/10.1111/1740-9713.01589.",
+    "objectID": "00_r-basics_en.html#summary",
+    "href": "00_r-basics_en.html#summary",
+    "title": "3  [EN] Introduction to R and RStudio",
+    "section": "3.9 Summary",
+    "text": "3.9 Summary\nIn this session, we have learned:\n- The four RStudio panels and their functions\n- Objects and assignment with &lt;-\n- Basic data types: numeric, character, factor, logical\n- Reading data with read.delim()\n- Inspecting data with str(), summary(), head()\n- Subsetting data with $, [ ], and dplyr::filter()\n- Basic visualization with ggplot2: histograms and boxplots\nIn the next session, we will use these skills to perform more in-depth statistical analysis — starting with the T-test.",
     "crumbs": [
-      "Referensi"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>[EN] Introduction to R and `RStudio`</span>"
     ]
   }
 ]
