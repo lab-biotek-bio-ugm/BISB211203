@@ -308,5 +308,465 @@
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>[EN] T-test</span>"
     ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html",
+    "href": "02_ANOVA_id.html",
+    "title": "6  ANOVA",
+    "section": "",
+    "text": "6.1 Tujuan Pembelajaran\nSetelah sesi ini, mahasiswa akan mampu:",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#tujuan-pembelajaran",
+    "href": "02_ANOVA_id.html#tujuan-pembelajaran",
+    "title": "6  ANOVA",
+    "section": "",
+    "text": "Mengetahui\nMemahami\nMelakukan\n\n\n\n\nAsumsi ANOVA (normalitas, homogenitas varians, independensi)\nANOVA menguji apakah ada perbedaan signifikan antara tiga kelompok atau lebih\nMelakukan one-way ANOVA dengan aov()\n\n\nInterpretasi nilai F dan p-value dalam ANOVA\np-value &lt; 0.05 berarti setidaknya satu kelompok berbeda\nMenghitung statistik deskriptif per kelompok\n\n\nPerbedaan post-hoc tests (Tukey, Dunnett, Bonferroni)\nPost-hoc tests mengidentifikasi kelompok mana yang berbeda setelah ANOVA signifikan\nMelakukan post-hoc test dengan glht()\n\n\nCara melaporkan hasil ANOVA dalam format ilmiah\n\nMemvisualisasikan hasil ANOVA dengan ggplot2",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#apa-itu-anova",
+    "href": "02_ANOVA_id.html#apa-itu-anova",
+    "title": "6  ANOVA",
+    "section": "6.2 Apa itu ANOVA?",
+    "text": "6.2 Apa itu ANOVA?\nANOVA adalah singkatan dari Analysis of Variance (Analisis Variansi). Ini adalah metode statistik yang digunakan untuk mengetahui apakah ada perbedaan signifikan antara rata-rata dua kelompok atau lebih. Dengan kata lain, ini membantu kita menjawab pertanyaan: Apakah rata-rata kelompok berbeda satu sama lain, atau apakah perbedaan hanya disebabkan oleh kebetulan acak?",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#kapan-kita-menggunakan-anova",
+    "href": "02_ANOVA_id.html#kapan-kita-menggunakan-anova",
+    "title": "6  ANOVA",
+    "section": "6.3 Kapan Kita Menggunakan ANOVA?",
+    "text": "6.3 Kapan Kita Menggunakan ANOVA?\n\nJika Anda hanya memiliki 2 kelompok, Anda dapat menggunakan t-test untuk membandingkannya.\nJika Anda memiliki 3 kelompok atau lebih, ANOVA adalah alat yang lebih baik untuk digunakan.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#jenis-jenis-anova",
+    "href": "02_ANOVA_id.html#jenis-jenis-anova",
+    "title": "6  ANOVA",
+    "section": "6.4 Jenis-jenis ANOVA",
+    "text": "6.4 Jenis-jenis ANOVA\nAda beberapa jenis ANOVA tergantung pada desain studi (seperti one-way, two-way, atau repeated measures).\nDalam kursus ini, kita akan fokus pada one-way ANOVA, yang merupakan versi paling sederhana. Ini disebut “one-way” karena kita melihat efek dari satu faktor atau variabel independen.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#membandingkan-fenotipe-antar-spesies-penguin",
+    "href": "02_ANOVA_id.html#membandingkan-fenotipe-antar-spesies-penguin",
+    "title": "6  ANOVA",
+    "section": "6.5 Membandingkan Fenotipe Antar Spesies Penguin",
+    "text": "6.5 Membandingkan Fenotipe Antar Spesies Penguin\n\nBayangkan Anda adalah peneliti satwa liar yang mempelajari penguin di Antartika. Anda memiliki akses ke data dari tiga spesies penguin yang berbeda:\n\nAdelie\nChinstrap\nGentoo\n\nAnda penasaran: Apakah spesies penguin ini memiliki panjang sirip rata-rata yang berbeda?\nPanjang sirip dapat memberi kita banyak informasi tentang bagaimana penguin berenang, berburu, dan beradaptasi dengan lingkungan mereka.\nUntuk mengeksplorasi pertanyaan ini, Anda menggunakan dataset yang disebut penguins, yang berisi pengukuran nyata dari 344 penguin. Di antara banyak variabel yang dicatat, Anda fokus pada:\n\nSpecies — jenis penguin apa itu\nFlipper length — diukur dalam milimeter\n\nTujuan Anda adalah untuk mengetahui apakah setidaknya satu spesies memiliki panjang sirip rata-rata yang secara signifikan berbeda dibandingkan dengan yang lain.\nKarena Anda membandingkan lebih dari dua kelompok, ini adalah kasus yang sempurna untuk menggunakan ANOVA (Analysis of Variance)!\n\n\n\n\n\nflowchart LR\n    Adelie[\"🐧 Adelie\"] --&gt; Penguin[\"📊 Analisis ANOVA\"] --&gt; Chinstrap[\"🐧 Chinstrap\"]\n    Gentoo[\"🐧 Gentoo\"] --&gt; Penguin\n    style Adelie fill:#e3f2fd\n    style Gentoo fill:#ffebee\n    style Chinstrap fill:#e8f5e9\n    style Penguin fill:#f3e5f5\n\n\n\n\n\n\n\nlibrary(report)\nlibrary(palmerpenguins)\n\n\nAttaching package: 'palmerpenguins'\n\n\nThe following objects are masked from 'package:datasets':\n\n    penguins, penguins_raw\n\nlibrary(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(multcomp)\n\nLoading required package: mvtnorm\n\n\nLoading required package: survival\n\n\nLoading required package: TH.data\n\n\nLoading required package: MASS\n\n\n\nAttaching package: 'MASS'\n\n\nThe following object is masked from 'package:dplyr':\n\n    select\n\n\n\nAttaching package: 'TH.data'\n\n\nThe following object is masked from 'package:MASS':\n\n    geyser\n\nlibrary(ggstatsplot)\n\nYou can cite this package as:\n     Patil, I. (2021). Visualizations with statistical details: The 'ggstatsplot' approach.\n     Journal of Open Source Software, 6(61), 3167, doi:10.21105/joss.03167\n\n\n\nsummary(penguins)\n\n      species          island    bill_length_mm  bill_depth_mm  \n Adelie   :152   Biscoe   :168   Min.   :32.10   Min.   :13.10  \n Chinstrap: 68   Dream    :124   1st Qu.:39.23   1st Qu.:15.60  \n Gentoo   :124   Torgersen: 52   Median :44.45   Median :17.30  \n                                 Mean   :43.92   Mean   :17.15  \n                                 3rd Qu.:48.50   3rd Qu.:18.70  \n                                 Max.   :59.60   Max.   :21.50  \n                                 NA's   :2       NA's   :2      \n flipper_length_mm  body_mass_g       sex           year     \n Min.   :172.0     Min.   :2700   female:165   Min.   :2007  \n 1st Qu.:190.0     1st Qu.:3550   male  :168   1st Qu.:2007  \n Median :197.0     Median :4050   NA's  : 11   Median :2008  \n Mean   :200.9     Mean   :4202                Mean   :2008  \n 3rd Qu.:213.0     3rd Qu.:4750                3rd Qu.:2009  \n Max.   :231.0     Max.   :6300                Max.   :2009  \n NA's   :2         NA's   :2                                 \n\n\n\n# Hapus baris dengan nilai NA\ndf &lt;- na.omit(penguins)\nhead(df)\n\n# A tibble: 6 × 8\n  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g\n  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;\n1 Adelie  Torgersen           39.1          18.7               181        3750\n2 Adelie  Torgersen           39.5          17.4               186        3800\n3 Adelie  Torgersen           40.3          18                 195        3250\n4 Adelie  Torgersen           36.7          19.3               193        3450\n5 Adelie  Torgersen           39.3          20.6               190        3650\n6 Adelie  Torgersen           38.9          17.8               181        3625\n# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;\n\nwrite.csv(df, \"assets/data/penguin_clean.csv\", row.names = FALSE)\n\n\nsummary(df)\n\n      species          island    bill_length_mm  bill_depth_mm  \n Adelie   :146   Biscoe   :163   Min.   :32.10   Min.   :13.10  \n Chinstrap: 68   Dream    :123   1st Qu.:39.50   1st Qu.:15.60  \n Gentoo   :119   Torgersen: 47   Median :44.50   Median :17.30  \n                                 Mean   :43.99   Mean   :17.16  \n                                 3rd Qu.:48.60   3rd Qu.:18.70  \n                                 Max.   :59.60   Max.   :21.50  \n flipper_length_mm  body_mass_g       sex           year     \n Min.   :172       Min.   :2700   female:165   Min.   :2007  \n 1st Qu.:190       1st Qu.:3550   male  :168   1st Qu.:2007  \n Median :197       Median :4050                Median :2008  \n Mean   :201       Mean   :4207                Mean   :2008  \n 3rd Qu.:213       3rd Qu.:4775                3rd Qu.:2009  \n Max.   :231       Max.   :6300                Max.   :2009  \n\n\n\nggplot(df) +\n  aes(x = species, y = flipper_length_mm, color = species) +\n  geom_jitter() +\n  theme(legend.position = \"none\")",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#hipotesis-anova",
+    "href": "02_ANOVA_id.html#hipotesis-anova",
+    "title": "6  ANOVA",
+    "section": "6.6 Hipotesis ANOVA",
+    "text": "6.6 Hipotesis ANOVA\nDalam contoh penguin, kita ingin menjawab pertanyaan:\n\nApakah panjang sirip berbeda antara penguin Adelie, Chinstrap, dan Gentoo?\n\nSaat melakukan ANOVA, kita menetapkan dua hipotesis:\n\nHipotesis nol (\\(H_0\\)):\nPanjang sirip rata-rata adalah sama untuk ketiga spesies.\n\\(H_0\\): \\(\\mu_{Adelie} = \\mu_{Chinstrap} = \\mu_{Gentoo}\\)\nHipotesis alternatif (\\(H_1\\)):\nSetidaknya satu spesies memiliki panjang sirip rata-rata yang berbeda.\n\\(H_1\\): Setidaknya satu mean berbeda\n\n\nPenting: Hipotesis alternatif tidak mengatakan bahwa semua mean berbeda. Ini hanya mengatakan bahwa setidaknya satu dari mereka berbeda.\n\n\n6.6.1 Hinge Question\n\nANOVA menunjukkan p-value = 0.03. Apa interpretasi yang benar?\n\nSemua spesies penguin memiliki flipper length yang berbeda\nSetidaknya satu spesies penguin memiliki flipper length yang berbeda\nTidak ada perbedaan flipper length antar spesies\nRata-rata flipper length semua spesies sama dengan nol\n\nJawaban: B. ANOVA hanya memberitahu kita bahwa setidaknya satu kelompok berbeda, bukan bahwa semua kelompok berbeda.\n\nMisalnya, mungkin penguin Gentoo memiliki sirip yang lebih panjang, tetapi Adelie dan Chinstrap masih cukup mirip satu sama lain.\nUntuk mengetahui kelompok mana yang berbeda, kita perlu melakukan tes tambahan setelah ANOVA — ini disebut post-hoc tests.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#latihan-retrieval-analisis-pendahuluan",
+    "href": "02_ANOVA_id.html#latihan-retrieval-analisis-pendahuluan",
+    "title": "6  ANOVA",
+    "section": "6.7 Latihan Retrieval & Analisis Pendahuluan",
+    "text": "6.7 Latihan Retrieval & Analisis Pendahuluan\n\nLatihan Retrieval: Sebelum melanjutkan ke ANOVA, coba ingat kembali dari sesi T-test: - Apa perbedaan antara t-test dan ANOVA? - Kapan kita menggunakan t-test vs ANOVA? - Apa yang diuji oleh hipotesis nol dalam ANOVA?\n\nSebelum menjalankan ANOVA, ide yang baik adalah pertama-tama mengeksplorasi dan memvisualisasikan data. Ini membantu kita memahami pola dan menemukan nilai yang tidak biasa.\n\n6.7.1 Membuat Boxplot\nSalah satu cara terbaik untuk melihat perbedaan panjang sirip antar spesies penguin adalah menggunakan boxplot.\n\nggplot(df) +\n  aes(x = species, y = flipper_length_mm, color = species) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\nBoxplot menunjukkan distribusi panjang sirip untuk setiap spesies:\n\nPenguin Gentoo tampaknya memiliki sirip terpanjang\nPenguin Adelie tampaknya memiliki sirip terpendek\nPenguin Chinstrap berada di antaranya\n\nPemeriksaan visual ini membantu kita melihat apakah kelompok-kelompok terlihat cukup berbeda untuk mengharapkan hasil signifikan dari ANOVA.\n\n\n6.7.2 Statistik Deskriptif\nSelain boxplot, kita juga harus menghitung statistik ringkasan untuk setiap spesies, seperti:\n\nMean (rata-rata panjang sirip)\nStandard deviation (sebaran panjang sirip)\n\nAngka-angka ini memberi kita gambaran yang lebih jelas tentang kecenderungan sentral dan variabilitas di setiap kelompok sebelum menjalankan tes formal.\n\nlength_stats &lt;- df %&gt;%\n  group_by(species) %&gt;%\n  summarise(\n    mean = mean(flipper_length_mm),\n    sd = sd(flipper_length_mm),\n    n = n(),\n    se = sd / sqrt(n),\n    df = n - 1\n  )\nlength_stats\n\n# A tibble: 3 × 6\n  species    mean    sd     n    se    df\n  &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Adelie     190.  6.52   146 0.540   145\n2 Chinstrap  196.  7.13    68 0.865    67\n3 Gentoo     217.  6.59   119 0.604   118",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#menjalankan-anova-di-r",
+    "href": "02_ANOVA_id.html#menjalankan-anova-di-r",
+    "title": "6  ANOVA",
+    "section": "6.8 Menjalankan ANOVA di R",
+    "text": "6.8 Menjalankan ANOVA di R\nSejauh ini, kita telah mengeksplorasi data secara visual dan menghitung beberapa statistik ringkasan.\nTapi untuk menguji secara formal apakah panjang sirip secara signifikan berbeda antara ketiga spesies penguin, kita perlu melakukan ANOVA.\nIni akan membantu kita menjawab pertanyaan penelitian asli:\n\n“Apakah panjang sirip berbeda antara penguin Adelie, Chinstrap, dan Gentoo?”\n\nANOVA memungkinkan kita membuat kesimpulan tentang seluruh populasi berdasarkan data sample yang kita miliki.\nDi langkah berikutnya, kita akan belajar bagaimana menjalankan tes ini di R dan menginterpretasikan hasilnya.\n\nres_aov &lt;- aov(flipper_length_mm ~ species,\n  data = df)\n\nsummary(res_aov)\n\n             Df Sum Sq Mean Sq F value Pr(&gt;F)    \nspecies       2  50526   25263   567.4 &lt;2e-16 ***\nResiduals   330  14693      45                   \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n6.8.1 Memahami dan Menginterpretasikan Output\nKetika Anda menjalankan summary(res_aov), R akan menampilkan tabel ANOVA. Berikut yang perlu diperhatikan:\n\nNilai F: Statistik tes. Nilai F yang lebih tinggi menunjukkan bukti perbedaan yang lebih kuat antara mean kelompok.\nPr(&gt;F): Ini adalah p-value. Jika kurang dari 0.05, kita dapat menyimpulkan bahwa setidaknya satu spesies memiliki panjang sirip rata-rata yang berbeda.\n\nTabel juga mencakup:\n\nDegrees of freedom (Df): Memberitahu kita berapa banyak kelompok yang dibandingkan dan berapa banyak observasi yang tersisa.\nMean Squares (Mean Sq): Mengukur variasi antar dan dalam kelompok.\n\n\n\n\n6.8.2 Menginterpretasikan Hasil\nDalam kasus kita, nilai p adalah lebih kecil dari 0.05 (p &lt; 2.2e-16), jadi kita menolak hipotesis nol.\nIni berarti kita memiliki cukup bukti untuk mengatakan bahwa setidaknya satu spesies memiliki panjang sirip rata-rata yang berbeda.\n\nKita tidak dapat mengatakan bahwa semua spesies berbeda — hanya bahwa setidaknya satu spesies berbeda dari yang lain.\n\n\n\nJika p-value lebih besar dari 0.05:\nKita akan tidak menolak hipotesis nol.\nItu berarti kita akan tidak memiliki bukti kuat untuk mengatakan bahwa spesies berbeda dalam panjang sirip.\n\n\n\n\n6.8.3 Opsional: Melaporkan Hasil\nCara yang bersih untuk meringkas hasil ANOVA di R adalah dengan menggunakan fungsi report() dari paket {report}:\n\n# install.packages(\"report\")  # jika belum diinstal\nlibrary(report)\nreport(res_aov)\n\nThe ANOVA (formula: flipper_length_mm ~ species) suggests that:\n\n  - The main effect of species is statistically significant and large (F(2, 330)\n= 567.41, p &lt; .001; Eta2 = 0.77, 95% CI [0.74, 1.00])\n\nEffect sizes were labelled following Field's (2013) recommendations.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#apa-yang-terjadi-setelah-anova",
+    "href": "02_ANOVA_id.html#apa-yang-terjadi-setelah-anova",
+    "title": "6  ANOVA",
+    "section": "6.9 Apa yang Terjadi Setelah ANOVA?",
+    "text": "6.9 Apa yang Terjadi Setelah ANOVA?\n\n6.9.1 Jika hipotesis nol tidak ditolak (p-value ≥ 0.05):\n\nKita tidak memiliki cukup bukti untuk mengatakan bahwa mean kelompok berbeda.\nDalam kasus ini, proses ANOVA biasanya berhenti di sini.\nMeskipun analisis lain masih dapat dilakukan, kita tidak dapat menyimpulkan bahwa kelompok mana pun berbeda berdasarkan data yang ada.\n\n\n\n\n6.9.2 Jika hipotesis nol ditolak (p-value &lt; 0.05):\n\nKita telah menunjukkan bahwa setidaknya satu kelompok berbeda dari yang lain.\nJika tujuan Anda hanya untuk menguji apakah semua mean kelompok sama, Anda dapat berhenti di sini.\n\nTapi seringkali, kita ingin pergi lebih jauh dan bertanya:\n\nKelompok mana yang berbeda satu sama lain?\n\nDi sinilah ANOVA saja tidak cukup — ini hanya memberi tahu kita bahwa beberapa perbedaan ada, tapi tidak di mana perbedaan itu terletak.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#apa-selanjutnya-post-hoc-tests",
+    "href": "02_ANOVA_id.html#apa-selanjutnya-post-hoc-tests",
+    "title": "6  ANOVA",
+    "section": "6.10 Apa Selanjutnya? Post-hoc Tests",
+    "text": "6.10 Apa Selanjutnya? Post-hoc Tests\nUntuk mengetahui kelompok mana yang spesifik berbeda, kita perlu melakukan post-hoc tests.\n\nIstilah post-hoc berarti “setelah ini” dalam bahasa Latin — jadi tes ini dilakukan setelah hasil ANOVA yang signifikan.\nMereka juga disebut multiple pairwise comparison tests.\n\nTes ini membandingkan kelompok dua per dua untuk mengidentifikasi tepat kelompok mana yang memiliki mean secara signifikan berbeda.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#masalah-multiple-testing",
+    "href": "02_ANOVA_id.html#masalah-multiple-testing",
+    "title": "6  ANOVA",
+    "section": "6.11 Masalah Multiple Testing",
+    "text": "6.11 Masalah Multiple Testing\nSetelah ANOVA memberi tahu kita bahwa setidaknya satu kelompok berbeda, langkah logis berikutnya adalah mencari tahu kelompok mana yang berbeda.\nUntuk melakukan ini, kita perlu membandingkan kelompok dua-dua.\nDalam dataset penguin kita dengan 3 spesies, kita akan melakukan perbandingan berpasangan berikut:\n\nChinstrap vs. Adelie\n\nGentoo vs. Adelie\n\nGentoo vs. Chinstrap\n\nPada awalnya, sepertinya tidak masalah menjalankan t-test untuk setiap perbandingan ini — setelah semua, t-test dibuat untuk membandingkan dua kelompok.\nTapi ini menimbulkan masalah besar: multiple testing (juga disebut multiplicity).\n\n\n6.11.1 Mengapa Multiple Testing Menjadi Masalah\nSetiap kali kita melakukan tes hipotesis (seperti t-test), ada kemungkinan kecil — biasanya 5% jika α = 0.05 — bahwa kita menemukan hasil signifikan hanya karena kebetulan, bahkan jika hipotesis nol benar.\nJadi apa yang terjadi jika kita menjalankan multiple tests?\nMisalkan kita menjalankan 3 perbandingan berpasangan dan menetapkan tingkat signifikansi kita pada 0.05. Probabilitas mendapatkan setidaknya satu hasil signifikan hanya karena kebetulan menjadi:\n\\[\\begin{equation}\n\\begin{split}\nP(\\text{at least 1 sig. result}) & = 1 - P(\\text{no sig. results}) \\\\\n& = 1 - (1 - 0.05)^3 \\\\\n& = 0.142625\n\\end{split}\n\\end{equation}\\]\nIni berarti ada kemungkinan 14.26% untuk menemukan false positive — hampir 3 kali lebih tinggi dari tingkat error 5% yang kita inginkan!\n\n\n\n6.11.2 Lebih Banyak Kelompok, Lebih Banyak Masalah\nSeiring meningkatnya jumlah kelompok, jumlah perbandingan berpasangan meningkat dengan cepat:\n\n4 kelompok → 6 perbandingan\n\n5 kelompok → 10 perbandingan\n\n10 kelompok → 45 perbandingan\n\nDengan 10 kelompok, kemungkinan mendapatkan false positive menjadi 90%, dan dengan 14 kelompok atau lebih, hampir dijamin — lebih dari 99%.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#post-hoc-tests-di-r-dan-interpretasinya",
+    "href": "02_ANOVA_id.html#post-hoc-tests-di-r-dan-interpretasinya",
+    "title": "6  ANOVA",
+    "section": "6.12 Post-hoc Tests di R dan Interpretasinya",
+    "text": "6.12 Post-hoc Tests di R dan Interpretasinya\nSetelah ANOVA memberi tahu kita bahwa ada perbedaan, post-hoc tests membantu kita mengidentifikasi kelompok mana yang spesifik berbeda. Ada beberapa jenis post-hoc tests, dan yang paling umum adalah:\n\nTukey HSD: Membandingkan semua pasangan kelompok.\nDunnett: Membandingkan setiap kelompok dengan kelompok referensi (misalnya, kelompok kontrol).\nKoreksi Bonferroni: Digunakan ketika Anda memiliki perbandingan yang direncanakan secara spesifik.\n\n\n\n6.12.1 Koreksi Bonferroni\nIni adalah metode paling sederhana. Anda membagi tingkat signifikansi yang diinginkan (misalnya, 0.05) dengan jumlah perbandingan.\nDalam contoh penguin kita, kita membandingkan 3 pasangan:\n[ ’ = = 0.0167 ]\nKemudian Anda melakukan t-test individual dan membandingkan nilai p mereka dengan 0.0167.\nJika nilai p lebih kecil dari level yang disesuaikan ini, perbedaan dianggap signifikan.\n\nCatatan: Bonferroni sederhana tetapi konservatif. Ini mengurangi false positive tetapi mungkin melewatkan perbedaan sejati (false negative).\n\n\n\n6.12.2 Bonferroni di R\nKita bisa menjalankan koreksi Bonferroni menggunakan pairwise.t.test():\n\n# Koreksi Bonferroni\npairwise.t.test(df$flipper_length_mm, df$species,\n                p.adjust.method = \"bonferroni\",\n                pool.sd = FALSE)\n\n\n    Pairwise comparisons using t tests with non-pooled SD \n\ndata:  df$flipper_length_mm and df$species \n\n          Adelie  Chinstrap\nChinstrap 3.9e-07 -        \nGentoo    &lt; 2e-16 &lt; 2e-16  \n\nP value adjustment method: bonferroni \n\n\n\n\n6.12.3 Tes Tukey HSD\nDalam kasus kita, kita tidak memiliki kelompok referensi dan kita ingin membandingkan semua spesies — jadi kita akan menggunakan tes Tukey HSD.\nKita dapat menggunakan kembali hasil ANOVA (res_aov) dan menjalankan tes seperti ini:\n\n# Tes Tukey HSD:\npost_test &lt;- glht(res_aov,\nlinfct = mcp(species = \"Tukey\")\n)\n\nsummary(post_test)\n\n\n     Simultaneous Tests for General Linear Hypotheses\n\nMultiple Comparisons of Means: Tukey Contrasts\n\n\nFit: aov(formula = flipper_length_mm ~ species, data = df)\n\nLinear Hypotheses:\n                        Estimate Std. Error t value Pr(&gt;|t|)    \nChinstrap - Adelie == 0   5.7208     0.9796    5.84 2.61e-08 ***\nGentoo - Adelie == 0     27.1326     0.8241   32.92  &lt; 1e-08 ***\nGentoo - Chinstrap == 0  21.4118     1.0143   21.11  &lt; 1e-08 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n(Adjusted p values reported -- single-step method)\n\n\nSetelah menjalankan tes Tukey HSD dengan summary(post_test), R menampilkan bagian yang berjudul Linear Hypotheses:. Tabel ini menunjukkan perbandingan berpasangan antar kelompok.\nFokus pada dua kolom kunci:\n\nKolom pertama: Daftar perbandingan yang dilakukan\n(misalnya, Chinstrap - Adelie == 0)\nKolom terakhir (Pr(&gt;|t|)): Menampilkan nilai p yang disesuaikan\nIni dikoreksi untuk multiple testing untuk memastikan tingkat error keseluruhan tetap pada 0.05\n\n\nHipotesis nol dalam setiap kasus adalah bahwa dua kelompok memiliki mean yang sama.\nJika nilai p kurang dari 0.05, kita menolak hipotesis ini — dua kelompok secara signifikan berbeda.\n\n\nDalam kasus kita, tes Tukey membandingkan:\n\nChinstrap vs. Adelie (Chinstrap - Adelie == 0)\nGentoo vs. Adelie (Gentoo - Adelie == 0)\nGentoo vs. Chinstrap (Gentoo - Chinstrap == 0)\n\nKetiga nilai p yang disesuaikan adalah kurang dari 0.05, jadi kita menolak hipotesis nol untuk setiap perbandingan.\nIni berarti bahwa ketiga spesies penguin secara signifikan berbeda satu sama lain dalam hal panjang sirip.\n\n\n6.12.3.1 Memvisualisasikan Hasil\nAnda dapat menggunakan fungsi plot() untuk menghasilkan plot confidence interval:\n\npar(mar=c(3,8,3,3)) # Atur margin untuk spacing label yang lebih baik\nplot(post_test)\n\n\n\n\n\n\n\n\nKita melihat bahwa confidence intervals tidak memotong garis nol, yang menunjukkan bahwa semua kelompok secara signifikan berbeda.\n\n\n\n6.12.4 Tes Dunnett\nKita telah melihat bahwa ketika jumlah kelompok meningkat, begitu juga jumlah perbandingan berpasangan.\nIni menimbulkan masalah: untuk menjaga tingkat error keseluruhan (misalnya, 5%) agar tetap terkendali, kita harus menurunkan ambang batas untuk setiap tes individual.\nTapi ketika kita melakukan itu, kita juga mengurangi power statistik — artinya lebih sulit untuk mendeteksi perbedaan nyata antar kelompok.\n\n\n6.12.4.1 Bagaimana Tes Dunnett Membantu\nSalah satu cara untuk meningkatkan power adalah dengan mengurangi jumlah perbandingan.\nIni sangat berguna dalam eksperimen di mana ada kelompok kontrol dan satu atau lebih kelompok perlakuan.\nAlih-alih membandingkan setiap kelompok dengan setiap kelompok lain (seperti yang dilakukan Tukey HSD), tes Dunnett:\n\nMembandingkan setiap kelompok hanya dengan kelompok referensi\nTidak membandingkan kelompok non-referensi satu sama lain\n\n\n\n\n6.12.4.2 Tukey vs. Dunnett\n\n\n\n\n\n\n\n\nTipe Tes\nMembandingkan\nPower Statistik\n\n\n\n\nTukey HSD\nSemua kelompok satu sama lain\nLebih Rendah\n\n\nDunnett\nSetiap kelompok dengan referensi\nLebih Tinggi\n\n\n\n\n\n\n6.12.4.3 Menerapkan Tes Dunnett\nMisalkan kita ingin menggunakan Adelie sebagai kelompok referensi kita dan membandingkan dua spesies lainnya (Chinstrap dan Gentoo) dengannya.\nBerikut cara menjalankan tes Dunnett di R:\n\n# Tes post-hoc Dunnett\npost_test_dunnett &lt;- glht(res_aov, linfct = mcp(species = \"Dunnett\"))\n\nsummary(post_test_dunnett)\n\n\n     Simultaneous Tests for General Linear Hypotheses\n\nMultiple Comparisons of Means: Dunnett Contrasts\n\n\nFit: aov(formula = flipper_length_mm ~ species, data = df)\n\nLinear Hypotheses:\n                        Estimate Std. Error t value Pr(&gt;|t|)    \nChinstrap - Adelie == 0   5.7208     0.9796    5.84 2.51e-08 ***\nGentoo - Adelie == 0     27.1326     0.8241   32.92  &lt; 1e-10 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n(Adjusted p values reported -- single-step method)\n\n\n\nCatatan: Ini sama dengan code tes Tukey, kecuali kita mengubah \"Tukey\" menjadi \"Dunnett\" di baris linfct.\n\nOutput bekerja mirip dengan tes Tukey — Anda akan melihat perbandingan dan nilai p yang disesuaikan.\nTapi kali ini, hanya perbandingan dengan kelompok referensi (Adelie) yang disertakan:\n\nChinstrap vs. Adelie\nGentoo vs. Adelie\n\nIni dapat membantu ketika Anda hanya peduli dengan bagaimana setiap spesies dibandingkan dengan referensi, dan bukan bagaimana mereka dibandingkan satu sama lain.\nDalam output summary(post_test_dunnett), fokus pada kolom terakhir, yang menampilkan nilai p yang disesuaikan.\nDalam contoh kita, kedua nilai p yang disesuaikan adalah di bawah 0.05, jadi kita menolak hipotesis nol untuk kedua perbandingan:\n\nChinstrap vs. Adelie: Perbedaan signifikan\n\nGentoo vs. Adelie: Perbedaan signifikan\n\nIni berarti bahwa:\n\nKedua penguin Chinstrap dan Gentoo memiliki panjang sirip yang secara signifikan berbeda dibandingkan dengan penguin Adelie.\n\n\nNamun, tidak ada yang dapat dikatakan tentang perbandingan antara Chinstrap dan Gentoo — karena tes Dunnett hanya membandingkan dengan kelompok referensi.\n\n\npar(mar = c(3, 8, 3, 3))  # Atur margin untuk spacing label yang lebih baik\nplot(post_test_dunnett)",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#visualisasi-anova-dan-post-hoc-tests-pada-plot-yang-sama",
+    "href": "02_ANOVA_id.html#visualisasi-anova-dan-post-hoc-tests-pada-plot-yang-sama",
+    "title": "6  ANOVA",
+    "section": "6.13 Visualisasi ANOVA dan Post-hoc Tests pada Plot yang Sama",
+    "text": "6.13 Visualisasi ANOVA dan Post-hoc Tests pada Plot yang Sama\nUntuk membuat hasil Anda lebih mudah diinterpretasikan dan lebih menarik secara visual, seringkali membantu untuk menampilkan hasil ANOVA dan post-hoc tests langsung di boxplot Anda.\n\nggbetweenstats(\n  data = df,\n  x = species,\n  y = flipper_length_mm,\n  type = \"parametric\", # ANOVA atau Kruskal-Wallis\n  var.equal = TRUE, # ANOVA atau Welch ANOVA\n  plot.type = \"box\",\n  pairwise.comparisons = TRUE,\n  pairwise.display = \"significant\",\n  centrality.plotting = FALSE,\n  bf.message = FALSE\n)\n\n\n\n\n\n\n\n\nDalam plot contoh di atas, setiap boxplot per spesies ditampilkan bersama dengan:\n\nNilai p dari ANOVA — biasanya ditampilkan di subtitle plot (misalnya, p = 1.59e-107)\nNilai p dari post-hoc tests — ditampilkan di atas setiap perbandingan berpasangan",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#latihan-memilih-post-hoc-test-yang-tepat",
+    "href": "02_ANOVA_id.html#latihan-memilih-post-hoc-test-yang-tepat",
+    "title": "6  ANOVA",
+    "section": "6.14 Latihan: Memilih Post-hoc Test yang Tepat",
+    "text": "6.14 Latihan: Memilih Post-hoc Test yang Tepat\nSetelah ANOVA menunjukkan perbedaan signifikan, tugas Anda adalah memilih post-hoc test yang tepat.\n\n6.14.1 Soal 1: Studi Pertumbuhan Tanaman\nSeorang peneliti ingin mengetahui apakah jenis pupuk (Pupuk A, Pupuk B, Pupuk Kontrol) mempengaruhi tinggi tanaman tomat. ANOVA menunjukkan perbedaan signifikan (p &lt; 0.001). Peneliti sudah merencanakan sebelumnya untuk membandingkan kedua pupuk baru terhadap kontrol.\nPertanyaan: Post-hoc test mana yang paling tepat? - A) Tukey HSD - B) Dunnett - C) Bonferroni - D) Tidak perlu post-hoc\n\n\nKlik untuk melihat jawaban\n\nJawaban: B) Dunnett. Karena peneliti hanya ingin membandingkan setiap perlakuan terhadap kelompok kontrol (bukan membandingkan Pupuk A vs Pupuk B), Dunnett’s test adalah pilihan yang tepat — lebih powerful daripada Tukey untuk skenario ini.\n\n\n\n6.14.2 Soal 2: Studi Spesies Ikan\nSeorang ekolog membandingkan panjang tubuh ikan dari 4 danau berbeda. ANOVA menunjukkan perbedaan signifikan (p = 0.003). Peneliti ingin mengetahui danau mana saja yang berbeda dari danau lainnya.\nPertanyaan: Post-hoc test mana yang paling tepat? - A) Tukey HSD - B) Dunnett - C) Bonferroni - D) Tidak perlu post-hoc\n\n\nKlik untuk melihat jawaban\n\nJawaban: A) Tukey HSD. Karena peneliti ingin membandingkan semua pasangan danau (6 perbandingan), Tukey HSD adalah pilihan yang tepat — mengontrol error rate untuk semua pairwise comparisons.\n\n\n\n6.14.3 Latihan Kode: Bonferroni pada Data Tapak Dara\nCoba gunakan data tapak dara untuk menguji apakah tinggi tanaman (plant-height) berbeda antar lokasi (label):\n\n# 1. Load data\ntapak_dara &lt;- read.csv(\"assets/data/morfologi_tapak_dara.tsv\")\n\n# 2. Lakukan ANOVA\nres_aov_tapak &lt;- aov(`plant-height` ~ label, data = tapak_dara)\nsummary(res_aov_tapak)\n\n# 3. Jika signifikan, jalankan Bonferroni\npairwise.t.test(tapak_dara$`plant-height`, tapak_dara$label,\n                p.adjust.method = \"bonferroni\")\n\nInterpretasi: - Jika p-value ANOVA &lt; 0.05 → ada perbedaan antar lokasi - Jika p-value Bonferroni &lt; 0.05 → pasangan lokasi tersebut berbeda signifikan\nOutput menunjukkan perbandingan berpasangan dengan p-value yang sudah disesuaikan menggunakan metode Bonferroni.\n\nPerbandingan Tukey vs. Bonferroni: - Tukey HSD: Lebih powerful untuk all-pairwise comparisons (semua pasangan) - Bonferroni: Lebih konservatif, cocok untuk planned comparisons (perbandingan yang direncanakan sebelumnya)",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_id.html#ringkasan",
+    "href": "02_ANOVA_id.html#ringkasan",
+    "title": "6  ANOVA",
+    "section": "6.15 Ringkasan",
+    "text": "6.15 Ringkasan\nDalam latihan ini, kita mengeksplorasi konsep-konsep kunci dan langkah-langkah praktis yang terlibat dalam melakukan analisis ANOVA:\n\nKita mulai dengan meninjau tujuan ANOVA — untuk menguji apakah mean beberapa kelompok sama — dan menyatakan hipotesis nol dan alternatif.\nKita mendemonstrasikan cara melakukan ANOVA di R dan menginterpretasikan output, terutama nilai F dan nilai p.\nKita membahas post-hoc tests, termasuk:\n\nTukey HSD, digunakan untuk membandingkan semua pasangan kelompok\nTes Dunnett, digunakan untuk membandingkan kelompok perlakuan dengan kelompok referensi\n\nTerakhir, kita menunjukkan cara memvisualisasikan data dan hasil statistik bersama pada satu plot untuk interpretasi yang lebih mudah.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html",
+    "href": "02_ANOVA_en.html",
+    "title": "7  ANOVA",
+    "section": "",
+    "text": "7.1 Learning Objectives\nAfter this session, students will be able to:",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#learning-objectives",
+    "href": "02_ANOVA_en.html#learning-objectives",
+    "title": "7  ANOVA",
+    "section": "",
+    "text": "Know\nUnderstand\nDo\n\n\n\n\nANOVA assumptions (normality, homogeneity of variance, independence)\nANOVA tests whether there are significant differences between three or more group means\nPerform one-way ANOVA with aov()\n\n\nInterpretation of F-value and p-value in ANOVA\np-value &lt; 0.05 means at least one group differs\nCalculate descriptive statistics per group\n\n\nDifferences between post-hoc tests (Tukey, Dunnett, Bonferroni)\nPost-hoc tests identify which groups differ after a significant ANOVA\nPerform post-hoc test with glht()\n\n\nHow to report ANOVA results in scientific format\n\nVisualize ANOVA results with ggplot2",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#what-is-anova",
+    "href": "02_ANOVA_en.html#what-is-anova",
+    "title": "7  ANOVA",
+    "section": "7.2 What is ANOVA?",
+    "text": "7.2 What is ANOVA?\nANOVA stands for Analysis of Variance. It’s a statistical method used to find out whether there are significant differences between the means of two or more groups. In other words, it helps us answer the question: Are the group averages different from each other, or are any differences just due to random chance?",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#when-do-we-use-anova",
+    "href": "02_ANOVA_en.html#when-do-we-use-anova",
+    "title": "7  ANOVA",
+    "section": "7.3 When do we use ANOVA?",
+    "text": "7.3 When do we use ANOVA?\n\nIf you only have 2 groups, you can use a t-test to compare them.\nIf you have 3 or more groups, ANOVA is the better tool to use.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#types-of-anova",
+    "href": "02_ANOVA_en.html#types-of-anova",
+    "title": "7  ANOVA",
+    "section": "7.4 Types of ANOVA",
+    "text": "7.4 Types of ANOVA\nThere are several types of ANOVA depending on the study design (like one-way, two-way, or repeated measures).\nIn this course, we will focus on the one-way ANOVA, which is the simplest version. It is called “one-way” because we are looking at the effect of one factor or independent variable.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#comparing-phenotypes-across-penguin-species",
+    "href": "02_ANOVA_en.html#comparing-phenotypes-across-penguin-species",
+    "title": "7  ANOVA",
+    "section": "7.5 Comparing Phenotypes Across Penguin Species",
+    "text": "7.5 Comparing Phenotypes Across Penguin Species\n\nImagine you’re a wildlife researcher studying penguins in Antarctica. You have access to data from three different species of penguins:\n\nAdelie\nChinstrap\nGentoo\n\nYou’re curious: Do these penguin species have different average flipper lengths?\nFlipper length can tell us a lot about how penguins swim, hunt, and adapt to their environment.\nTo explore this question, you use a dataset called penguins, which contains real measurements from 344 penguins. Among the many variables recorded, you focus on:\n\nSpecies — which kind of penguin it is\nFlipper length — measured in millimeters\n\nYour goal is to find out whether at least one species has a significantly different average flipper length compared to the others.\nBecause you’re comparing more than two groups, this is a perfect case for using ANOVA (Analysis of Variance)!\n\n\n\n\n\nflowchart LR\n    Adelie[\"🐧 Adelie\"] --&gt; Penguin[\"📊 ANOVA Analysis\"] --&gt; Chinstrap[\"🐧 Chinstrap\"]\n    Gentoo[\"🐧 Gentoo\"] --&gt; Penguin\n    style Adelie fill:#e3f2fd\n    style Gentoo fill:#ffebee\n    style Chinstrap fill:#e8f5e9\n    style Penguin fill:#f3e5f5\n\n\n\n\n\n\n\nlibrary(report)\nlibrary(palmerpenguins)\n\n\nAttaching package: 'palmerpenguins'\n\n\nThe following objects are masked from 'package:datasets':\n\n    penguins, penguins_raw\n\nlibrary(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(multcomp)\n\nLoading required package: mvtnorm\n\n\nLoading required package: survival\n\n\nLoading required package: TH.data\n\n\nLoading required package: MASS\n\n\n\nAttaching package: 'MASS'\n\n\nThe following object is masked from 'package:dplyr':\n\n    select\n\n\n\nAttaching package: 'TH.data'\n\n\nThe following object is masked from 'package:MASS':\n\n    geyser\n\nlibrary(ggstatsplot)\n\nYou can cite this package as:\n     Patil, I. (2021). Visualizations with statistical details: The 'ggstatsplot' approach.\n     Journal of Open Source Software, 6(61), 3167, doi:10.21105/joss.03167\n\n\n\nsummary(penguins)\n\n      species          island    bill_length_mm  bill_depth_mm  \n Adelie   :152   Biscoe   :168   Min.   :32.10   Min.   :13.10  \n Chinstrap: 68   Dream    :124   1st Qu.:39.23   1st Qu.:15.60  \n Gentoo   :124   Torgersen: 52   Median :44.45   Median :17.30  \n                                 Mean   :43.92   Mean   :17.15  \n                                 3rd Qu.:48.50   3rd Qu.:18.70  \n                                 Max.   :59.60   Max.   :21.50  \n                                 NA's   :2       NA's   :2      \n flipper_length_mm  body_mass_g       sex           year     \n Min.   :172.0     Min.   :2700   female:165   Min.   :2007  \n 1st Qu.:190.0     1st Qu.:3550   male  :168   1st Qu.:2007  \n Median :197.0     Median :4050   NA's  : 11   Median :2008  \n Mean   :200.9     Mean   :4202                Mean   :2008  \n 3rd Qu.:213.0     3rd Qu.:4750                3rd Qu.:2009  \n Max.   :231.0     Max.   :6300                Max.   :2009  \n NA's   :2         NA's   :2                                 \n\n\n\n# Remove rows with NA values\ndf &lt;- na.omit(penguins)\nhead(df)\n\n# A tibble: 6 × 8\n  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g\n  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;\n1 Adelie  Torgersen           39.1          18.7               181        3750\n2 Adelie  Torgersen           39.5          17.4               186        3800\n3 Adelie  Torgersen           40.3          18                 195        3250\n4 Adelie  Torgersen           36.7          19.3               193        3450\n5 Adelie  Torgersen           39.3          20.6               190        3650\n6 Adelie  Torgersen           38.9          17.8               181        3625\n# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;\n\nwrite.csv(df, \"assets/data/penguin_clean.csv\", row.names = FALSE)\n\n\nsummary(df)\n\n      species          island    bill_length_mm  bill_depth_mm  \n Adelie   :146   Biscoe   :163   Min.   :32.10   Min.   :13.10  \n Chinstrap: 68   Dream    :123   1st Qu.:39.50   1st Qu.:15.60  \n Gentoo   :119   Torgersen: 47   Median :44.50   Median :17.30  \n                                 Mean   :43.99   Mean   :17.16  \n                                 3rd Qu.:48.60   3rd Qu.:18.70  \n                                 Max.   :59.60   Max.   :21.50  \n flipper_length_mm  body_mass_g       sex           year     \n Min.   :172       Min.   :2700   female:165   Min.   :2007  \n 1st Qu.:190       1st Qu.:3550   male  :168   1st Qu.:2007  \n Median :197       Median :4050                Median :2008  \n Mean   :201       Mean   :4207                Mean   :2008  \n 3rd Qu.:213       3rd Qu.:4775                3rd Qu.:2009  \n Max.   :231       Max.   :6300                Max.   :2009  \n\n\n\nggplot(df) +\n  aes(x = species, y = flipper_length_mm, color = species) +\n  geom_jitter() +\n  theme(legend.position = \"none\")",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#hypotheses-of-anova",
+    "href": "02_ANOVA_en.html#hypotheses-of-anova",
+    "title": "7  ANOVA",
+    "section": "7.6 Hypotheses of ANOVA",
+    "text": "7.6 Hypotheses of ANOVA\nIn the penguin example, we want to answer the question:\n\nIs the flipper length different between Adelie, Chinstrap, and Gentoo penguins?\n\nWhen performing ANOVA, we set up two hypotheses:\n\nNull hypothesis (\\(H_0\\)):\nThe average flipper length is the same for all three species.\n\\(H_0\\): \\(\\mu_{Adelie} = \\mu_{Chinstrap} = \\mu_{Gentoo}\\)\nAlternative hypothesis (\\(H_1\\)):\nAt least one species has a different average flipper length.\n\\(H_1\\): At least one mean is different\n\n\nImportant: The alternative hypothesis does not say that all the means are different. It only says that at least one of them is different.\n\n\n7.6.1 Hinge Question\n\nANOVA shows a p-value = 0.03. What is the correct interpretation?\n\nAll penguin species have different flipper lengths\nAt least one penguin species has a different flipper length\nThere is no difference in flipper length between species\nThe average flipper length of all species equals zero\n\nAnswer: B. ANOVA only tells us that at least one group differs, not that all groups differ.\n\nFor example, maybe Gentoo penguins have longer flippers, but Adelie and Chinstrap are still quite similar to each other.\nTo find out which groups are different, we would need to do additional tests after ANOVA — these are called post-hoc tests.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#retrieval-practice-preliminary-analyses",
+    "href": "02_ANOVA_en.html#retrieval-practice-preliminary-analyses",
+    "title": "7  ANOVA",
+    "section": "7.7 Retrieval Practice & Preliminary Analyses",
+    "text": "7.7 Retrieval Practice & Preliminary Analyses\n\nRetrieval Practice: Before continuing to ANOVA, try to recall from the T-test session: - What is the difference between t-test and ANOVA? - When do we use t-test vs ANOVA? - What does the null hypothesis test in ANOVA?\n\nBefore running ANOVA, it’s a good idea to first explore and visualize the data. This helps us understand patterns and spot any unusual values.\n\n7.7.1 Make a Boxplot\nOne of the best ways to see the differences in flipper length between penguin species is to use a boxplot.\n\nggplot(df) +\n  aes(x = species, y = flipper_length_mm, color = species) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\nThe boxplot shows the distribution of flipper length for each species:\n\nGentoo penguins seem to have the longest flippers\nAdelie penguins appear to have the shortest flippers\nChinstrap penguins fall somewhere in between\n\nThis visual check helps us see whether the groups look different enough to expect significant results from ANOVA.\n\n\n7.7.2 Descriptive Statistics\nIn addition to the boxplot, we should also calculate summary statistics for each species, such as:\n\nMean (average flipper length)\nStandard deviation (how spread out the flipper lengths are)\n\nThese numbers give us a clearer picture of the central tendency and variability in each group before running the formal test.\n\nlength_stats &lt;- df %&gt;%\n  group_by(species) %&gt;%\n  summarise(\n    mean = mean(flipper_length_mm),\n    sd = sd(flipper_length_mm),\n    n = n(),\n    se = sd / sqrt(n),\n    df = n - 1\n  )\nlength_stats\n\n# A tibble: 3 × 6\n  species    mean    sd     n    se    df\n  &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Adelie     190.  6.52   146 0.540   145\n2 Chinstrap  196.  7.13    68 0.865    67\n3 Gentoo     217.  6.59   119 0.604   118",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#running-anova-in-r",
+    "href": "02_ANOVA_en.html#running-anova-in-r",
+    "title": "7  ANOVA",
+    "section": "7.8 Running ANOVA in R",
+    "text": "7.8 Running ANOVA in R\nSo far, we’ve explored the data visually and calculated some summary statistics.\nBut to formally test whether the flipper lengths are significantly different between the three penguin species, we need to perform an ANOVA.\nThis will help us answer the original research question:\n\n“Is the flipper length different between Adelie, Chinstrap, and Gentoo penguins?”\n\nANOVA allows us to make conclusions about the entire population based on the sample data we have.\nIn the next step, we’ll learn how to run this test in R and interpret the result.\n\nres_aov &lt;- aov(flipper_length_mm ~ species,\n  data = df)\n\nsummary(res_aov)\n\n             Df Sum Sq Mean Sq F value Pr(&gt;F)    \nspecies       2  50526   25263   567.4 &lt;2e-16 ***\nResiduals   330  14693      45                   \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n7.8.1 Understanding and Interpreting the Output\nWhen you run summary(res_aov), R will display an ANOVA table. Here’s what to look for:\n\nF value: The test statistic. A higher F value indicates stronger evidence of differences between group means.\nPr(&gt;F): This is the p-value. If it’s less than 0.05, we can conclude that at least one species has a different average flipper length.\n\nThe table also includes:\n\nDegrees of freedom (Df): Tells us how many groups were compared and how many observations remain.\nMean Squares (Mean Sq): Measures variation between and within groups.\n\n\n\n\n7.8.2 Interpreting the Results\nIn our case, the p-value is smaller than 0.05 (p &lt; 2.2e-16), so we reject the null hypothesis.\nThis means we have enough evidence to say that at least one species has a different average flipper length.\n\nWe cannot say that all species are different — only that at least one species differs from the others.\n\n\n\nIf the p-value had been larger than 0.05:\nWe would not reject the null hypothesis.\nThat means we would have no strong evidence to say the species differ in flipper length.\n\n\n\n\n7.8.3 Optional: Reporting the Results\nA clean way to summarize the ANOVA results in R is by using the report() function from the {report} package:\n\n# install.packages(\"report\")  # if not already installed\nlibrary(report)\nreport(res_aov)\n\nThe ANOVA (formula: flipper_length_mm ~ species) suggests that:\n\n  - The main effect of species is statistically significant and large (F(2, 330)\n= 567.41, p &lt; .001; Eta2 = 0.77, 95% CI [0.74, 1.00])\n\nEffect sizes were labelled following Field's (2013) recommendations.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#what-happens-after-anova",
+    "href": "02_ANOVA_en.html#what-happens-after-anova",
+    "title": "7  ANOVA",
+    "section": "7.9 What Happens After ANOVA?",
+    "text": "7.9 What Happens After ANOVA?\n\n7.9.1 If the null hypothesis is not rejected (p-value ≥ 0.05):\n\nWe do not have enough evidence to say that the group means are different.\nIn this case, the ANOVA process usually stops here.\nWhile other analyses could still be done, we cannot conclude that any of the groups differ based on the data at hand.\n\n\n\n\n7.9.2 If the null hypothesis is rejected (p-value &lt; 0.05):\n\nWe have shown that at least one group is different from the others.\nIf your only goal was to test whether all group means are equal, you can stop here.\n\nBut often, we want to go further and ask:\n\nWhich group(s) are different from each other?\n\nThis is where ANOVA alone is not enough — it only tells us that some difference exists, but not where that difference lies.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#whats-next-post-hoc-tests",
+    "href": "02_ANOVA_en.html#whats-next-post-hoc-tests",
+    "title": "7  ANOVA",
+    "section": "7.10 What’s Next? Post-hoc Tests",
+    "text": "7.10 What’s Next? Post-hoc Tests\nTo find out which specific groups differ, we need to perform post-hoc tests.\n\nThe term post-hoc means “after this” in Latin — so these tests are done after a significant ANOVA result.\nThey are also called multiple pairwise comparison tests.\n\nThese tests compare the groups two by two to identify exactly which group(s) have significantly different means.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#the-issue-of-multiple-testing",
+    "href": "02_ANOVA_en.html#the-issue-of-multiple-testing",
+    "title": "7  ANOVA",
+    "section": "7.11 The Issue of Multiple Testing",
+    "text": "7.11 The Issue of Multiple Testing\nOnce ANOVA tells us that at least one group is different, the next logical step is to figure out which group(s) are different.\nTo do this, we need to compare the groups two at a time.\nIn our penguin dataset with 3 species, we would make the following pairwise comparisons:\n\nChinstrap vs. Adelie\n\nGentoo vs. Adelie\n\nGentoo vs. Chinstrap\n\nAt first, it might seem fine to run a t-test for each of these comparisons — after all, t-tests are made for comparing two groups.\nBut this brings up a big problem: multiple testing (also called multiplicity).\n\n\n7.11.1 Why Multiple Testing is a Problem\nEach time we do a hypothesis test (like a t-test), there’s a small chance — usually 5% if α = 0.05 — that we find a significant result just by chance, even if the null hypothesis is true.\nSo what happens if we run multiple tests?\nLet’s say we run 3 pairwise comparisons and set our significance level at 0.05. The probability of getting at least one significant result just by chance becomes:\n\\[\\begin{equation}\n\\begin{split}\nP(\\text{at least 1 sig. result}) & = 1 - P(\\text{no sig. results}) \\\\\n& = 1 - (1 - 0.05)^3 \\\\\n& = 0.142625\n\\end{split}\n\\end{equation}\\]\nThat means there’s a 14.26% chance of finding a false positive — nearly 3 times higher than our intended 5% error rate!\n\n\n\n7.11.2 More Groups, More Problems\nAs the number of groups increases, the number of pairwise comparisons increases rapidly:\n\n4 groups → 6 comparisons\n\n5 groups → 10 comparisons\n\n10 groups → 45 comparisons\n\nWith 10 groups, the chance of getting a false positive becomes 90%, and with 14 or more groups, it’s almost guaranteed — over 99%.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#post-hoc-tests-in-r-and-their-interpretation",
+    "href": "02_ANOVA_en.html#post-hoc-tests-in-r-and-their-interpretation",
+    "title": "7  ANOVA",
+    "section": "7.12 Post-hoc Tests in R and Their Interpretation",
+    "text": "7.12 Post-hoc Tests in R and Their Interpretation\nOnce ANOVA tells us there is a difference, post-hoc tests help us identify which specific groups are different. There are several types of post-hoc tests, and the most common ones are:\n\nTukey HSD: Compares all possible pairs of groups.\nDunnett: Compares each group to a reference group (e.g., a control group).\nBonferroni correction: Used when you have specific planned comparisons.\n\n\n\n7.12.1 Bonferroni Correction\nThis is the simplest method. You divide your desired significance level (e.g., 0.05) by the number of comparisons.\nIn our penguin example, we are comparing 3 pairs:\n[ ’ = = 0.0167 ]\nThen you perform individual t-tests and compare their p-values to 0.0167.\nIf the p-value is smaller than this adjusted level, the difference is considered significant.\n\nNote: Bonferroni is simple but conservative. It reduces false positives but may miss true differences (false negatives).\n\n\n\n7.12.2 Bonferroni in R\nWe can run the Bonferroni correction using pairwise.t.test():\n\n# Bonferroni correction\npairwise.t.test(df$flipper_length_mm, df$species,\n                p.adjust.method = \"bonferroni\",\n                pool.sd = FALSE)\n\n\n    Pairwise comparisons using t tests with non-pooled SD \n\ndata:  df$flipper_length_mm and df$species \n\n          Adelie  Chinstrap\nChinstrap 3.9e-07 -        \nGentoo    &lt; 2e-16 &lt; 2e-16  \n\nP value adjustment method: bonferroni \n\n\n\n\n7.12.3 Tukey HSD Test\nIn our case, we don’t have a reference group and we want to compare all species — so we’ll use the Tukey HSD test.\nWe can reuse the ANOVA result (res_aov) and run the test like this:\n\n# Tukey HSD test:\npost_test &lt;- glht(res_aov,\nlinfct = mcp(species = \"Tukey\")\n)\n\nsummary(post_test)\n\n\n     Simultaneous Tests for General Linear Hypotheses\n\nMultiple Comparisons of Means: Tukey Contrasts\n\n\nFit: aov(formula = flipper_length_mm ~ species, data = df)\n\nLinear Hypotheses:\n                        Estimate Std. Error t value Pr(&gt;|t|)    \nChinstrap - Adelie == 0   5.7208     0.9796    5.84 2.83e-08 ***\nGentoo - Adelie == 0     27.1326     0.8241   32.92  &lt; 1e-08 ***\nGentoo - Chinstrap == 0  21.4118     1.0143   21.11  &lt; 1e-08 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n(Adjusted p values reported -- single-step method)\n\n\nAfter running the Tukey HSD test with summary(post_test), R displays a section titled Linear Hypotheses:. This table shows the pairwise comparisons between groups.\nFocus on two key columns:\n\nFirst column: Lists the comparisons being made\n(e.g., Chinstrap - Adelie == 0)\nLast column (Pr(&gt;|t|)): Shows the adjusted p-values\nThese are corrected for multiple testing to ensure the overall error rate stays at 0.05\n\n\nThe null hypothesis in each case is that the two groups have equal means.\nIf the p-value is less than 0.05, we reject this hypothesis — the two groups are significantly different.\n\n\nIn our case, the Tukey test compares:\n\nChinstrap vs. Adelie (Chinstrap - Adelie == 0)\nGentoo vs. Adelie (Gentoo - Adelie == 0)\nGentoo vs. Chinstrap (Gentoo - Chinstrap == 0)\n\nAll three adjusted p-values are less than 0.05, so we reject the null hypothesis for each comparison.\nThis means that all three penguin species are significantly different from one another in terms of flipper length.\n\n\n7.12.3.1 Visualizing the Results\nYou can use the plot() function to generate a confidence interval plot:\n\npar(mar=c(3,8,3,3)) # Adjust margins for better label spacing\nplot(post_test)\n\n\n\n\n\n\n\n\nWe see that the confidence intervals do not cross the zero line, which indicate that all groups are significantly different.\n\n\n\n7.12.4 Dunnett’s Test\nWe’ve seen that as the number of groups increases, so does the number of pairwise comparisons.\nThis leads to a problem: to keep the overall error rate (e.g. 5%) under control, we have to lower the threshold for each individual test.\nBut when we do that, we also reduce the statistical power — meaning it’s harder to detect real differences between groups.\n\n\n7.12.4.1 How Dunnett’s Test Helps\nOne way to improve power is by reducing the number of comparisons.\nThis is especially useful in experiments where there is a control group and one or more treatment groups.\nInstead of comparing every group with every other group (like Tukey HSD does), Dunnett’s test:\n\nCompares each group only to a reference group\nDoes not compare the non-reference groups to each other\n\n\n\n\n7.12.4.2 Tukey vs. Dunnett\n\n\n\nTest Type\nCompares\nStatistical Power\n\n\n\n\nTukey HSD\nAll groups to each other\nLower\n\n\nDunnett\nEach group to a reference\nHigher\n\n\n\n\n\n\n7.12.4.3 Applying Dunnett’s Test\nLet’s say we want to use Adelie as our reference group and compare the other two species (Chinstrap and Gentoo) to it.\nHere’s how to run Dunnett’s test in R:\n\n# Dunnett's post-hoc test\npost_test_dunnett &lt;- glht(res_aov, linfct = mcp(species = \"Dunnett\"))\n\nsummary(post_test_dunnett)\n\n\n     Simultaneous Tests for General Linear Hypotheses\n\nMultiple Comparisons of Means: Dunnett Contrasts\n\n\nFit: aov(formula = flipper_length_mm ~ species, data = df)\n\nLinear Hypotheses:\n                        Estimate Std. Error t value Pr(&gt;|t|)    \nChinstrap - Adelie == 0   5.7208     0.9796    5.84 2.51e-08 ***\nGentoo - Adelie == 0     27.1326     0.8241   32.92  &lt; 1e-10 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n(Adjusted p values reported -- single-step method)\n\n\n\nNote: This is the same as the Tukey test code, except we change \"Tukey\" to \"Dunnett\" in the linfct line.\n\nThe output works similarly to Tukey’s test — you’ll see the comparisons and adjusted p-values.\nBut this time, only the comparisons with the reference group (Adelie) are included:\n\nChinstrap vs. Adelie\nGentoo vs. Adelie\n\nThis can be helpful when you only care about how each species compares to the reference, and not how they compare to each other.\nIn the output of summary(post_test_dunnett), focus on the last column, which shows the adjusted p-values.\nIn our example, both adjusted p-values are below 0.05, so we reject the null hypothesis for both comparisons:\n\nChinstrap vs. Adelie: Significant difference\n\nGentoo vs. Adelie: Significant difference\n\nThis means that:\n\nBoth Chinstrap and Gentoo penguins have significantly different flipper lengths compared to Adelie penguins.\n\n\nHowever, nothing can be said about the comparison between Chinstrap and Gentoo — because Dunnett’s test only compares to the reference group.\n\n\npar(mar = c(3, 8, 3, 3))  # Adjust margins for better label spacing\nplot(post_test_dunnett)",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#visualization-of-anova-and-post-hoc-tests-on-the-same-plot",
+    "href": "02_ANOVA_en.html#visualization-of-anova-and-post-hoc-tests-on-the-same-plot",
+    "title": "7  ANOVA",
+    "section": "7.13 Visualization of ANOVA and Post-hoc Tests on the Same Plot",
+    "text": "7.13 Visualization of ANOVA and Post-hoc Tests on the Same Plot\nTo make your results easier to interpret and more visually appealing, it’s often helpful to display the ANOVA and post-hoc test results directly on your boxplots.\n\nggbetweenstats(\n  data = df,\n  x = species,\n  y = flipper_length_mm,\n  type = \"parametric\", # ANOVA or Kruskal-Wallis\n  var.equal = TRUE, # ANOVA or Welch ANOVA\n  plot.type = \"box\",\n  pairwise.comparisons = TRUE,\n  pairwise.display = \"significant\",\n  centrality.plotting = FALSE,\n  bf.message = FALSE\n)\n\n\n\n\n\n\n\n\nIn the example plot above, each boxplot by species is shown along with:\n\nThe p-value from the ANOVA — usually displayed in the subtitle of the plot (e.g., p = 1.59e-107)\nThe p-values from post-hoc tests — shown above each pairwise comparison",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#exercise-choosing-the-right-post-hoc-test",
+    "href": "02_ANOVA_en.html#exercise-choosing-the-right-post-hoc-test",
+    "title": "7  ANOVA",
+    "section": "7.14 Exercise: Choosing the Right Post-hoc Test",
+    "text": "7.14 Exercise: Choosing the Right Post-hoc Test\nAfter ANOVA shows a significant difference, your task is to choose the correct post-hoc test.\n\n7.14.1 Question 1: Plant Growth Study\nA researcher wants to know whether fertilizer type (Fertilizer A, Fertilizer B, Fertilizer Control) affects tomato plant height. ANOVA shows a significant difference (p &lt; 0.001). The researcher had planned beforehand to compare both new fertilizers against the control.\nQuestion: Which post-hoc test is most appropriate? - A) Tukey HSD - B) Dunnett - C) Bonferroni - D) No post-hoc needed\n\n\nClick to see the answer\n\nAnswer: B) Dunnett. Since the researcher only wants to compare each treatment to the control group (not compare Fertilizer A vs Fertilizer B), Dunnett’s test is the right choice — it’s more powerful than Tukey for this scenario.\n\n\n\n7.14.2 Question 2: Fish Species Study\nAn ecologist compares fish body length from 4 different lakes. ANOVA shows a significant difference (p = 0.003). The researcher wants to know which lakes differ from each other.\nQuestion: Which post-hoc test is most appropriate? - A) Tukey HSD - B) Dunnett - C) Bonferroni - D) No post-hoc needed\n\n\nClick to see the answer\n\nAnswer: A) Tukey HSD. Since the researcher wants to compare all pairs of lakes (6 comparisons), Tukey HSD is the right choice — it controls error rate for all pairwise comparisons.\n\n\n\n7.14.3 Code Exercise: Bonferroni on Tapak Dara Data\nTry using the tapak dara data to test whether plant height (plant-height) differs across locations (label):\n\n# 1. Load data\ntapak_dara &lt;- read.csv(\"assets/data/morfologi_tapak_dara.tsv\")\n\n# 2. Perform ANOVA\nres_aov_tapak &lt;- aov(`plant-height` ~ label, data = tapak_dara)\nsummary(res_aov_tapak)\n\n# 3. If significant, run Bonferroni\npairwise.t.test(tapak_dara$`plant-height`, tapak_dara$label,\n                p.adjust.method = \"bonferroni\")\n\nInterpretation: - If ANOVA p-value &lt; 0.05 → there is a difference between locations - If Bonferroni p-value &lt; 0.05 → those location pairs differ significantly\nThe output shows pairwise comparisons with p-values adjusted using the Bonferroni method.\n\nTukey vs. Bonferroni: - Tukey HSD: More powerful for all-pairwise comparisons (all pairs) - Bonferroni: More conservative, suitable for planned comparisons (pre-planned comparisons)",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "02_ANOVA_en.html#summary",
+    "href": "02_ANOVA_en.html#summary",
+    "title": "7  ANOVA",
+    "section": "7.15 Summary",
+    "text": "7.15 Summary\nIn this exercise, we explored the key concepts and practical steps involved in performing an ANOVA analysis:\n\nWe began by reviewing the goal of ANOVA — to test whether the means of multiple groups are equal — and stated the null and alternative hypotheses.\nWe demonstrated how to perform ANOVA in R and interpret the output, especially the F value and p-value.\nWe covered post-hoc tests, including:\n\nTukey HSD, used to compare all pairs of groups\nDunnett’s test, used to compare treatment groups to a reference group\n\nFinally, we showed how to visualize the data and statistical results together on a single plot for easier interpretation.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>ANOVA</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_id.html",
+    "href": "03_Chi-square_id.html",
+    "title": "8  Tes Chi-Square",
+    "section": "",
+    "text": "8.1 Tujuan Pembelajaran\nSetelah sesi ini, mahasiswa akan mampu:",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Tes Chi-Square</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_id.html#tujuan-pembelajaran",
+    "href": "03_Chi-square_id.html#tujuan-pembelajaran",
+    "title": "8  Tes Chi-Square",
+    "section": "",
+    "text": "Mengetahui\nMemahami\nMelakukan\n\n\n\n\nAsumsi tes Chi-Square (independensi, ukuran sampel cukup)\nChi-Square menguji apakah ada hubungan antara dua variabel kategorikal\nMelakukan tes Chi-Square dengan chisq.test()\n\n\nInterpretasi statistik Chi-Square dan p-value\np-value &lt; 0.05 berarti ada hubungan signifikan antara variabel\nMembuat tabel kontingensi dengan table()\n\n\nCara melaporkan hasil Chi-Square dalam format ilmiah\n\nMemvisualisasikan hasil dengan ggplot2",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Tes Chi-Square</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_id.html#latihan-retrieval-pengantar",
+    "href": "03_Chi-square_id.html#latihan-retrieval-pengantar",
+    "title": "8  Tes Chi-Square",
+    "section": "8.2 Latihan Retrieval & Pengantar",
+    "text": "8.2 Latihan Retrieval & Pengantar\n\nLatihan Retrieval: Sebelum mempelajari Chi-square, coba ingat kembali: - Apa perbedaan antara variabel kategorikal dan variabel numerik? - Berikan contoh variabel kategorikal dalam penelitian biologi! - Bagaimana cara menyajikan data kategorikal dalam tabel?",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Tes Chi-Square</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_id.html#apa-itu-tes-chi-square",
+    "href": "03_Chi-square_id.html#apa-itu-tes-chi-square",
+    "title": "8  Tes Chi-Square",
+    "section": "8.3 Apa itu Tes Chi-Square?",
+    "text": "8.3 Apa itu Tes Chi-Square?\nTes Chi-Square of Independence membantu kita menjawab:\n\nApakah ada hubungan antara dua variabel kategorikal?\nAtau apakah mereka independen?\n\nIni membandingkan frekuensi yang diamati (yang sebenarnya kita lihat) dengan frekuensi yang diharapkan (yang akan kita harapkan jika variabel-variabel tersebut tidak berhubungan).\n\n8.3.1 Hinge Question\n\nAnda sedang meneliti apakah jenis tanah (lempung, berpasir, liat) mempengaruhi jenis tanaman yang tumbuh (bunga, sayur, pohon). Variabel apa yang kategorikal?\n\nHanya jenis tanah\nHanya jenis tanaman\nKedua variabel (jenis tanah DAN jenis tanaman)\nTidak ada variabel kategorikal\n\nJawaban: C. Kedua variabel adalah kategorikal — Chi-square test digunakan untuk menguji hubungan antara dua variabel kategorikal.\n\n\nlibrary(palmerpenguins)\n\n\nAttaching package: 'palmerpenguins'\n\n\nThe following objects are masked from 'package:datasets':\n\n    penguins, penguins_raw\n\nlibrary(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(ggrepel)\nlibrary(ggthemes)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Tes Chi-Square</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_id.html#contoh-penguin-di-pulau",
+    "href": "03_Chi-square_id.html#contoh-penguin-di-pulau",
+    "title": "8  Tes Chi-Square",
+    "section": "8.4 Contoh: Penguin di Pulau",
+    "text": "8.4 Contoh: Penguin di Pulau\nMari kita lihat dataset penguin kita lagi. Bagaimana penguin terdistribusi di ketiga pulau?\n\n\n\n\n\n\nflowchart LR\n    Adelie[\"🐧 Adelie\"] --&gt; Penguin[\"📊 Tes Chi-Square\"] --&gt; Chinstrap[\"🐧 Chinstrap\"]\n    Gentoo[\"🐧 Gentoo\"] --&gt; Penguin\n    Torgensen[\"🏝️ Torgersen\"] --&gt; Penguin\n    Dream[\"🏝️ Dream\"] --&gt; Penguin\n    Biscoe[\"🏝️ Biscoe\"] --&gt; Penguin\n    style Adelie fill:#e3f2fd\n    style Gentoo fill:#ffebee\n    style Chinstrap fill:#e8f5e9\n    style Penguin fill:#f3e5f5\n\n\n\n\n\n\n\n8.4.1 Frekuensi yang Diamati (O)\n\ndf &lt;- na.omit(penguins)\n\n# Buat tabel kontingensi yang diamati\npenguin_table &lt;- table(df$species, df$island)\nas.data.frame.matrix(penguin_table)\n\n          Biscoe Dream Torgersen\nAdelie        44    55        47\nChinstrap      0    68         0\nGentoo       119     0         0\n\n\nTampaknya ada beberapa preferensi penguin untuk tinggal di pulau tertentu? Apakah Anda tidak setuju?\nMari kita uji pertanyaan ini: &gt; Apakah distribusi spesies terkait dengan pulau-pulau?\n\n\n8.4.2 Frekuensi yang Diharapkan (E)\nJika tidak ada asosiasi, penguin akan terdistribusi secara proporsional di setiap pulau.\nKita dapat menggunakan formula ini untuk menghitung frekuensi yang diharapkan di setiap pulau.\n\\(E_{ij} = \\frac{(\\text{total baris}_i) \\times (\\text{total kolom}_j)}{\\text{total keseluruhan}}\\)\nJadi Tabel yang Diharapkan adalah:\n\n# Dapatkan total\nrow_totals &lt;- rowSums(penguin_table)\ncol_totals &lt;- colSums(penguin_table)\ngrand_total &lt;- sum(penguin_table)\n\n# Hitung manual matriks frekuensi yang diharapkan\nexpected_matrix &lt;- outer(row_totals, col_totals, FUN = function(r, c) (r * c) / grand_total)\n\n# Bulatkan ke bilangan bulat terdekat\nexpected_matrix &lt;- round(expected_matrix)\n\n# Berikan nama baris dan kolom\nrownames(expected_matrix) &lt;- rownames(penguin_table)\ncolnames(expected_matrix) &lt;- colnames(penguin_table)\n\n# Lihat frekuensi yang diharapkan\nexpected_matrix\n\n          Biscoe Dream Torgersen\nAdelie        71    54        21\nChinstrap     33    25        10\nGentoo        58    44        17\n\n\nMari bandingkan nilai yang diamati dan yang diharapkan side by side:\n\n# Ekstrak yang diamati dan yang diharapkan\nobserved &lt;- as.numeric(penguin_table)\nexpected &lt;- as.numeric(expected_matrix)\n\n# Gabungkan menjadi data frame dengan label\nspecies &lt;- rep(rownames(penguin_table), times = ncol(penguin_table))\nisland &lt;- rep(colnames(penguin_table), each = nrow(penguin_table))\n\nobservation_table &lt;- data.frame(\n  Species = species,\n  Island = island,\n  Observed = observed,\n  Expected = round(expected, 2)\n)\n\nobservation_table\n\n    Species    Island Observed Expected\n1    Adelie    Biscoe       44       71\n2 Chinstrap    Biscoe        0       33\n3    Gentoo    Biscoe      119       58\n4    Adelie     Dream       55       54\n5 Chinstrap     Dream       68       25\n6    Gentoo     Dream        0       44\n7    Adelie Torgersen       47       21\n8 Chinstrap Torgersen        0       10\n9    Gentoo Torgersen        0       17",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Tes Chi-Square</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_id.html#menghitung-chi-square",
+    "href": "03_Chi-square_id.html#menghitung-chi-square",
+    "title": "8  Tes Chi-Square",
+    "section": "8.5 Menghitung Chi-Square",
+    "text": "8.5 Menghitung Chi-Square\nStatistik tes Chi-Square memberi kita seberapa berbeda data yang diamati dari yang kita harapkan berdasarkan asumsi bahwa dua variabel kategorikal independen.\nKita menggunakan formula berikut:\n\\[\n\\chi^2 = \\sum \\frac{(O - E)^2}{E}\n\\]\nDi mana:\n\n\\(( O )\\) = frekuensi yang diamati (yang sebenarnya kita hitung)\n\\(( E )\\) = frekuensi yang diharapkan (yang akan kita harapkan jika tidak ada asosiasi)\n\\(( \\chi^2 )\\) = statistik tes total, mengukur perbedaan keseluruhan antara yang diamati dan yang diharapkan\n\n\n\n8.5.1 Bagaimana Cara Kerjanya?\nKita melewati setiap sel tabel kontingensi dan menghitung:\n\\[\n\\frac{(O - E)^2}{E}\n\\]\nNilai ini akan: - Dekat dengan 0 jika yang diamati dan yang diharapkan mirip - Lebih besar ketika ada perbedaan besar antara keduanya\nKemudian kita jumlahkan semua nilai ini dari setiap sel untuk mendapatkan statistik Chi-Square total.\n\n\n\n8.5.2 Apa yang Dikatakannya?\nJika nilai \\(( \\chi^2 )\\) yang dihasilkan cukup besar, ini berarti perbedaan antara yang diamati dan yang diharapkan terlalu besar untuk disebabkan oleh kebetulan acak.\nIni menunjukkan bahwa dua variabel (seperti spesies dan pulau) kemungkinan besar terkait.\n\n\n\n8.5.3 Visualisasi O vs E\nUntuk membantu Anda lebih memahami dari mana perbedaan berasal, Anda dapat membuat bar plot yang membandingkan frekuensi yang diamati vs yang diharapkan:\n\nggplot(observation_table, aes(x = Island, fill = Species)) +\n  geom_bar(aes(y = Observed), stat = \"identity\", position = \"dodge\", alpha = 0.7) +\n  geom_point(aes(y = Expected), shape = 4, size = 3,\n             position = position_dodge(width = 0.9)) +\n  labs(title = \"Frekuensi Diamati vs Diharapkan\",\n       y = \"Frekuensi\", caption = \"X menandai nilai yang diharapkan\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\n8.5.4 Mari Hitung Nilai Chi-Square\nMari kita lewati setiap sel tabel kontingensi dan hitung:\n\\[\n\\frac{(O - E)^2}{E}\n\\]\nDan pada akhirnya, kita akan membuat penjumlahan dari semua nilai komponen\n\n# Hitung komponen chi-square: (O - E)^2 / E\ncomponent &lt;- (observed - expected)^2 / expected\n\n# Tambahkan ke data frame (bulatkan jika diinginkan)\nobservation_table$Component &lt;- round(component, 2)\n\n# Lihat tabel yang diperbarui\nobservation_table\n\n    Species    Island Observed Expected Component\n1    Adelie    Biscoe       44       71     10.27\n2 Chinstrap    Biscoe        0       33     33.00\n3    Gentoo    Biscoe      119       58     64.16\n4    Adelie     Dream       55       54      0.02\n5 Chinstrap     Dream       68       25     73.96\n6    Gentoo     Dream        0       44     44.00\n7    Adelie Torgersen       47       21     32.19\n8 Chinstrap Torgersen        0       10     10.00\n9    Gentoo Torgersen        0       17     17.00\n\n# Statistik chi-square total\ncat(\"Total χ² =\", round(sum(component), 2), \"\\n\")\n\nTotal χ² = 284.59 \n\n\n\n\n8.5.5 Derajat Kebebasan\nJadi, kita mendapat nilai χ², tapi bagaimana kita menginterpretasikannya? Sebelum kita dapat menginterpretasikan nilai tersebut, pertama-tama kita perlu menghitung derajat kebebasan.\nDerajat kebebasan (df) untuk tes Chi-Square dalam tabel kontingensi dihitung sebagai:\n\\[\ndf = (\\text{\\#baris} - 1) \\times (\\text{\\#kolom} - 1)\n\\]\nDalam kasus kita, ada 3 spesies (baris) dan 3 pulau (kolom):\n\\[\ndf = (3 - 1)(3 - 1) = 2 \\times 2 = 4\n\\]\nKita dapat menggunakan df untuk menemukan nilai kritis dari tabel distribusi Chi-Square pada tingkat signifikansi 0.05.\n\n# Parameter\ndf_val &lt;- 4\nalpha &lt;- 0.05\n\n# Nilai kritis (ambang batas right-tail)\ncritical_value &lt;- qchisq(p = 1 - alpha, df = df_val)\n\n# Generate x dan y untuk kurva densitas chi-square\nx &lt;- seq(0, critical_value + 10, length.out = 500)\ny &lt;- dchisq(x, df = df_val)\n\n# Plot distribusi Chi-Square\nplot(x, y, type = \"l\", lwd = 2, col = \"#2171B5\",\n     ylab = \"Density\", xlab = expression(chi^2),\n     main = bquote(\"Distribusi Chi-Square (df = \" ~ .(df_val) ~ \")\"))\n\n# Tambahkan garis vertikal di nilai kritis\nabline(v = critical_value, col = \"#c02728\", lwd = 2, lty = 2)\n\n# Bayangkan daerah penolakan (right tail)\nx_shade &lt;- seq(critical_value, max(x), length.out = 100)\ny_shade &lt;- dchisq(x_shade, df = df_val)\npolygon(c(critical_value, x_shade, max(x_shade)),\n        c(0, y_shade, 0),\n        col = \"#FF666680\", border = NA)\n\n# Anotasi plot\ntext(critical_value + 1.5, max(y)*0.5,\n     paste0(\"Nilai kritis (0.05) = \", round(critical_value, 2)),\n     col = \"#c02728\")\n\n\n\n\n\n\n\n\n\n\n8.5.6 Interpretasi\nSekarang kita membandingkan statistik Chi-Square yang dihitung dengan nilai kritis dari tabel distribusi Chi-Square pada tingkat signifikansi 0.05.\nJika:\n\n\\(( \\chi^2 = 284.59 )\\)\n\\(( df = 4 )\\)\nNilai kritis pada \\(( \\alpha = 0.05 )\\) adalah 9.49\n\nMaka:\n\\[\n284.59 &gt; 9.49\n\\]\nJadi kita menolak hipotesis nol.\n\nKesimpulan:\n- Ada hubungan secara statistik signifikan antara spesies penguin dan pulau tempat mereka ditemukan.\n- Distribusi tidak seragam dan kemungkinan mencerminkan preferensi ekologis atau perilaku.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Tes Chi-Square</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_id.html#menjalankan-tes-chi-square-di-r",
+    "href": "03_Chi-square_id.html#menjalankan-tes-chi-square-di-r",
+    "title": "8  Tes Chi-Square",
+    "section": "8.6 Menjalankan tes chi-square di R",
+    "text": "8.6 Menjalankan tes chi-square di R\nR memiliki fungsi bawaan untuk tes chi-square, jadi kita dapat langsung menggunakan chisq.test() alih-alih menghitungnya secara manual:\n\nTangga Petunjuk: Jika Anda bingung cara menghitung Chi-square secara manual: - Petunjuk 1: Ingat formula: χ² = Σ(O - E)² / E - Petunjuk 2: Hitung frekuensi expected: E = (total baris × total kolom) / total keseluruhan - Petunjuk 3: Gunakan chisq.test() untuk hasil langsung\n\n\n# Jalankan tes chi-square\nchi &lt;- chisq.test(penguin_table)\n\nchi\n\n\n    Pearson's Chi-squared test\n\ndata:  penguin_table\nX-squared = 284.59, df = 4, p-value &lt; 2.2e-16\n\n\nMari kita juga visualisasikan hasilnya:\n\n# Ekstrak statistik tes dan df\nchi_stat &lt;- chi$statistic\ndf_val &lt;- chi$parameter\n\n# Buat nilai x untuk densitas chi-square\nx &lt;- seq(0, chi_stat + 20, length.out = 500)\ny &lt;- dchisq(x, df = df_val)\n\n# Plot\nplot(x, y, type = \"l\", lwd = 2, col = \"#2171B5\",\n     ylab = \"Density\", xlab = expression(chi^2),\n     main = paste(\"Distribusi Chi-Square (df =\", df_val, \")\"))\n\n# Tambahkan garis vertikal di statistik tes\nabline(v = chi_stat, col = \"#c02728\", lwd = 2, lty = 2)\n\n# Anotasi\ntext(chi_stat + 2, max(y)*0.8,\n     labels = paste0(\"X² = \", round(chi_stat, 2)),\n     col = \"#c02728\")",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Tes Chi-Square</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_en.html",
+    "href": "03_Chi-square_en.html",
+    "title": "9  Chi-Square Test",
+    "section": "",
+    "text": "9.1 Learning Objectives\nAfter this session, students will be able to:",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chi-Square Test</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_en.html#learning-objectives",
+    "href": "03_Chi-square_en.html#learning-objectives",
+    "title": "9  Chi-Square Test",
+    "section": "",
+    "text": "Know\nUnderstand\nDo\n\n\n\n\nChi-Square test assumptions (independence, adequate sample size)\nChi-Square tests whether there is a relationship between two categorical variables\nPerform Chi-Square test with chisq.test()\n\n\nInterpretation of Chi-Square statistic and p-value\np-value &lt; 0.05 means there is a significant relationship between variables\nCreate contingency tables with table()\n\n\nHow to report Chi-Square results in scientific format\n\nVisualize results with ggplot2",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chi-Square Test</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_en.html#retrieval-practice-introduction",
+    "href": "03_Chi-square_en.html#retrieval-practice-introduction",
+    "title": "9  Chi-Square Test",
+    "section": "9.2 Retrieval Practice & Introduction",
+    "text": "9.2 Retrieval Practice & Introduction\n\nRetrieval Practice: Before learning about Chi-square, try to recall: - What is the difference between categorical and numerical variables? - Give an example of categorical variables in biological research! - How do you present categorical data in a table?",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chi-Square Test</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_en.html#what-is-the-chi-square-test",
+    "href": "03_Chi-square_en.html#what-is-the-chi-square-test",
+    "title": "9  Chi-Square Test",
+    "section": "9.3 What is the Chi-Square Test?",
+    "text": "9.3 What is the Chi-Square Test?\nThe Chi-Square Test of Independence helps us answer:\n\nIs there a relationship between two categorical variables?\nOr are they independent?\n\nIt compares the observed frequencies (what we actually see) to the expected frequencies (what we would expect if the variables were not related).\n\n9.3.1 Hinge Question\n\nYou are researching whether soil type (clay, sandy, loam) affects the type of plant growing (flower, vegetable, tree). Which variables are categorical?\n\nOnly soil type\nOnly plant type\nBoth variables (soil type AND plant type)\nNo categorical variables\n\nAnswer: C. Both variables are categorical — Chi-square test is used to test the relationship between two categorical variables.\n\n\nlibrary(palmerpenguins)\n\n\nAttaching package: 'palmerpenguins'\n\n\nThe following objects are masked from 'package:datasets':\n\n    penguins, penguins_raw\n\nlibrary(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(ggrepel)\nlibrary(ggthemes)",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chi-Square Test</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_en.html#example-penguins-on-islands",
+    "href": "03_Chi-square_en.html#example-penguins-on-islands",
+    "title": "9  Chi-Square Test",
+    "section": "9.4 Example: Penguins on Islands",
+    "text": "9.4 Example: Penguins on Islands\nLet’s take a look at our penguin dataset again. How are the penguins distributed in the three islands?\n\n\n\n\n\n\nflowchart LR\n    Adelie[\"🐧 Adelie\"] --&gt; Penguin[\"📊 Chi-Square Test\"] --&gt; Chinstrap[\"🐧 Chinstrap\"]\n    Gentoo[\"🐧 Gentoo\"] --&gt; Penguin\n    Torgersen[\"🏝️ Torgersen\"] --&gt; Penguin\n    Dream[\"🏝️ Dream\"] --&gt; Penguin\n    Biscoe[\"🏝️ Biscoe\"] --&gt; Penguin\n    style Adelie fill:#e3f2fd\n    style Gentoo fill:#ffebee\n    style Chinstrap fill:#e8f5e9\n    style Penguin fill:#f3e5f5\n\n\n\n\n\n\n\n9.4.1 Observed Frequencies (O)\n\ndf &lt;- na.omit(penguins)\n\n# Create observed contingency table\npenguin_table &lt;- table(df$species, df$island)\nas.data.frame.matrix(penguin_table)\n\n          Biscoe Dream Torgersen\nAdelie        44    55        47\nChinstrap      0    68         0\nGentoo       119     0         0\n\n\nIt seems that there are some preferences of the penguins to live in a certain island? Don’t you think so?\nLet’s test this question: &gt; Is species distribution associated with the islands?\n\n\n9.4.2 Expected Frequencies (E)\nIf there’s no association, the penguins would be distributed proportionally in each island.\nWe can use this formula to calculate the expected frequency in each island.\n\\(E_{ij} = \\frac{(\\text{row total}_i) \\times (\\text{column total}_j)}{\\text{grand total}}\\)\nSo the Expected Table is:\n\n# Get totals\nrow_totals &lt;- rowSums(penguin_table)\ncol_totals &lt;- colSums(penguin_table)\ngrand_total &lt;- sum(penguin_table)\n\n# Manually compute expected frequency matrix\nexpected_matrix &lt;- outer(row_totals, col_totals, FUN = function(r, c) (r * c) / grand_total)\n\n# Round to nearest integer\nexpected_matrix &lt;- round(expected_matrix)\n\n# Assign row and column names\nrownames(expected_matrix) &lt;- rownames(penguin_table)\ncolnames(expected_matrix) &lt;- colnames(penguin_table)\n\n# View expected frequencies\nexpected_matrix\n\n          Biscoe Dream Torgersen\nAdelie        71    54        21\nChinstrap     33    25        10\nGentoo        58    44        17\n\n\nLet’s compare the observed and expected values side by side:\n\n# Extract observed and expected\nobserved &lt;- as.numeric(penguin_table)\nexpected &lt;- as.numeric(expected_matrix)\n\n# Combine into a data frame with labels\nspecies &lt;- rep(rownames(penguin_table), times = ncol(penguin_table))\nisland &lt;- rep(colnames(penguin_table), each = nrow(penguin_table))\n\nobservation_table &lt;- data.frame(\n  Species = species,\n  Island = island,\n  Observed = observed,\n  Expected = round(expected, 2)\n)\n\nobservation_table\n\n    Species    Island Observed Expected\n1    Adelie    Biscoe       44       71\n2 Chinstrap    Biscoe        0       33\n3    Gentoo    Biscoe      119       58\n4    Adelie     Dream       55       54\n5 Chinstrap     Dream       68       25\n6    Gentoo     Dream        0       44\n7    Adelie Torgersen       47       21\n8 Chinstrap Torgersen        0       10\n9    Gentoo Torgersen        0       17",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chi-Square Test</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_en.html#calculating-the-chi-square",
+    "href": "03_Chi-square_en.html#calculating-the-chi-square",
+    "title": "9  Chi-Square Test",
+    "section": "9.5 Calculating the Chi-Square",
+    "text": "9.5 Calculating the Chi-Square\nThe Chi-Square test statistic tells us how different the observed data is from what we would expect under the assumption that the two categorical variables are independent.\nWe use the following formula:\n\\[\n\\chi^2 = \\sum \\frac{(O - E)^2}{E}\n\\]\nWhere:\n\n\\(( O )\\) = observed frequency (what we actually counted)\n\\(( E )\\) = expected frequency (what we would expect if there were no association)\n\\(( \\chi^2 )\\) = the total test statistic, measuring the overall difference between observed and expected\n\n\n\n9.5.1 How does it work?\nWe go through each cell of the contingency table and compute:\n\\[\n\\frac{(O - E)^2}{E}\n\\]\nThis value will be: - Close to 0 if observed and expected are similar - Larger when there’s a big difference between the two\nThen we sum up all of these values from every cell to get the total Chi-Square statistic.\n\n\n\n9.5.2 What does it tell us?\nIf the resulting \\(( \\chi^2 )\\) value is large enough, it means the differences between observed and expected are too big to be due to random chance.\nThis suggests that the two variables (like species and island) are likely associated.\n\n\n\n9.5.3 Visualize O vs E\nTo help you better understand where the differences come from, you can make a bar plot comparing observed vs expected frequencies:\n\nggplot(observation_table, aes(x = Island, fill = Species)) +\n  geom_bar(aes(y = Observed), stat = \"identity\", position = \"dodge\", alpha = 0.7) +\n  geom_point(aes(y = Expected), shape = 4, size = 3,\n             position = position_dodge(width = 0.9)) +\n  labs(title = \"Observed vs Expected Counts\",\n       y = \"Frequency\", caption = \"X marks expected values\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\n9.5.4 Let’s Calculate the Chi-Square value\nLet’s go through each cell of the contingency table and compute:\n\\[\n\\frac{(O - E)^2}{E}\n\\]\nAnd at the end, we will create a sum of all the component values\n\n# Calculate chi-square components: (O - E)^2 / E\ncomponent &lt;- (observed - expected)^2 / expected\n\n# Add to the data frame (round if desired)\nobservation_table$Component &lt;- round(component, 2)\n\n# View the updated table\nobservation_table\n\n    Species    Island Observed Expected Component\n1    Adelie    Biscoe       44       71     10.27\n2 Chinstrap    Biscoe        0       33     33.00\n3    Gentoo    Biscoe      119       58     64.16\n4    Adelie     Dream       55       54      0.02\n5 Chinstrap     Dream       68       25     73.96\n6    Gentoo     Dream        0       44     44.00\n7    Adelie Torgersen       47       21     32.19\n8 Chinstrap Torgersen        0       10     10.00\n9    Gentoo Torgersen        0       17     17.00\n\n# Total chi-square statistic\ncat(\"Total χ² =\", round(sum(component), 2), \"\\n\")\n\nTotal χ² = 284.59 \n\n\n\n\n9.5.5 Degrees of Freedom\nSo, we got the χ² values, but how do we interpret it? Before we can interpret the value, first we need to calculate the degree of freedom first.\nThe degrees of freedom (df) for a Chi-Square test in a contingency table is calculated as:\n\\[\ndf = (\\text{\\#rows} - 1) \\times (\\text{\\#columns} - 1)\n\\]\nIn our case, there are 3 species (rows) and 3 islands (columns):\n\\[\ndf = (3 - 1)(3 - 1) = 2 \\times 2 = 4\n\\]\nWe can use the df to find the critical value from a Chi-Square distribution table at a significance level of 0.05.\n\n# Parameters\ndf_val &lt;- 4\nalpha &lt;- 0.05\n\n# Critical value (right-tail threshold)\ncritical_value &lt;- qchisq(p = 1 - alpha, df = df_val)\n\n# Generate x and y for chi-square density curve\nx &lt;- seq(0, critical_value + 10, length.out = 500)\ny &lt;- dchisq(x, df = df_val)\n\n# Plot the Chi-Square distribution\nplot(x, y, type = \"l\", lwd = 2, col = \"#2171B5\",\n     ylab = \"Density\", xlab = expression(chi^2),\n     main = bquote(\"Chi-Square Distribution (df = \" ~ .(df_val) ~ \")\"))\n\n# Add vertical line at critical value\nabline(v = critical_value, col = \"#c02728\", lwd = 2, lty = 2)\n\n# Shade the rejection region (right tail)\nx_shade &lt;- seq(critical_value, max(x), length.out = 100)\ny_shade &lt;- dchisq(x_shade, df = df_val)\npolygon(c(critical_value, x_shade, max(x_shade)),\n        c(0, y_shade, 0),\n        col = \"#FF666680\", border = NA)\n\n# Annotate the plot\ntext(critical_value + 1.5, max(y)*0.5,\n     paste0(\"Critical value (0.05) = \", round(critical_value, 2)),\n     col = \"#c02728\")\n\n\n\n\n\n\n\n\n\n\n9.5.6 Interpretation\nNow we compare the calculated Chi-Square statistic to the critical value from a Chi-Square distribution table at a significance level of 0.05.\nIf:\n\n\\(( \\chi^2 = 284.59 )\\)\n\\(( df = 4 )\\)\nCritical value at \\(( \\alpha = 0.05 )\\) is 9.49\n\nThen:\n\\[\n284.59 &gt; 9.49\n\\]\nSo we reject the null hypothesis.\n\nConclusion:\n- There is a statistically significant relationship between penguin species and the islands where they are found.\n- The distribution is not uniform and likely reflects ecological or behavioral preferences.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chi-Square Test</span>"
+    ]
+  },
+  {
+    "objectID": "03_Chi-square_en.html#running-chi-square-test-in-r",
+    "href": "03_Chi-square_en.html#running-chi-square-test-in-r",
+    "title": "9  Chi-Square Test",
+    "section": "9.6 Running Chi-Square Test in R",
+    "text": "9.6 Running Chi-Square Test in R\nR has a built-in function for the Chi-Square test, so we can directly use chisq.test() instead of calculating it manually:\n\nHint Ladder: If you’re confused about how to calculate Chi-Square manually: - Hint 1: Remember the formula: χ² = Σ(O - E)² / E - Hint 2: Calculate expected frequency: E = (row total × column total) / grand total - Hint 3: Use chisq.test() for direct results\n\n\n# Run the chi-square test\nchi &lt;- chisq.test(penguin_table)\n\nchi\n\n\n    Pearson's Chi-squared test\n\ndata:  penguin_table\nX-squared = 284.59, df = 4, p-value &lt; 2.2e-16\n\n\nLet us also visualize the result:\n\n# Extract test statistic and df\nchi_stat &lt;- chi$statistic\ndf_val &lt;- chi$parameter\n\n# Create x values for chi-square density\nx &lt;- seq(0, chi_stat + 20, length.out = 500)\ny &lt;- dchisq(x, df = df_val)\n\n# Plot\nplot(x, y, type = \"l\", lwd = 2, col = \"#2171B5\",\n     ylab = \"Density\", xlab = expression(chi^2),\n     main = paste(\"Chi-Square Distribution (df =\", df_val, \")\"))\n\n# Add vertical line at test statistic\nabline(v = chi_stat, col = \"#c02728\", lwd = 2, lty = 2)\n\n# Annotate\ntext(chi_stat + 2, max(y)*0.8,\n     labels = paste0(\"X² = \", round(chi_stat, 2)),\n     col = \"#c02728\")",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Chi-Square Test</span>"
+    ]
   }
 ]
