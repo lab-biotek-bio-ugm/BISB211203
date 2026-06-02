@@ -1,5 +1,5 @@
 ---
-title: "[ID] ANOVA"
+title: "ANOVA"
 subtitle: "Analisis Varians untuk Membandingkan Lebih dari Dua Kelompok"
 author:
   - Tim Pengampu Biostatistika

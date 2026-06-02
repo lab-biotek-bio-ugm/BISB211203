@@ -1,5 +1,5 @@
 ---
-title: "[EN] Chi-Square Test"
+title: "Chi-Square Test"
 subtitle: "Testing Relationships Between Two Categorical Variables"
 author:
   - Biostatistics Teaching Team

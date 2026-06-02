@@ -1,5 +1,5 @@
 ---
-title: "[ID] Tes Chi-Square"
+title: "Tes Chi-Square"
 subtitle: "Menguji Hubungan Antara Dua Variabel Kategorikal"
 author:
   - Tim Pengampu Biostatistika

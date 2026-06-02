@@ -1,5 +1,5 @@
 ---
-title: "[EN] T-test"
+title: "T-test"
 subtitle: "Comparing Means of Two Groups"
 author:
   - Biostatistics Teaching Team

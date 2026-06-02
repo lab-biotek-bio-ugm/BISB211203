@@ -1,5 +1,5 @@
 ---
-title: "[EN] ANOVA"
+title: "ANOVA"
 subtitle: "Analysis of Variance for Comparing More than Two Groups"
 author:
   - Biostatistics Teaching Team

@@ -1,5 +1,5 @@
 ---
-title: "[ID] Pengantar R dan `RStudio`"
+title: "Pengantar R dan `RStudio`"
 subtitle: "Dasar-dasar R untuk Biostatistika"
 author:
   - Tim Pengampu Biostatistika

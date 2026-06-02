@@ -1,5 +1,5 @@
 ---
-title: "[ID] T-test"
+title: "T-test"
 subtitle: "Membandingkan Rata-rata Dua Kelompok"
 author:
   - Tim Pengampu Biostatistika

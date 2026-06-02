@@ -1,5 +1,5 @@
 ---
-title: "[EN] Introduction to R and `RStudio`"
+title: "Introduction to R and `RStudio`"
 subtitle: "R Basics for Biostatistics"
 author:
   - Biostatistics Teaching Team
