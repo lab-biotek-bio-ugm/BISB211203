@@ -1,30 +1,42 @@
----
-title: "Introduction / Pengantar"
----
+::: {.content-visible when-profile="def"}
+# Biostatistics Handbook (BISB211203) {.unnumbered}
 
+Welcome to the practical handbook for the Biostatistics Course (BISB211203), Academic Year 2025/2026, Faculty of Biology, Universitas Gadjah Mada.
+
+Please select your preferred language:
+
+- 🇬🇧 [English](./en/index.html)
+
+- 🇮🇩 [Bahasa Indonesia](./id/index.html)
+
+:::
+
+::: {.content-visible when-profile="id"}
 ## Prakata {.unnumbered}
 
 Modul ini dirancang untuk membantu mahasiswa program sarjana (S1) Biologi dalam memahami konsep-konsep dasar biostatistika serta penerapannya dalam berbagai bidang ilmu hayati dan kesehatan. Biostatistika merupakan cabang ilmu yang memiliki peran penting dalam penelitian dan analisis data di bidang biologi, kedokteran, farmasi, serta ilmu kesehatan lainnya. Pemahaman yang baik mengenai biostatistika akan membekali mahasiswa dengan keterampilan analisis data yang kuat, sehingga mereka dapat menginterpretasikan hasil penelitian secara akurat dan valid. Semoga modul ini dapat menjadi referensi yang bermanfaat bagi mahasiswa dalam memahami dan mengaplikasikan biostatistika dalam studi dan penelitian mereka.
 
----
+## Struktur Modul
 
+| Sesi | Topik | Format |
+|---|---|---|
+| **00** | Pengantar R dan RStudio | `.Rmd` |
+| **01** | T-test  | `.Rmd` |
+| **02** | ANOVA + Post-hoc Tests | `.Rmd` |
+| **03** | Chi-square Test | `.Rmd` |
+:::
+
+::: {.content-visible when-profile="en"}
 ## Preface {.unnumbered}
 
 This module is designed to help undergraduate (S1) Biology students understand fundamental biostatistics concepts and their applications in various life sciences and health disciplines. Biostatistics is a branch of science that plays an important role in research and data analysis in biology, medicine, pharmacy, and other health sciences. A good understanding of biostatistics will equip students with strong data analysis skills, enabling them to interpret research results accurately and validly. May this module serve as a useful reference for students in understanding and applying biostatistics in their studies and research.
 
----
+## Struktur Modul / Module Structure
 
-## 📚 Struktur Modul / Module Structure
-
-| Sesi / Session | Topik / Topic | Format |
+| Session | Topic | Format |
 |---|---|---|
-| **00** | Pengantar R dan RStudio / Introduction to R and RStudio | `.Rmd` |
-| **01** | T-test / T-test | `.Rmd` |
-| **02** | ANOVA + Post-hoc Tests / ANOVA + Post-hoc Tests | `.Rmd` |
-| **03** | Chi-square Test / Chi-square Test | `.Rmd` |
-
-**Cara menggunakan / How to use:**
-
-- **Buku digital / Digital book**: Baca versi `.qmd` yang sudah di-render di `_book/` / Read the rendered `.qmd` version in `_book/`
-- **Praktik di RStudio / Practice in RStudio**: Buka versi `.Rmd`, lalu knit (Ctrl+Shift+K) atau run all (Ctrl+Shift+Enter) / Open the `.Rmd` version, then knit (Ctrl+Shift+K) or run all (Ctrl+Shift+Enter)
-- **Dataset**: Tersedia di folder `assets/data/` / Available in the `assets/data/` folder
+| **00** | Introduction to R and RStudio | `.Rmd` |
+| **01** | T-test | `.Rmd` |
+| **02** | ANOVA + Post-hoc Tests | `.Rmd` |
+| **03** | Chi-square Test | `.Rmd` |
+:::

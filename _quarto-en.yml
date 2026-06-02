@@ -1,0 +1,37 @@
+project:
+  output-dir: ./_site/en
+  render:
+    - index.qmd
+    - references.qmd
+    - "!functions/"
+book:
+  title: "Biostatistics"
+  subtitle: "BISB211203 - Academic Year 2025/2026"
+  navbar:
+    background: black
+    search: true
+    right:
+      - text: "🇬🇧 English"
+        href: ../en/index.html
+      - text: "🇮🇩 Indonesia"
+        href: ../id/index.html
+  chapters:
+    - index.qmd
+    - 00_r-basics_en.Rmd
+    - 01_T-test_en.Rmd
+    - 02_ANOVA_en.Rmd
+    - 03_Chi-square_en.Rmd
+    - references.qmd
+  page-footer:
+    left: |
+      ::: {.columns}
+
+      ::: {.column width="100%"}
+      ![](/assets/images/faculty_biology_ugm.png){fig-align="left" style="max-width: 100%; margin-right: 10px; max-height: 75px;"}
+      :::
+
+      :::
+      Copyright 2026, Universitas Gadjah Mada
+    right:
+      - icon: github
+        href: https://github.com/lab-biotek-bio-ugm/BISB211606

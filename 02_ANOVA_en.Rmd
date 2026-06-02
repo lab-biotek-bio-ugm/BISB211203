@@ -72,16 +72,6 @@ significantly different average flipper length** compared to the others.
 Because you're comparing more than **two groups**, this is a perfect
 case for using **ANOVA** (Analysis of Variance)!
 
-```{mermaid}
-flowchart LR
-    Adelie["🐧 Adelie"] --> Penguin["📊 ANOVA Analysis"] --> Chinstrap["🐧 Chinstrap"]
-    Gentoo["🐧 Gentoo"] --> Penguin
-    style Adelie fill:#e3f2fd
-    style Gentoo fill:#ffebee
-    style Chinstrap fill:#e8f5e9
-    style Penguin fill:#f3e5f5
-```
-
 ```{r}
 library(report)
 library(palmerpenguins)

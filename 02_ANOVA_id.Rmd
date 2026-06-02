@@ -76,16 +76,6 @@ dibandingkan dengan yang lain.
 Karena Anda membandingkan lebih dari **dua kelompok**, ini adalah kasus
 yang sempurna untuk menggunakan **ANOVA** (Analysis of Variance)!
 
-```{mermaid}
-flowchart LR
-    Adelie["🐧 Adelie"] --> Penguin["📊 Analisis ANOVA"] --> Chinstrap["🐧 Chinstrap"]
-    Gentoo["🐧 Gentoo"] --> Penguin
-    style Adelie fill:#e3f2fd
-    style Gentoo fill:#ffebee
-    style Chinstrap fill:#e8f5e9
-    style Penguin fill:#f3e5f5
-```
-
 ```{r}
 library(report)
 library(palmerpenguins)

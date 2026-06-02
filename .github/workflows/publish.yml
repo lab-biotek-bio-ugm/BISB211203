@@ -1,43 +1,71 @@
-on:
-  workflow_dispatch:
-  push:
-    branches: main
+# Simple workflow for deploying static content to GitHub Pages
+name: quarto Render and deploy rendered html to github pages
 
-name: Quarto Publish
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+    paths:
+      - '**.qmd'
+      - '**.md'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
+  # Single deploy job since we're just deploying
   build-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Conda
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          auto-update-conda: true
-          python-version: 3.12
-          environment-file: environment.yml
-          activate-environment: BISB211203
-
+      - name: Checkout
+        uses: actions/checkout@v6
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-
       - name: Install TinyTeX
         run: quarto install tinytex
-
+      - name: Render Quarto Project Profile Def
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: def
+        with:
+          to: html 
+      - name: Render Quarto Project Profile id
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: id
+        with:
+          to: html 
+      - name: Render Quarto Project Profile en
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: en
+        with:
+          to: html 
       - name: Render
+        uses: quarto-dev/quarto-actions/render@v2
+      - name: Remove functions folder from id and en
         run: |
-          conda init bash
-          source ~/.bashrc
-          conda activate BISB211203
-          quarto render
-
+          rm -rf _site/id/functions
+          rm -rf _site/en/functions
+          rm -rf _site/id/_site
+          rm -rf _site/en/_site
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: cf-pages
-          publish_dir: _book
+          publish_dir: _site

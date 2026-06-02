@@ -67,19 +67,6 @@ distributed in the three islands?
 
 ![](https://raw.githubusercontent.com/lab-biotek-bio-ugm/BISB211203/refs/heads/main/assets/figures/penguins_palmer_archipelago.png)
 
-```{mermaid}
-flowchart LR
-    Adelie["🐧 Adelie"] --> Penguin["📊 Chi-Square Test"] --> Chinstrap["🐧 Chinstrap"]
-    Gentoo["🐧 Gentoo"] --> Penguin
-    Torgersen["🏝️ Torgersen"] --> Penguin
-    Dream["🏝️ Dream"] --> Penguin
-    Biscoe["🏝️ Biscoe"] --> Penguin
-    style Adelie fill:#e3f2fd
-    style Gentoo fill:#ffebee
-    style Chinstrap fill:#e8f5e9
-    style Penguin fill:#f3e5f5
-```
-
 ### Observed Frequencies (O)
 
 ```{r}
