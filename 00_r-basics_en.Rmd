@@ -15,11 +15,11 @@ editor_options:
 After this session, students will be able to:
 
 | Know | Understand | Do |
-|----|----|----|
+|------|------------|-----|
 | Assignment operator `<-` | R stores data in objects that can be inspected, subsetted, and visualized | Load a dataset with `read.delim()` |
 | Data types (numeric, character, factor, data.frame) | The same object can be explored in different ways | Inspect data structure with `str()` and `summary()` |
-| Basic functions: `head()`, `str()`, `summary()` |  | Create basic visualizations with `ggplot2` |
-| R packages and how to load them (`library()`) |  |  |
+| Basic functions: `head()`, `str()`, `summary()` | Factors represent categorical variables used in statistical analysis | Create basic visualizations with `ggplot2` |
+| R packages and how to load them (`library()`) | Different data types require different visualization approaches | Subset data using `$`, `[ ]`, and `dplyr::filter()` |
 
 ## Getting to Know RStudio
 
