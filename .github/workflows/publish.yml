@@ -5,6 +5,9 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+    paths:
+      - '**.qmd'
+      - '**.md'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -30,25 +33,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Set up Conda
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          auto-update-conda: true
-          python-version: 3.12
-          environment-file: environment.yml
-          activate-environment: BISB211203
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
       - name: Install TinyTeX
         run: quarto install tinytex
       - name: Render Quarto Project Profile Def
-        run: QUARTO_PROFILE=def quarto render
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: def
+        with:
+          to: html 
       - name: Render Quarto Project Profile id
-        run: QUARTO_PROFILE=id quarto render
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: id
+        with:
+          to: html 
       - name: Render Quarto Project Profile en
-        run: QUARTO_PROFILE=en quarto render
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: en
+        with:
+          to: html 
       - name: Render
-        run: quarto render
+        uses: quarto-dev/quarto-actions/render@v2
       - name: Remove functions folder from id and en
         run: |
           rm -rf _site/id/functions
