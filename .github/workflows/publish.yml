@@ -45,21 +45,13 @@ jobs:
       - name: Install TinyTeX
         run: quarto install tinytex
       - name: Render Quarto Project Profile Def
-        run: |
-          conda activate BISB211203
-          QUARTO_PROFILE=def quarto render
+        run: QUARTO_PROFILE=def quarto render
       - name: Render Quarto Project Profile id
-        run: |
-          conda activate BISB211203
-          QUARTO_PROFILE=id quarto render
+        run: QUARTO_PROFILE=id quarto render
       - name: Render Quarto Project Profile en
-        run: |
-          conda activate BISB211203
-          QUARTO_PROFILE=en quarto render
+        run: QUARTO_PROFILE=en quarto render
       - name: Render
-        run: |
-          conda activate BISB211203
-          quarto render
+        run: quarto render
       - name: Remove functions folder from id and en
         run: |
           rm -rf _site/id/functions
