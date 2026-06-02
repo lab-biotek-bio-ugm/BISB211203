@@ -38,6 +38,9 @@ jobs:
           environment-file: environment.yml
           activate-environment: BISB211203
           use-only-tar-bz2: true
+      - name: Activate Conda
+        run: conda activate BISB211203
+        shell: bash -l {0}
       - name: Install TinyTeX
         run: quarto install tinytex
       - name: Render Quarto Project Profile Def
