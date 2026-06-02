@@ -33,30 +33,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          python-version: 3.12
+          environment-file: environment.yml
+          activate-environment: BISB211203
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
       - name: Install TinyTeX
         run: quarto install tinytex
       - name: Render Quarto Project Profile Def
-        uses: quarto-dev/quarto-actions/render@v2
-        env:
-          QUARTO_PROFILE: def
-        with:
-          to: html 
+        run: |
+          conda activate BISB211203
+          QUARTO_PROFILE=def quarto render
       - name: Render Quarto Project Profile id
-        uses: quarto-dev/quarto-actions/render@v2
-        env:
-          QUARTO_PROFILE: id
-        with:
-          to: html 
+        run: |
+          conda activate BISB211203
+          QUARTO_PROFILE=id quarto render
       - name: Render Quarto Project Profile en
-        uses: quarto-dev/quarto-actions/render@v2
-        env:
-          QUARTO_PROFILE: en
-        with:
-          to: html 
+        run: |
+          conda activate BISB211203
+          QUARTO_PROFILE=en quarto render
       - name: Render
-        uses: quarto-dev/quarto-actions/render@v2
+        run: |
+          conda activate BISB211203
+          quarto render
       - name: Remove functions folder from id and en
         run: |
           rm -rf _site/id/functions
