@@ -34,3 +34,4 @@ Thumbs.db
 *_personal_copy*.Rmd
 
 /.quarto/
+/*.html

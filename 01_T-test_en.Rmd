@@ -5,6 +5,9 @@ author:
   - Biostatistics Teaching Team
 date: "2026-06-01"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ## Learning Objectives
@@ -12,7 +15,7 @@ output: html_document
 After this session, students will be able to:
 
 | Know | Understand | Do |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | T-test assumptions (normality, homogeneity of variance) | T-test measures how many standard errors separate two means | Perform independent t-test with `t.test()` |
 | Interpretation of t-value, p-value, and Cohen's d | p-value is the probability of seeing such a difference by chance | Calculate descriptive statistics per group |
 | Difference between one-sample, paired, and independent t-tests | Effect size (Cohen's d) provides practical context beyond statistical significance | Visualize t-test results with ggplot2 |
@@ -20,7 +23,9 @@ After this session, students will be able to:
 
 ## Understanding the T-distribution
 
-`R` has the Student's t-distribution, which is similar to the normal distribution but has heavier tails, especially with small degrees of freedom (df).
+`R` has the Student's t-distribution, which is similar to the normal
+distribution but has heavier tails, especially with small degrees of
+freedom (df).
 
 ```{r}
 library(ggplot2)
@@ -46,7 +51,9 @@ ggplot(df_raw, aes(x = Index, y = Value)) +
   theme_minimal()
 ```
 
-To find the value of the probability density function (pdf) of the Student's t-distribution given a random variable x, use the `dt()` function in `R`.
+To find the value of the probability density function (pdf) of the
+Student's t-distribution given a random variable x, use the `dt()`
+function in `R`.
 
 ```{r}
 # Simulate the t-distribution
@@ -130,7 +137,10 @@ for (i in seq_len(n_repeats)) {
 p
 ```
 
-> **Why is the t-distribution important?** The larger the degrees of freedom, the closer the t-distribution is to the normal distribution. In practice, when sample size > 30, the t-distribution and normal distribution are nearly identical.
+> **Why is the t-distribution important?** The larger the degrees of
+> freedom, the closer the t-distribution is to the normal distribution.
+> In practice, when sample size \> 30, the t-distribution and normal
+> distribution are nearly identical.
 
 ```{r}
 # Create a data frame with all distributions
@@ -168,26 +178,37 @@ flowchart LR
     style Hilir fill:#ffebee
 ```
 
-A group of environmental biologists is conducting a study on the possible ecological impact of a local manufacturing plant. The factory is located between two small lakes that are part of the same river system:
+A group of environmental biologists is conducting a study on the
+possible ecological impact of a local manufacturing plant. The factory
+is located between two small lakes that are part of the same river
+system:
 
-- The first lake is **upstream** of the factory and receives no direct runoff from industrial activities.
-- The second lake is **downstream** of the factory and could potentially be affected by effluents or waste discharge.
+- The first lake is **upstream** of the factory and receives no direct
+  runoff from industrial activities.
+- The second lake is **downstream** of the factory and could potentially
+  be affected by effluents or waste discharge.
 
-To assess the potential impact, the team collected samples of fish from both lakes. For each fish, they recorded:
+To assess the potential impact, the team collected samples of fish from
+both lakes. For each fish, they recorded:
 
 - **Length** (in centimeters)
 - **Weight** (in grams)
 
-The scientists want to determine whether the fish population in the Downstream lake shows any significant difference in size compared to the Upstream lake. Differences in fish size (length or weight) could be an indicator of environmental stress, food availability, or contamination.
+The scientists want to determine whether the fish population in the
+Downstream lake shows any significant difference in size compared to the
+Upstream lake. Differences in fish size (length or weight) could be an
+indicator of environmental stress, food availability, or contamination.
 
-> **Think-aloud (I Do):** "I have data from two independent groups — fish from the upstream lake and the downstream lake. I want to compare the mean fish length between the two lakes. An independent t-test is the right choice because I'm comparing two different groups."
+> **Think-aloud (I Do):** "I have data from two independent groups —
+> fish from the upstream lake and the downstream lake. I want to compare
+> the mean fish length between the two lakes. An independent t-test is
+> the right choice because I'm comparing two different groups."
 
 ### Exploratory Data Analysis
 
-> **Retrieval Practice:** Before continuing, try to recall:
-> - What does `read.csv()` do in `R`?
-> - How do you inspect data structure?
-> - Write the code!
+> **Retrieval Practice:** Before continuing, try to recall: - What does
+> `read.csv()` do in `R`? - How do you inspect data structure? - Write
+> the code!
 
 ```{r}
 # Import Dataset
@@ -298,39 +319,43 @@ ggplot(fish_data, aes(x = Lake, y = Length_cm, fill = Lake)) +
 # Hint: Use geom_boxplot() as above, replace Length_cm with Weight_g
 ```
 
-### _Hinge Question_
+### *Hinge Question*
 
-> **Before continuing, try answering:** You run a t-test and get this output: `t = 2.45, df = 98, p = 0.016`. What is your conclusion?
+> **Before continuing, try answering:** You run a t-test and get this
+> output: `t = 2.45, df = 98, p = 0.016`. What is your conclusion?
 >
-> A)  No significant difference because p > 0.01
-> B)  Significant difference because p < 0.05
+> A)  No significant difference because p \> 0.01
+> B)  Significant difference because p \< 0.05
 > C)  Sample size is too small to make a conclusion
 > D)  You need to run ANOVA, not a t-test
 >
-> **Answer: B.** Since p = 0.016 < 0.05, we reject the null hypothesis and conclude there is a significant difference.
+> **Answer: B.** Since p = 0.016 \< 0.05, we reject the null hypothesis
+> and conclude there is a significant difference.
 
 ### 2. Independent t-test: Upstream vs Downstream Fish Length
 
-- What you're testing:
-    > Whether the mean fish length in the Upstream area is significantly different from the Downstream area.
+- What you're testing: \> Whether the mean fish length in the Upstream
+  area is significantly different from the Downstream area.
 
-- We will calculate the t-statistic → the number of standard errors the means are apart.
+- We will calculate the t-statistic → the number of standard errors the
+  means are apart.
 
 - Larger `t_value` → stronger evidence of difference.
 
-- The `p` value gives the probability of seeing such a difference by chance.
-    > - p < 0.05 → statistically significant difference
-    > - p ≥ 0.05 → not statistically significant
+- The `p` value gives the probability of seeing such a difference by
+  chance. \> - p \< 0.05 → statistically significant difference \> - p ≥
+  0.05 → not statistically significant
 
 - Cohen's d tells you how big the difference is:
 
-| d | Interpretation |
-|---|----------------|
-| 0.2 | Small effect |
-| 0.5 | Medium effect |
-| 0.8+ | Large effect |
+| d    | Interpretation |
+|------|----------------|
+| 0.2  | Small effect   |
+| 0.5  | Medium effect  |
+| 0.8+ | Large effect   |
 
-> Even if p < 0.05, a small Cohen's d might mean the difference isn't practically meaningful.
+> Even if p \< 0.05, a small Cohen's d might mean the difference isn't
+> practically meaningful.
 
 ```{r}
 ### Perform an Independent t-test (Manual)
@@ -428,17 +453,17 @@ df <- t_result$parameter       # this is named "df"
 
 ### 3. Independent t-test: Upstream vs Downstream Fish Weight
 
-Using the example above, determine whether there are differences in fish weight between the two populations!
+Using the example above, determine whether there are differences in fish
+weight between the two populations!
 
-> **Retrieval Practice:** Before working on this, recall:
-> - What function is used to perform a t-test in `R`?
-> - How do you split data by group?
-> - Write down the t-test formula shown above!
+> **Retrieval Practice:** Before working on this, recall: - What
+> function is used to perform a t-test in `R`? - How do you split data
+> by group? - Write down the t-test formula shown above!
 
-> **Hint Ladder:**
-> - **Hint 1:** Use `subset()` to split Upstream and Downstream data by `Weight_g`
-> - **Hint 2:** Use `t.test()` with parameter `var.equal = TRUE`
-> - **Hint 3:** See the t-test code for `Length_cm` above as a reference
+> **Hint Ladder:** - **Hint 1:** Use `subset()` to split Upstream and
+> Downstream data by `Weight_g` - **Hint 2:** Use `t.test()` with
+> parameter `var.equal = TRUE` - **Hint 3:** See the t-test code for
+> `Length_cm` above as a reference
 
 ```{r eval=FALSE}
 ### Independent t-test, the easy way

@@ -5,6 +5,9 @@ author:
   - Biostatistics Teaching Team
 date: "2026-06-01"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ## Learning Objectives
@@ -12,24 +15,28 @@ output: html_document
 After this session, students will be able to:
 
 | Know | Understand | Do |
-|---|---|---|
+|----|----|----|
 | Assignment operator `<-` | R stores data in objects that can be inspected, subsetted, and visualized | Load a dataset with `read.delim()` |
 | Data types (numeric, character, factor, data.frame) | The same object can be explored in different ways | Inspect data structure with `str()` and `summary()` |
-| Basic functions: `head()`, `str()`, `summary()` | | Create basic visualizations with `ggplot2` |
-| R packages and how to load them (`library()`) | | |
+| Basic functions: `head()`, `str()`, `summary()` |  | Create basic visualizations with `ggplot2` |
+| R packages and how to load them (`library()`) |  |  |
 
 ## Getting to Know RStudio
 
-`RStudio` is an *Integrated Development Environment* (IDE) for R. When you open `RStudio`, you will see four panels:
+`RStudio` is an *Integrated Development Environment* (IDE) for R. When
+you open `RStudio`, you will see four panels:
 
 | Panel | Location | Function |
-|---|---|---|
+|----|----|----|
 | **Console** | Bottom left | Where R executes code and displays output |
 | **Source Editor** | Top left | Where you write and save scripts (.R files) |
 | **Environment** | Top right | Shows objects in R memory |
 | **Files/Plots/Packages/Help** | Bottom right | Tabs for file navigation, viewing plots, managing packages, and documentation |
 
-> **Think-aloud (I Do):** "I open `RStudio` and see four panels. The panels I use most often are the Console for running code and the Source Editor for writing longer scripts. When I run code in the Console, the objects I create appear in the Environment panel."
+> **Think-aloud (I Do):** "I open `RStudio` and see four panels. The
+> panels I use most often are the Console for running code and the
+> Source Editor for writing longer scripts. When I run code in the
+> Console, the objects I create appear in the Environment panel."
 
 ## Objects and Assignment
 
@@ -51,10 +58,13 @@ name
 numbers
 ```
 
-> **Why `<-` instead of `=`?** Both can be used, but `<-` is the R convention. This makes code easier to read and consistent with code written by the R community.
+> **Why `<-` instead of `=`?** Both can be used, but `<-` is the R
+> convention. This makes code easier to read and consistent with code
+> written by the R community.
 
 > **Self-explanation prompts:**\
-> 1. Why do we need to store data in objects? What's the difference between typing `5 + 3` directly vs `x <- 5; x + 3`?\
+> 1. Why do we need to store data in objects? What's the difference
+> between typing `5 + 3` directly vs `x <- 5; x + 3`?\
 > 2. What happens if we run `x <- 10` after previously setting `x <- 5`?
 
 ## Basic Data Types
@@ -80,12 +90,14 @@ result <- c(TRUE, FALSE, TRUE)
 class(result)  # "logical"
 ```
 
-> **Why are factors important?** In statistics, factors are used for categorical variables (species type, treatment, soil type). `R` treats factors differently from character — factors have *levels* (category levels) that are used in analysis.
+> **Why are factors important?** In statistics, factors are used for
+> categorical variables (species type, treatment, soil type). `R` treats
+> factors differently from character — factors have *levels* (category
+> levels) that are used in analysis.
 
 ## Loading and Inspecting Data
 
-![](https://www.embedded-robotics.com/wp-content/uploads/2022/01/Iris-Dataset-Classification-768x275.png
-)
+![](https://www.embedded-robotics.com/wp-content/uploads/2022/01/Iris-Dataset-Classification-768x275.png)
 
 ### Reading Files
 
@@ -107,11 +119,17 @@ str(iris_data)
 summary(iris_data)
 ```
 
-> **Think-aloud (I Do):** "I run `str(iris_data)` and see that this data has 150 observations and 5 variables. The 'sepal length' variable is numeric (numbers), and 'class' is a factor (categories). This is important because I will use different data types for different analyses."
+> **Think-aloud (I Do):** "I run `str(iris_data)` and see that this data
+> has 150 observations and 5 variables. The 'sepal length' variable is
+> numeric (numbers), and 'class' is a factor (categories). This is
+> important because I will use different data types for different
+> analyses."
 
-### _Hinge Question_
+### *Hinge Question*
 
-> **Before continuing, try answering:** You run `str(student_data)` and see the output: `Factor w/ 3 levels "A","B","C": 1 1 2 3 2 1`. What does "Factor w/ 3 levels" mean?
+> **Before continuing, try answering:** You run `str(student_data)` and
+> see the output: `Factor w/ 3 levels "A","B","C": 1 1 2 3 2 1`. What
+> does "Factor w/ 3 levels" mean?
 >
 > A)  The data has 3 rows
 > B)  This column contains 3 categories (categorical variable)
@@ -171,7 +189,12 @@ ggplot(iris_data, aes(x = `class`, y = `sepal.length`, fill = `class`)) +
   theme(legend.position = "none")
 ```
 
-> **Think-aloud (I Do):** "In ggplot2, I always start with `ggplot(data, aes(...))` which specifies the data and aesthetic mapping (x and y). Then I add *layers* with `geom_*` — `geom_histogram()` for distributions, `geom_boxplot()` for group comparisons. `labs()` adds titles and labels, `theme_minimal()` gives a clean appearance."
+> **Think-aloud (I Do):** "In ggplot2, I always start with
+> `ggplot(data, aes(...))` which specifies the data and aesthetic
+> mapping (x and y). Then I add *layers* with `geom_*` —
+> `geom_histogram()` for distributions, `geom_boxplot()` for group
+> comparisons. `labs()` adds titles and labels, `theme_minimal()` gives
+> a clean appearance."
 
 ## Exercises (You Do)
 
@@ -229,22 +252,23 @@ Now it's your turn! Follow these steps independently:
       )
     ```
 
-### Exercise 3: _Challenges_
+### Exercise 3: *Challenges*
 
-Try creating different visualizations from the iris dataset:  
-- Histogram for `petal width`  
-- Boxplot of `petal length` by species  
+Try creating different visualizations from the iris dataset:\
+- Histogram for `petal width`\
+- Boxplot of `petal length` by species\
 - Scatter plot of `sepal length` vs `sepal width` colored by species
 
 ## Summary
 
-In this session, we have learned:  
-- The four `RStudio` panels and their functions  
-- Objects and assignment with `<-`  
-- Basic data types: numeric, character, factor, logical  
-- Reading data with `read.delim()`  
-- Inspecting data with `str()`, `summary()`, `head()`  
-- Subsetting data with `$`, `[ ]`, and `dplyr::filter()`  
+In this session, we have learned:\
+- The four `RStudio` panels and their functions\
+- Objects and assignment with `<-`\
+- Basic data types: numeric, character, factor, logical\
+- Reading data with `read.delim()`\
+- Inspecting data with `str()`, `summary()`, `head()`\
+- Subsetting data with `$`, `[ ]`, and `dplyr::filter()`\
 - Basic visualization with `ggplot2`: histograms and boxplots
 
-In the next session, we will use these skills to perform more in-depth statistical analysis — starting with the **T-test**.
+In the next session, we will use these skills to perform more in-depth
+statistical analysis — starting with the **T-test**.

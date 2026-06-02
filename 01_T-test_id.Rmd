@@ -5,6 +5,9 @@ author:
   - Tim Pengampu Biostatistika
 date: "2026-06-01"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ## Tujuan Pembelajaran
@@ -12,7 +15,7 @@ output: html_document
 Setelah sesi ini, mahasiswa akan mampu:
 
 | Mengetahui | Memahami | Melakukan |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Asumsi uji-t (normalitas, homogenitas varians) | Uji-t mengukur berapa standard error yang memisahkan dua rata-rata | Melakukan independent t-test dengan `t.test()` |
 | Interpretasi nilai-t, p-value, dan Cohen's d | p-value adalah probabilitas melihat perbedaan sebesar itu secara kebetulan | Menghitung statistik deskriptif per kelompok |
 | Perbedaan uji-t satu sampel, paired, dan independent | Effect size (Cohen's d) memberikan konteks praktis di luar signifikansi statistik | Memvisualisasikan hasil uji-t dengan ggplot2 |
@@ -20,7 +23,9 @@ Setelah sesi ini, mahasiswa akan mampu:
 
 ## Mengenal Distribusi-t
 
-`R` memiliki distribusi-t Student yang mirip dengan distribusi normal tetapi memiliki ekor lebih tebal, terutama dengan derajat kebebasan (df) kecil.
+`R` memiliki distribusi-t Student yang mirip dengan distribusi normal
+tetapi memiliki ekor lebih tebal, terutama dengan derajat kebebasan (df)
+kecil.
 
 ```{r}
 library(ggplot2)
@@ -46,7 +51,8 @@ ggplot(df_raw, aes(x = Index, y = Value)) +
   theme_minimal()
 ```
 
-Untuk menemukan nilai *probability density function* (pdf) dari distribusi-t, gunakan fungsi `dt()` dalam `R`.
+Untuk menemukan nilai *probability density function* (pdf) dari
+distribusi-t, gunakan fungsi `dt()` dalam `R`.
 
 ```{r}
 # Simulasi distribusi-t
@@ -130,7 +136,9 @@ for (i in seq_len(n_repeats)) {
 p
 ```
 
-> **Mengapa distribusi-t penting?** Semakin besar derajat kebebasan, semakin dekat distribusi-t dengan distribusi normal. Dalam praktik, ketika sample size > 30, distribusi-t dan normal hampir identik.
+> **Mengapa distribusi-t penting?** Semakin besar derajat kebebasan,
+> semakin dekat distribusi-t dengan distribusi normal. Dalam praktik,
+> ketika sample size \> 30, distribusi-t dan normal hampir identik.
 
 ```{r}
 # Membuat data frame dengan semua distribusi
@@ -168,26 +176,38 @@ flowchart LR
     style Hilir fill:#ffebee
 ```
 
-Sekelompok ahli biologi lingkungan sedang melakukan studi tentang dampak ekologis yang mungkin terjadi dari pabrik manufaktur lokal. Pabrik ini terletak di antara dua danau kecil yang merupakan bagian dari sistem sungai yang sama:
+Sekelompok ahli biologi lingkungan sedang melakukan studi tentang dampak
+ekologis yang mungkin terjadi dari pabrik manufaktur lokal. Pabrik ini
+terletak di antara dua danau kecil yang merupakan bagian dari sistem
+sungai yang sama:
 
-- Danau pertama berada di **hulu** pabrik dan tidak menerima limpasan langsung dari aktivitas industri.
-- Danau kedua berada di **hilir** pabrik dan berpotensi terpengaruh oleh effluents atau pembuangan limbah.
+- Danau pertama berada di **hulu** pabrik dan tidak menerima limpasan
+  langsung dari aktivitas industri.
+- Danau kedua berada di **hilir** pabrik dan berpotensi terpengaruh oleh
+  effluents atau pembuangan limbah.
 
-Untuk menilai dampak potensial, tim mengumpulkan sampel ikan dari kedua danau. Untuk setiap ikan, mereka mencatat:
+Untuk menilai dampak potensial, tim mengumpulkan sampel ikan dari kedua
+danau. Untuk setiap ikan, mereka mencatat:
 
 - **Panjang** (dalam sentimeter)
 - **Berat** (dalam gram)
 
-Para ilmuwan ingin menentukan apakah populasi ikan di danau Hilir menunjukkan perbedaan yang signifikan dalam ukuran dibandingkan dengan danau Hulu. Perbedaan ukuran ikan (panjang atau berat) dapat menjadi indikator stres lingkungan, ketersediaan makanan, atau kontaminasi.
+Para ilmuwan ingin menentukan apakah populasi ikan di danau Hilir
+menunjukkan perbedaan yang signifikan dalam ukuran dibandingkan dengan
+danau Hulu. Perbedaan ukuran ikan (panjang atau berat) dapat menjadi
+indikator stres lingkungan, ketersediaan makanan, atau kontaminasi.
 
-> **Think-aloud (I Do):** "Saya memiliki data dari dua kelompok independen — ikan dari danau Hulu dan danau Hilir. Saya ingin membandingkan rata-rata panjang ikan antara kedua danau. Uji-t independent adalah pilihan yang tepat karena saya membandingkan dua kelompok yang berbeda."
+> **Think-aloud (I Do):** "Saya memiliki data dari dua kelompok
+> independen — ikan dari danau Hulu dan danau Hilir. Saya ingin
+> membandingkan rata-rata panjang ikan antara kedua danau. Uji-t
+> independent adalah pilihan yang tepat karena saya membandingkan dua
+> kelompok yang berbeda."
 
 ### Eksplorasi Data
 
-> **Latihan Retrieval:** Sebelum melanjutkan, coba ingat kembali:
-> - Apa fungsi `read.delim()` dalam `R`?
-> - Bagaimana cara melihat struktur data?
-> - Tuliskan kodenya!
+> **Latihan Retrieval:** Sebelum melanjutkan, coba ingat kembali: - Apa
+> fungsi `read.delim()` dalam `R`? - Bagaimana cara melihat struktur
+> data? - Tuliskan kodenya!
 
 ```{r}
 # Import Dataset
@@ -298,39 +318,44 @@ ggplot(fish_data, aes(x = Lake, y = Length_cm, fill = Lake)) +
 # Hint: Gunakan geom_boxplot() seperti di atas, ganti Length_cm menjadi Weight_g
 ```
 
-### _Hinge Question_
+### *Hinge Question*
 
-> **Sebelum melanjutkan, coba jawab:** Anda menjalankan uji-t dan mendapatkan output: `t = 2.45, df = 98, p = 0.016`. Apa kesimpulan Anda?
+> **Sebelum melanjutkan, coba jawab:** Anda menjalankan uji-t dan
+> mendapatkan output: `t = 2.45, df = 98, p = 0.016`. Apa kesimpulan
+> Anda?
 >
-> A)  Tidak ada perbedaan signifikan karena p > 0.01
-> B)  Ada perbedaan signifikan karena p < 0.05
+> A)  Tidak ada perbedaan signifikan karena p \> 0.01
+> B)  Ada perbedaan signifikan karena p \< 0.05
 > C)  Sample size terlalu kecil untuk membuat kesimpulan
 > D)  Anda perlu menjalankan ANOVA, bukan uji-t
 >
-> **Jawaban: B.** Karena p = 0.016 < 0.05, kita menolak hipotesis nol dan menyimpulkan ada perbedaan signifikan.
+> **Jawaban: B.** Karena p = 0.016 \< 0.05, kita menolak hipotesis nol
+> dan menyimpulkan ada perbedaan signifikan.
 
 ### Independent t-test: Panjang Ikan Hulu vs Hilir
 
-- Yang Anda uji:
-    > Apakah rata-rata panjang ikan di area Hulu secara signifikan berbeda dari area Hilir.
+- Yang Anda uji: \> Apakah rata-rata panjang ikan di area Hulu secara
+  signifikan berbeda dari area Hilir.
 
-- Kita akan menghitung t-statistic → jumlah standard errors yang memisahkan rata-rata.
+- Kita akan menghitung t-statistic → jumlah standard errors yang
+  memisahkan rata-rata.
 
 - `t_value` yang lebih besar → bukti perbedaan yang lebih kuat.
 
-- Nilai `p` memberikan probabilitas melihat perbedaan seperti itu secara kebetulan.
-    > - p < 0.05 → perbedaan secara statistik signifikan
-    > - p ≥ 0.05 → tidak secara statistik signifikan
+- Nilai `p` memberikan probabilitas melihat perbedaan seperti itu secara
+  kebetulan. \> - p \< 0.05 → perbedaan secara statistik signifikan \> -
+  p ≥ 0.05 → tidak secara statistik signifikan
 
 - Cohen's d memberi tahu Anda seberapa besar perbedaan tersebut:
 
-| d | Interpretasi |
-|---|----------------|
-| 0.2 | Dampak kecil |
-| 0.5 | Dampak sedang |
-| 0.8+ | Dampak besar |
+| d    | Interpretasi  |
+|------|---------------|
+| 0.2  | Dampak kecil  |
+| 0.5  | Dampak sedang |
+| 0.8+ | Dampak besar  |
 
-> Meskipun p < 0.05, Cohen's d yang kecil mungkin berarti perbedaan tersebut tidak memiliki makna praktis.
+> Meskipun p \< 0.05, Cohen's d yang kecil mungkin berarti perbedaan
+> tersebut tidak memiliki makna praktis.
 
 ```{r}
 ### Melakukan Independent t-test (Manual)
@@ -428,17 +453,21 @@ df <- t_result$parameter       # ini bernama "df"
 
 ### Independent t-test: Berat Ikan Hulu vs Hilir
 
-Menggunakan contoh di atas, tentukan apakah ada perbedaan berat ikan antara kedua populasi!
+Menggunakan contoh di atas, tentukan apakah ada perbedaan berat ikan
+antara kedua populasi!
 
-> **Latihan Retrieval:** Sebelum mengerjakan, ingat kembali:  
-> - Fungsi apa yang digunakan untuk melakukan t-test di `R`?  
-> - Bagaimana cara memisahkan data berdasarkan kelompok?  
-> - Tuliskan formula t-test yang sudah dicontohkan!  
+> **Latihan Retrieval:** Sebelum mengerjakan, ingat kembali:\
+> - Fungsi apa yang digunakan untuk melakukan t-test di `R`?\
+> - Bagaimana cara memisahkan data berdasarkan kelompok?\
+> - Tuliskan formula t-test yang sudah dicontohkan!
 
-> **Tangga Petunjuk:**  
-> - **Petunjuk 1:** Gunakan `subset()` untuk memisahkan data Upstream dan Downstream berdasarkan `Weight_g`  
-> - **Petunjuk 2:** Gunakan `t.test()` dengan parameter `var.equal = TRUE`  
-> - **Petunjuk 3:** Lihat code t-test untuk `Length_cm` di atas sebagai referensi  
+> **Tangga Petunjuk:**\
+> - **Petunjuk 1:** Gunakan `subset()` untuk memisahkan data Upstream
+> dan Downstream berdasarkan `Weight_g`\
+> - **Petunjuk 2:** Gunakan `t.test()` dengan parameter
+> `var.equal = TRUE`\
+> - **Petunjuk 3:** Lihat code t-test untuk `Length_cm` di atas sebagai
+> referensi
 
 ```{r eval=FALSE}
 ### Independent t-test, cara mudahnya

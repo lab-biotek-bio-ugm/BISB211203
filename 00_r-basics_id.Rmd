@@ -5,6 +5,9 @@ author:
   - Tim Pengampu Biostatistika
 date: "2026-06-01"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ## Tujuan Pembelajaran
@@ -84,8 +87,7 @@ class(hasil)  # "logical"
 
 ## Memuat dan Memeriksa Data
 
-![](https://www.embedded-robotics.com/wp-content/uploads/2022/01/Iris-Dataset-Classification-768x275.png
-)
+![](https://www.embedded-robotics.com/wp-content/uploads/2022/01/Iris-Dataset-Classification-768x275.png)
 
 ### Membaca File
 
@@ -109,7 +111,7 @@ summary(iris_data)
 
 > **Think-aloud (I Do):** "Saya menjalankan `str(iris_data)` dan melihat bahwa data ini memiliki 150 observasi dan 5 variabel. Variabel 'sepal length' adalah numeric (angka), 'class' adalah factor (kategori). Ini penting karena saya akan menggunakan jenis data yang berbeda untuk analisis yang berbeda."
 
-### _Hinge Question_
+### *Hinge Question*
 
 > **Sebelum melanjutkan tutorial ini, coba jawab pertanyaan berikut:** Anda menjalankan `str(data_mahasiswa)` dan melihat output: `Factor w/ 3 levels "A","B","C": 1 1 2 3 2 1`. Apa arti "Factor w/ 3 levels"?
 >
@@ -229,22 +231,21 @@ Sekarang giliran Anda! Ikuti langkah-langkah berikut secara mandiri:
       )
     ```
 
-### Latihan 3: _Challenges_
+### Latihan 3: *Challenges*
 
-Coba buat visualisasi yang berbeda dari dataset iris:  
-- Histogram untuk `petal width`  
-- Boxplot `petal length` per spesies  
+Coba buat visualisasi yang berbeda dari dataset [[iris:\\\\](iris:\\){.uri}]([iris:\\](iris:\){.uri}){.uri} - Histogram untuk `petal width`\
+- Boxplot `petal length` per spesies\
 - Scatter plot `sepal length` vs `sepal width` dengan warna berdasarkan spesies
 
 ## Ringkasan
 
-Dalam sesi ini, kita telah mempelajari:  
-- Empat panel `RStudio` dan fungsinya  
-- Objek dan assignment dengan `<-`  
-- Tipe data dasar: numeric, character, factor, logical  
-- Membaca data dengan `read.delim()`  
-- Memeriksa data dengan `str()`, `summary()`, `head()`  
-- Subsetting data dengan `$`, `[ ]`, dan `dplyr::filter()`  
-- Visualisasi dasar dengan `ggplot2`: histogram dan boxplot  
+Dalam sesi ini, kita telah mempelajari:\
+- Empat panel `RStudio` dan fungsinya\
+- Objek dan assignment dengan `<-`\
+- Tipe data dasar: numeric, character, factor, logical\
+- Membaca data dengan `read.delim()`\
+- Memeriksa data dengan `str()`, `summary()`, `head()`\
+- Subsetting data dengan `$`, `[ ]`, dan `dplyr::filter()`\
+- Visualisasi dasar dengan `ggplot2`: histogram dan boxplot
 
 Di sesi berikutnya, kita akan menggunakan kemampuan ini untuk melakukan analisis statistik yang lebih mendalam — dimulai dengan **T-test**.
