@@ -11,6 +11,8 @@
 2. Enter repository URL: `https://github.com/lab-biotek-bio-ugm/BISB211203`
 3. Click "Create Project"
 
+<iframe src="https://drive.google.com/file/d/180YpyO1PPlmcWu4ZOHDc_nyhWnjZo339/preview" width="640" height="480"></iframe>
+
 **From terminal:**
 ```bash
 git clone https://github.com/lab-biotek-bio-ugm/BISB211203

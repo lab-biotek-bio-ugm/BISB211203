@@ -207,7 +207,7 @@ Sekarang giliran Anda! Ikuti langkah-langkah berikut secara mandiri:
 
 ### Latihan 2: Perbandingan Kelompok
 
-1.  Buat boxplot `plant_height` berdasarkan lokasi (`label`):
+1.  Buat boxplot `plant.height` berdasarkan lokasi (`label`):
 
     ```{r eval=FALSE}
     ggplot(tapak_dara, aes(x = label, y = plant.height, fill = label)) +

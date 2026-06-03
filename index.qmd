@@ -21,9 +21,39 @@ Modul ini dirancang untuk membantu mahasiswa program sarjana (S1) Biologi dalam 
 | Sesi | Topik | Format |
 |---|---|---|
 | **00** | Pengantar R dan RStudio | `.Rmd` |
-| **01** | T-test  | `.Rmd` |
+| **01** | T-test | `.Rmd` |
 | **02** | ANOVA + Post-hoc Tests | `.Rmd` |
 | **03** | Chi-square Test | `.Rmd` |
+
+## Memulai
+
+### Clone Repositori
+
+**Dari RStudio (direkomendasikan):**  
+1. File → New Project → Version Control → Git  
+2. Masukkan URL repositori: `https://github.com/lab-biotek-bio-ugm/BISB211203`  
+3. Klik "Create Project"  
+
+<iframe src="https://drive.google.com/file/d/180YpyO1PPlmcWu4ZOHDc_nyhWnjZo339/preview" width="640" height="480"></iframe>
+
+**Dari terminal:**
+```bash
+git clone https://github.com/lab-biotek-bio-ugm/BISB211203
+cd BISB211203
+```
+
+### Install `package` dengan `renv`
+
+Proyek ini menggunakan [`renv`](https://rstudio.github.io/renv/) untuk manajemen paket. Saat pertama kali membuka `BISB211203.Rproj`, RStudio akan meminta untuk mengaktifkan renv → klik **Yes**.
+
+Jika renv tidak aktif secara otomatis, jalankan di konsol R:
+```r
+renv::restore()
+```
+
+### Mulai Belajar
+
+Buka file `.Rmd` apa saja dan klik **"Knit"** atau **"Run All"** (Ctrl+Shift+Enter).
 :::
 
 ::: {.content-visible when-profile="en"}
@@ -39,4 +69,34 @@ This module is designed to help undergraduate (S1) Biology students understand f
 | **01** | T-test | `.Rmd` |
 | **02** | ANOVA + Post-hoc Tests | `.Rmd` |
 | **03** | Chi-square Test | `.Rmd` |
+
+## Getting Started
+
+### Clone the Repository
+
+**From RStudio (recommended):**
+1. File → New Project → Version Control → Git
+2. Enter repository URL: `https://github.com/lab-biotek-bio-ugm/BISB211203`
+3. Click "Create Project"
+
+<iframe src="https://drive.google.com/file/d/180YpyO1PPlmcWu4ZOHDc_nyhWnjZo339/preview" width="640" height="480"></iframe>
+
+**From terminal:**
+```bash
+git clone https://github.com/lab-biotek-bio-ugm/BISB211203
+cd BISB211203
+```
+
+### Restore Packages with renv
+
+This project uses [renv](https://rstudio.github.io/renv/) for package management. On first open of `BISB211203.Rproj`, RStudio will prompt to activate renv → click **Yes**.
+
+If renv doesn't activate automatically, run in the R console:
+```r
+renv::restore()
+```
+
+### Start Learning
+
+Open any `.Rmd` file and click **"Knit"** or **"Run All"** (Ctrl+Shift+Enter).
 :::

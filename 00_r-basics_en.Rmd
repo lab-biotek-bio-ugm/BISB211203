@@ -215,10 +215,10 @@ Now it's your turn! Follow these steps independently:
     summary(tapak_dara)
     ```
 
-3.  Create a histogram for the `plant_height` variable:
+3.  Create a histogram for the `plant.height` variable:
 
     ```{r eval=FALSE}
-    ggplot(tapak_dara, aes(x = plant_height)) +
+    ggplot(tapak_dara, aes(x = plant.height)) +
       geom_histogram(binwidth = 5, fill = "forestgreen", color = "white") +
       labs(title = "Tapak Dara Plant Height Distribution",
            x = "Plant Height (cm)",
@@ -228,10 +228,10 @@ Now it's your turn! Follow these steps independently:
 
 ### Exercise 2: Group Comparison
 
-1.  Create a boxplot of `plant_height` by location (`label`):
+1.  Create a boxplot of `plant.height` by location (`label`):
 
     ```{r eval=FALSE}
-    ggplot(tapak_dara, aes(x = label, y = plant_height, fill = label)) +
+    ggplot(tapak_dara, aes(x = label, y = plant.height, fill = label)) +
       geom_boxplot() +
       labs(title = "Plant Height Comparison by Location",
            x = "Location",
@@ -247,8 +247,8 @@ Now it's your turn! Follow these steps independently:
       group_by(label) %>%
       summarise(
         n = n(),
-        mean_height = mean(plant_height),
-        sd_height = sd(plant_height)
+        mean_height = mean(plant.height),
+        sd_height = sd(plant.height)
       )
     ```
 
